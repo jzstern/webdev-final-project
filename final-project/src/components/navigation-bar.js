@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
-class Header extends Component {
+class NavigationBar extends Component {
 	constructor(props) {
 		super(props)
-
 		this.state = {
 
 		}
@@ -11,10 +10,22 @@ class Header extends Component {
 
 	render() {
 		return (
-			<div className="page-header">
-				<h1>This is the website header</h1>
-			</div>
+			<nav className="navbar navbar-inverse">
+				<div className="container-fluid">
+					<div className="navbar-header">
+						<a class="navbar-brand" href="#">StreamCloud</a>
+					</div>
+					<ul class="nav">
+						<li class="active"><a href="#">Stream</a></li>
+						<li><a href="#">Search</a></li>
+					</ul>
+					<ul class="nav navbar-right">
+						<li><a href="#"><span class="glyphicon glyphicon-user"/> Sign Up</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-log-in"/> Login</a></li>
+					</ul>
+				</div>
+			</nav>
 		)}
 
 	}
-export default Header
+export default NavigationBar
