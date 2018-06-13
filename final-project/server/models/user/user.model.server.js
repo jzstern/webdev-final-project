@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var userSchema = require('./user.schema.server');
 var userModel = mongoose.model('UserModel', userSchema);
 
-var options = {discriminatorKey: 'type'};
+var options = {discriminatorKey: 'userType'};
 var Artist = userModel.discriminator('Artist',
     new mongoose.Schema({
         albums: [{
