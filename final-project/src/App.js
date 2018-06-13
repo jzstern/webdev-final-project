@@ -8,6 +8,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="container-fluid">
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 				<NavigationBar/>
 				<h1>hey guys asuhh. we're killin it right now this looks great!</h1>
 				<Stream/>
