@@ -9,15 +9,26 @@ function findSongById(songId) {
 function createSong(song) {
     return songModel.create(song);
 }
+function deleteSong(songId) {
+    return songModel.remove({_id:songId});
+}
+
+function updateSong(songId, newSong) {
+    return songModel.update({_id: songId}, {$set:newSong});
+}
 
 function findAllSongs() {
     return songModel.find();
 }
 
+
 var api = {
     createSong: createSong,
     findAllSongs: findAllSongs,
-    findSongById: findSongById
+    findSongById: findSongById,
+    deleteSong: deleteSong,
+    updateSong: updateSong
+
 };
 
 module.exports = api;

@@ -2,6 +2,8 @@ module.exports = function (app) {
     app.get('/api/song', findAllSongs);
     app.get('/api/song/:songId', findSongById);
     app.post('/api/song', createSong);
+    app.delete('/api/song/:songId', deleteSong);
+    app.post('/api/song/:songId', updateSong);
 
     var songModel = require('../models/song/song.model.server');
 
@@ -22,6 +24,31 @@ module.exports = function (app) {
             })
     }
 
+    function deleteSong(req, res) {
+        var song = req.body;
+        songModel.deleteSong(song.id)
+            .then(function(error, song) {
+                if (song == null) {
+                    res.send(error, 404);
+                }
+                else {
+                    res.send(song);
+                }
+            })
+    }
+
+    function updateSong(req, res) {
+        var song = req.body;
+        songModel.updateSong(song.id, song)
+            .then(function(error, song) {
+                if (song == null) {
+                    res.send(error, 404);
+                }
+                else {
+                    res.send(song);
+                }
+            })
+    }
     function findAllSongs(req, res) {
         songModel.findAllSongs()
             .then(function (songs) {
