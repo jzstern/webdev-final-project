@@ -10,8 +10,15 @@ class SongItem extends Component {
 
 	render() {
 		return (
-			<div className="container-fluid">
-				<h4>This is a song!</h4>
+			<div className="container-fluid card">
+				<a href="#">
+					<span className="glyphicon glyphicon-play"/>
+				</a>
+				<h4>This is a song! Here is where the waveform will go or something</h4>
+				<a href="#">
+					<span className="glyphicon glyphicon-heart"/>
+					<span className="glyphicon glyphicon-share"/>
+				</a>
 			</div>
 		)
 	}

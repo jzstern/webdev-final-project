@@ -5,6 +5,11 @@ var songList = [
 	<SongItem/>,
 	<SongItem/>,
 	<SongItem/>,
+	<SongItem/>,
+	<SongItem/>,
+	<SongItem/>,
+	<SongItem/>,
+	<SongItem/>
 ]
 
 class Stream extends Component {
@@ -19,9 +24,15 @@ class Stream extends Component {
 	render() {
 		return (
 			<div className="container-fluid">
+				<div>
+					<a href="#">
+						<span className="glyphicon glyphicon-filter"/>
+					</a>
+				</div>
+
 				<ul className="list-group list-group-flush">
 					{songList.map(song => (
-						<li>
+						<li className="list-group-item">
 							<SongItem/>
 						</li>
 					))}
