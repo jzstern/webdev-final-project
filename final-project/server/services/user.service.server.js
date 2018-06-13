@@ -27,6 +27,20 @@ module.exports = function (app) {
                 res.send(user);
             })
     }
+    function register(req, res) {
+        var username = req.body.username;
+        var password = req.body.password;
+        var newUser = {
+            username: username,
+            password: password
+        };
+        userModel
+            .findUserByUsername(username)
+            .then(function(user) {
+                if (!user) {
+                    return userModel
+                        .createUser(newUser)}});
+    }
 
     function findAllUsers(req, res) {
         userModel.findAllUsers()
@@ -42,5 +56,10 @@ module.exports = function (app) {
                 req.session['currentUser'] = user;
                 res.send(user);
             })
+    }
+
+    function logout(req, res) {
+        req.session.destroy();
+        res.send(200);
     }
 }

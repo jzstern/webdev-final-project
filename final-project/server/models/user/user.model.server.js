@@ -2,6 +2,37 @@ var mongoose = require('mongoose');
 var userSchema = require('./user.schema.server');
 var userModel = mongoose.model('UserModel', userSchema);
 
+var options = {discriminatorKey: 'type'};
+var Artist = userModel.discriminator('Artist',
+    new mongoose.Schema({
+        albums: [{
+            artist: String,
+            title: String,
+            releaseDate: Number
+        }]}, options));
+
+var Listener = userModel.discriminator('Listener',
+    new mongoose.Schema({
+        playlist: [{
+            title: String,
+            createDate: Date,
+            songs: [{
+                artist: String
+            }]
+        }],
+        history: [
+
+        ]}, options));
+
+var ProArtist = userModel.discriminator('ProArtist',
+    new mongoose.Schema({
+        albums: [{
+            artist: String,
+            title: String,
+            releaseDate: Number
+        }]}, options));
+
+
 function findUserById(userId) {
     return userModel.findById(userId);
 }
