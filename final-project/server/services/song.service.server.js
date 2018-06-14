@@ -1,6 +1,7 @@
 module.exports = function (app) {
     app.get('/api/song', findAllSongs);
     app.get('/api/song/:songId', findSongById);
+    app.get('/api/song/:songName', findSongByName);
     app.post('/api/song', createSong);
     app.delete('/api/song/:songId', deleteSong);
     app.post('/api/song/:songId', updateSong);
@@ -12,6 +13,15 @@ module.exports = function (app) {
         songModel.findSongById(id)
             .then(function (song) {
                 res.json(song);
+            })
+    }
+
+    function findSongByName(title) {
+        return songModel.findOne({title: title},
+            function(err, title) {
+                if (err) throw error;
+                console.log("cannot find song by name");
+                console.log(title);
             })
     }
 
@@ -54,5 +64,9 @@ module.exports = function (app) {
             .then(function (songs) {
                 res.send(songs);
             })
+    }
+
+    function findSongsByArtist(req, res) {
+
     }
 }

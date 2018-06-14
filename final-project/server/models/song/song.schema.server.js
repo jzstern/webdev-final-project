@@ -4,12 +4,12 @@ var songSchema = mongoose.Schema({
     title: String,
     artist: String,
     likes: Number,
-    img: String,
-    url: String,
+    imgUrl: String,
+    songUrl: String,
     stats: {
-        numberPlayed: Number,
-        numberLiked: Number,
-        numberShared: Number
+        playCount: Number,
+        likeCount: Number,
+        repostCount: Number
     },
     genre: String
 }, {collection: 'song'});

@@ -1,14 +1,20 @@
 var mongoose = require('mongoose');
 var userSchema = require('./user.schema.server');
 var userModel = mongoose.model('UserModel', userSchema);
+var Schema = mongoose.Schema;
 
 var options = {discriminatorKey: 'userType'};
 var Artist = userModel.discriminator('Artist',
     new mongoose.Schema({
         albums: [{
-            artist: String,
             title: String,
-            releaseDate: Number
+            songs: [{
+                song: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'song'
+                }
+            }],
+            releaseDate: Date
         }]}, options));
 
 var Listener = userModel.discriminator('Listener',
@@ -27,8 +33,13 @@ var Listener = userModel.discriminator('Listener',
 var ProArtist = userModel.discriminator('ProArtist',
     new mongoose.Schema({
         albums: [{
-            artist: String,
             title: String,
+            songs: [{
+                song: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'song'
+                }
+            }],
             releaseDate: Number
         }]}, options));
 

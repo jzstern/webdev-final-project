@@ -10,13 +10,13 @@ var userSchema = mongoose.Schema({
     following: [{
         user: {
             type: Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'user'
         }
     }],
     follower: [{
         user: {
             type: Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'user'
         }
     }]
 }, {collection: 'user'});
