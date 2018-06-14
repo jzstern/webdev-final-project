@@ -1,9 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import '../styles.css'
 
 class NavigationBar extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {}
+		this.state = {
+			searchText: '',
+			username: '',
+			userId: ''
+		}
 	}
 
 	render() {
@@ -18,9 +23,10 @@ class NavigationBar extends Component {
 					</form>
 				</div>
 				<ul className="nav navbar-right">
-					<li className="nav-item"><a href="#"><span class="glyphicon glyphicon-cloud-upload"/> Upload</a></li>
-					<li className="nav-item"><a href="#"><span class="glyphicon glyphicon-user"/> Sign Up</a></li>
-					<li className="nav-item"><a href="#"><span class="glyphicon glyphicon-log-in"/> Login</a></li>
+					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-cloud-upload"/> Upload</a></li>
+					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-user"/> Sign Up</a></li>
+					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-log-in"/> Login</a></li>
+					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-cog"/> Settings</a></li>
 				</ul>
 			</nav>
 		)
