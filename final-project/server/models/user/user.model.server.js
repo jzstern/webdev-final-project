@@ -72,6 +72,22 @@ function updateUser(userId, newUser) {
     return userModel.update({_id: userId}, {$set:newUser});
 }
 
+function findAllFollowing(userId) {
+    return userModel.findById(userId, 'following', function (err, user) {
+        if (err) throw error;
+        console.log("cannot find followers for this user");
+        console.log(userId);
+    });
+}
+
+function findAllFollower(userId) {
+    return userModel.findById(userId, 'follower', function (err, user) {
+        if (err) throw error;
+        console.log("cannot find followers for this user");
+        console.log(userId);
+    });
+}
+
 var api = {
     createUser: createUser,
     findAllUsers: findAllUsers,
@@ -79,7 +95,9 @@ var api = {
     deleteUser: deleteUser,
     updateUser: updateUser,
     findUserByCredentials: findUserByCredentials,
-    findUserByUsername: findUserByUsername
+    findUserByUsername: findUserByUsername,
+    findAllFollower: findAllFollower,
+    findAllFollowing: findAllFollowing
 };
 
 module.exports = api;

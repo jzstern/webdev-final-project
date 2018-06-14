@@ -8,6 +8,8 @@ module.exports = function (app) {
     app.get('/api/profile', profile);
     app.delete('/api/user/:userId', deleteUser);
     app.post('/api/user/:userId', updateUser);
+    app.get('/api/user/:userId/follower', findAllFollowerForUser);
+    app.get('/api/user/:userId/following', findAllFollowingForUser);
 
     var userModel = require('../models/user/user.model.server');
 
@@ -92,5 +94,20 @@ module.exports = function (app) {
     function logout(req, res) {
         req.session.destroy();
         res.send(200);
+    }
+
+    function findAllFollowingForUser(req, res) {
+        var id = req.params['userId'];
+        userModel.findAllFollowing(id)
+            .then(function (users) {
+                res.send(users);
+            })
+    }
+    function findAllFollowerForUser(req, res) {
+        var id = req.params['userId'];
+        userModel.findAllFollower(id)
+            .then(function (users) {
+                res.send(users);
+            })
     }
 }
