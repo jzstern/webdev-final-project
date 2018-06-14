@@ -1,7 +1,8 @@
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../node_modules/font-awesome/css/font-awesome.css'
 import React, { Component } from 'react'
-import Stream from "./containers/stream"
+import {BrowserRouter as Router, Link, Route} from 'react-dom'
+import Stream from './containers/stream'
 import NavigationBar from './components/navigation-bar'
 import FixedBottomBar from "./components/fixed-bottom-bar"
 

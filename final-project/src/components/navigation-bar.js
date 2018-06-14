@@ -23,10 +23,10 @@ class NavigationBar extends Component {
 					</form>
 				</div>
 				<ul className="nav navbar-right">
-					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-cloud-upload"/> Upload</a></li>
-					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-user"/> Sign Up</a></li>
-					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-log-in"/> Login</a></li>
-					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-cog"/> Settings</a></li>
+					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-cloud-upload fa-fw"/> Upload</a></li>
+					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-user fa-fw"/> Sign Up</a></li>
+					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-log-in fa-fw"/> Login</a></li>
+					<li className="nav-item"><a href="#"><span className="glyphicon glyphicon-cog fa-fw"/> Settings</a></li>
 				</ul>
 			</nav>
 		)
