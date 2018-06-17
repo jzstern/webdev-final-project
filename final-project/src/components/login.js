@@ -16,14 +16,14 @@ class Login extends Component {
 			<div className="container">
 				<label for="username">Username</label>
 				<input id="username"
-				       title="Username"
+				       value={this.state.username}
 				       placeholder="Enter your username"
 				       type="text"
 				       className="form-control"/>
 
 				<label for="password">Password</label>
 				<input id="password"
-				       title="Password"
+				       value={this.state.password}
 				       placeholder="Enter your password"
 				       type="password"
 				       className="form-control"/>

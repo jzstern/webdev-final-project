@@ -8,38 +8,41 @@ class Register extends Component {
 		this.state = {
 			username: '',
 			password: '',
+			password2: '',
+			email: ''
 		}
 	}
 
 	render() {
 		return (
 			<div className="container">
+				<label for="email">Email</label>
+				<input id="email"
+				       value={this.state.email}
+				       placeholder="Enter your email"
+				       type="text"
+				       className="form-control"/>
+
 				<label for="username">Username</label>
 				<input id="username"
-				       title="Username"
+				       value={this.state.username}
 				       placeholder="Enter your username"
 				       type="text"
 				       className="form-control"/>
 
-				<label for="email">Email</label>
-				<input id="email"
-				            title="Email"
-				            placeholder="Enter your email"
-				            type="text"
-				            className="form-control"/>
-
 				<label for="password">Password</label>
 				<input id="password"
-				            title="Password"
-				            placeholder="Enter your password"
-				            type="password"
-				            className="form-control"/>
+				       value={this.state.password}
+				       placeholder="Enter your password"
+				       type="password"
+				       className="form-control"/>
+
 				<label for="password2">Re-enter your password</label>
 				<input id="password2"
-				            title="Password2"
-				            placeholder="Re-type your password here"
-				            type="password"
-				            className="form-control"/>
+				       value={this.state.password2}
+				       placeholder="Re-type your password here"
+				       type="password"
+				       className="form-control"/>
 
 				{/*<Link to={'/register'}>*/}
 					<button className="btn btn-secondary" style={{marginRight: 10}}>Register</button>
