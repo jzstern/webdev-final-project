@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import SongItem from '../components/song-item'
 import '../styles.css'
+import SongService from "../services/SongService";
 
 var songList = [
 	<SongItem/>,
@@ -20,9 +21,39 @@ class Stream extends Component {
 			songList: null,
 			currentlyPlaying: null
 		}
+        this.songService = SongService.instance;
+		this.setSongs = this.setSongs.bind(this);
+        this.renderSongs = this.renderSongs.bind(this);
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		this.songService
+			.findAllSongs()
+			.then((songs) => {
+				this.setSongs(songs);
+			})
+	}
+
+	setSongs(songs) {
+		this.setState({
+			songList: songs
+		});
+		this.renderSongs();
+	}
+
+	renderSongs() {
+		console.log(this.state.songList);
+		let songs;
+		if (this.state.songList !== null) {
+             songs = this.state.songList.map((song) => {
+                return <SongItem key={song.id}
+                				 title={song.title}
+                				genre={song.genre}
+								description={song.description}/>
+            });
+        }
+		return songs;
+	}
 
 
 	render() {
@@ -35,11 +66,14 @@ class Stream extends Component {
 				</div>
 
 				<ul className="list-group list-group-flush">
-					{songList.map(song => (
-						<li className="list-group-item">
+					{songList.map((song) => (
+						<li key={song.id}
+							className="list-group-item">
 							<SongItem/>
 						</li>
 					))}
+
+                    {this.renderSongs()}
 
 					{/*{songList.map(song => (*/}
 						{/*<li className="list-group-item">*/}

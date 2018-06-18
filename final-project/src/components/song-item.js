@@ -16,12 +16,13 @@ class SongItem extends Component {
 			genre: 'Custom Genre',
 			liked: false,
 			reposted: false,
-			currentlyPlaying: false
+			currentlyPlaying: false,
+			description: 'This is a song! Here is where the waveform will go or something'
 		}
 
 		this.tweet = this.tweet.bind(this)
 		this.toggleLike = this.toggleLike.bind(this)
-		this.toggleRepost = this.toggleRepost.bind(this)
+		this.toggleRepost = this.toggleRepost.bind(this);
 	}
 
 	componentDidMount() {
@@ -29,8 +30,15 @@ class SongItem extends Component {
 		// api call - did the user like the song?
 		// api call - did the user repost the song?
 		// this.setState();
-	}
+		this.setState({
+			id: this.props.key,
+			title: this.props.title,
+			genre: this.props.genre,
+			description: this.props.description
+		});
 
+	}
+	
 	componentWillReceiveProps(newProps) {
 		// TODO ; fill out
 	}
@@ -67,7 +75,7 @@ class SongItem extends Component {
 							</a>
 						</div>
 						<div className="p-4">
-							<h4>This is a song! Here is where the waveform will go or something</h4>
+							<h4>{this.state.description}</h4>
 						</div>
 						<div className="flex-row">
 							<div className="pull-left">
