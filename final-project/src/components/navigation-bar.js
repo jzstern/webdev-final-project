@@ -16,7 +16,7 @@ class NavigationBar extends Component {
 		return (
 			<nav className="navbar navbar-expand-lg navbar-inverse justify-content-between">
 				<span className="glyphicon glyphicon-cloud"/>
-				<a className="navbar-brand" href="#">StreamCloud</a>
+				<Link to={'/stream'}>StreamCloud</Link>
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<form className="form-inline my-2 my-lg-0">
 						<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
