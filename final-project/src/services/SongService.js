@@ -1,5 +1,5 @@
 let _singleton = Symbol()
-const URL = 'http://localhost:8080/api/song'
+const URL = 'http://localhost:4000/api/song'
 
 class SongService {
 	constructor(singletonToken) {
@@ -13,6 +13,7 @@ class SongService {
 		return this[_singleton]
 	}
 
+	// find all songs for the current user
 	findAllSongs() {
 		return fetch(URL)
 			.then(function(response) {

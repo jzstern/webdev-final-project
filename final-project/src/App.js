@@ -7,6 +7,7 @@ import NavigationBar from './components/navigation-bar'
 import FixedBottomBar from "./components/fixed-bottom-bar"
 import Login from './components/login'
 import Register from './components/register'
+import Upload from './components/upload'
 
 class App extends Component {
 	render() {
@@ -19,6 +20,7 @@ class App extends Component {
 					<Route path="/stream" component={Stream}/>
 					<Route path="/login" component={Login}/>
 					<Route path="/register" component={Register}/>
+                    <Route path="/upload" component={Upload}/>
 					<FixedBottomBar/>
 				</div>
 			</Router>
