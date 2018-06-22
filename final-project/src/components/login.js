@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../styles.css'
 import {Link} from 'react-router-dom'
 import validateInput from '../helpers/validate-login-input'
+import classnames from 'classnames'
 
 class Login extends Component {
 	constructor(props) {
@@ -30,6 +31,7 @@ class Login extends Component {
 	}
 
 	render() {
+		const { errors } = this.state
 		return (
 			<div className="container">
 				<div className={classnames("form-group", { 'has-error': errors.username })}>
