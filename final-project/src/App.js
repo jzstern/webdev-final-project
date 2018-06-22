@@ -23,8 +23,8 @@ class App extends Component {
 					<Route path="/stream" component={Stream}/>
 					<Route path="/login" component={Login}/>
 					{/*<Route path="/register" component={RegisterPage} registerUser={userRegistrationRequest}/>*/}
-					{/*<Route path="/register" render={(props) => <RegisterPage {...props} registerUser={userRegistrationRequest}/>}/>*/}
-					<RegisterForm registerUser={userRegistrationRequest}/>
+					<Route path="/register" render={(props) => <RegisterForm {...props} registerUser={userRegistrationRequest}/>}/>
+					{/*<RegisterForm registerUser={userRegistrationRequest}/>*/}
 					<Route path="/upload" component={Upload}/>
 					<FixedBottomBar/>
 				</div>

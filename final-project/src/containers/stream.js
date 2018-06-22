@@ -42,14 +42,23 @@ class Stream extends Component {
 	}
 
 	renderSongs() {
-		console.log(this.state.songList);
+		// console.log(this.state.songList);
 		let songs;
 		if (this.state.songList !== null) {
              songs = this.state.songList.map((song) => {
-                return <SongItem key={song.id}
-                				 title={song.title}
-                				genre={song.genre}
-								description={song.description}/>
+                return <SongItem key={song._id}
+                                 title={song.title}
+                                 artist={song.artist}
+                                 genre={song.genre}
+                                 playCount={song.playCount}
+                                 likesCount={song.likesCount}
+                                 repostCount={song.repostCount}
+                                 // comments={song.comments}
+                                 liked={song.liked}
+                                 reposted={song.reposted}
+                                 tweeted={song.tweeted}
+                                 albumArtUrl={song.albumArtUrl}
+                                 description={song.description}/>
             });
         }
 		return songs;
@@ -66,14 +75,13 @@ class Stream extends Component {
 				</div>
 
 				<ul className="list-group list-group-flush">
-					{songList.map((song) => (
-						<li key={song.id}
-							className="list-group-item">
-							<SongItem/>
-						</li>
-					))}
-
-                    {this.renderSongs()}
+					{/*{songList.map((song) => (*/}
+						{/*<li key={song.id}*/}
+							{/*className="list-group-item">*/}
+							{/*<SongItem/>*/}
+						{/*</li>*/}
+					{/*))}*/}
+					{this.renderSongs()}
 
 					{/*{songList.map(song => (*/}
 						{/*<li className="list-group-item">*/}
@@ -84,7 +92,7 @@ class Stream extends Component {
 							          {/*repostCount={song.repostCount}*/}
 							          {/*comments={song.comments}/>*/}
 						{/*</li>*/}
-					))}
+					{/*// ))}*/}
 				</ul>
 			</div>
 		)

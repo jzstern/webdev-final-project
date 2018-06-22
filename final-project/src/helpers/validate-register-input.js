@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty'
 export default function validateInput(data) {
 	let errors = {}
 
-	if (data.email === null) {
+	if (data.email.length == 0) {
 		errors.email = 'This field is required'
 	}
 	// if (!isEmail(data.email)) {

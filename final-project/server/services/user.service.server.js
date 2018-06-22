@@ -41,7 +41,8 @@ module.exports = function (app) {
 		userModel
 			.findUserByUsername(user.username)
 			.then(function (existingUser) {
-				if (existingUser !== null) {
+				console.log(existingUser)
+				if (existingUser !== undefined) {
 					console.log('no user of that name hurrr')
           console.log(user.username)
 					// TODO ; also check if user w/ same email address already exists

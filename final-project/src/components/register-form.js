@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import UserService from '../services/user.service.client'
 import PropTypes from 'prop-types'
 import { userRegistrationRequest } from '../actions/register.actions'
-import validateInput from '../helpers/validate-input'
+import validateInput from '../helpers/validate-register-input'
 import classnames from 'classnames'
 var propTypes = require('prop-types')
 
@@ -32,6 +32,7 @@ class RegisterForm extends Component {
 
 		if (this.isValid()) {
 			this.setState({ errors: {}, isLoading: true })
+
 			let user = {
 				email: this.state.email,
 				username: this.state.username,
@@ -46,8 +47,7 @@ class RegisterForm extends Component {
 					if (res.status === 500) {
 						alert('Sorry, that username is already taken');
 					} else {
-						alert('WOOHOO YOU MADE A NEW USER!')
-						// TODO ; navigate go to stream
+						this.context.router.history.push('/stream')
 					}
 				})
 		}
@@ -92,7 +92,7 @@ class RegisterForm extends Component {
 						       placeholder="Enter your email"
 						       type="text"
 						       className="form-control"/>
-						{errors.email && <span className="help-block" style={{textDecorationColor: 'red'}}>{errors.email}</span>}
+						{errors.email && <span className="help-block">{errors.email}</span>}
 					</div>
 
 					<div className={classnames("form-group", { 'has-error': errors.username })}>
@@ -157,6 +157,10 @@ class RegisterForm extends Component {
 
 RegisterForm.propTypes = {
 	registerUser: PropTypes.func.isRequired
+}
+
+RegisterForm.contextTypes = {
+	router: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
