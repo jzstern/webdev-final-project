@@ -38,7 +38,7 @@ class SongItem extends Component {
 		});
 
 	}
-	
+
 	componentWillReceiveProps(newProps) {
 		// TODO ; fill out
 	}
