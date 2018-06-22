@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import SongItem from '../components/song-item'
 import '../styles.css'
-import SongService from "../services/SongService";
+import SongService from "../services/song.service.client";
 
 var songList = [
 	<SongItem/>,

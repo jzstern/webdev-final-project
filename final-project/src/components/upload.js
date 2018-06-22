@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../styles.css'
 import {Link} from 'react-router-dom'
-import SongService from "../services/SongService";
+import SongService from "../services/song.service.client";
 
 class Upload extends Component {
 	constructor(props) {
