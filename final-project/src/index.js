@@ -4,17 +4,24 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
-
-
-
-// let store = createStore()
-
+import thunk from 'redux-thunk'
+import {createStore, applyMiddleware, compose} from 'redux'
 import App from './App'
+import rootReducer from './reducers/root.reducer'
 
-ReactDOM.render(
-  <App/>,
-	document.getElementById('root')
+
+const store = createStore(
+		// (state = {}) => state,
+		rootReducer,
+		compose(
+			applyMiddleware(thunk),
+			window.devToolsExtension ? window.devToolsExtension() : f => f
+		)
 )
 
-export default App
+ReactDOM.render(
+	<Provider store={store}>
+    <App/>
+	</Provider>,
+	document.getElementById('root')
+)

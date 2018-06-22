@@ -67,12 +67,13 @@ function findUserByCredentials(username, password) {
 }
 
 function findUserByUsername(username) {
-    return userModel.findOne({username: username},
-        function(err, username) {
-            if (err) throw error;
-            console.log("cannot find user by username");
-            console.log(username);
-        })
+	return userModel.findOne({username: username});
+    // return userModel.findOne({username: username},
+        // function(err, username) {
+        //     if (err) throw error;
+        //     console.log("cannot find user by username");
+        //     console.log(username);
+        // })
 }
 
 function deleteUser(userId) {

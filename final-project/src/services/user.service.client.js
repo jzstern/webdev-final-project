@@ -1,7 +1,8 @@
 let _singleton = Symbol()
-const URL = 'http://localhost:8080/api/artist'
+const LOCAL_URL = 'http://localhost:4000/api/'
+// const PROD_URL = 'http://localhost:8080/api/'
 
-class ArtistService {
+class UserService {
 	constructor(singletonToken) {
 		if (_singleton !== singletonToken)
 			throw new Error('Cannot instantiate directly.')
@@ -9,20 +10,27 @@ class ArtistService {
 
 	static get instance() {
 		if (!this[_singleton])
-			this[_singleton] = new ArtistService(_singleton)
+			this[_singleton] = new UserService(_singleton)
 		return this[_singleton]
 	}
 
-	findArtistById(artistId) {
-		return fetch(URL + '/' + artistId)
+	findUserById(userId) {
+		return fetch(LOCAL_URL + 'user/' + userId)
 			.then(function(response) {
 				return response.json()
 			})
 	}
 
-	updateArtist(artist) {
-		return fetch(URL + '/' + artist.artistId, {
-			body: JSON.stringify(artist),
+	findUserByUsername(username) {
+		return fetch(LOCAL_URL + '/' + username)
+			.then(function(response) {
+				return response.json()
+			})
+	}
+
+	updateUser(user) {
+		return fetch(LOCAL_URL + '/' + user.userId, {
+			body: JSON.stringify(user),
 			headers: {
 				'content-type': 'application/json'
 			},
@@ -33,9 +41,9 @@ class ArtistService {
 			})
 	}
 
-	createArtist(artist) {
-		return fetch(URL, {
-			body: JSON.stringify(artist),
+	createUser(user) {
+		return fetch(LOCAL_URL + 'user', {
+			body: JSON.stringify(user),
 			headers: {
 				'content-type': 'application/json'
 			},
@@ -46,8 +54,8 @@ class ArtistService {
 			})
 	}
 
-	deleteArtist(artistId) {
-		return fetch(URL + '/' + artistId, {
+	deleteUser(userId) {
+		return fetch(LOCAL_URL + '/' + userId, {
 			method: 'DELETE'
 		})
 			.then(function(response) {
@@ -55,4 +63,4 @@ class ArtistService {
 			})
 	}
 }
-export default ArtistService
+export default UserService
