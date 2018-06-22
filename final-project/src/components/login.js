@@ -1,16 +1,42 @@
-import React, { Component } from 'react'
 import '../styles.css'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
-import validateInput from '../helpers/validate-login-input'
 import classnames from 'classnames'
+import validateInput from '../helpers/validate-login-input'
+import UserService from '../services/user.service.client'
+import PropTypes from 'prop-types'
+import { loginRequest } from "../actions/login.actions"
+var propTypes = require('prop-types')
 
-class Login extends Component {
+class LoginForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			username: '',
 			password: '',
-			errors: {}
+			errors: {},
+			isLoading: false
+		}
+
+		this.login = this.login.bind(this)
+		this.isValid = this.isValid.bind(this)
+		this.onChange = this.onChange.bind(this)
+		this.userService = UserService.instance
+	}
+
+	login() {
+		if (this.isValid()) {
+			this.setState({ errors: {}, isLoading: true })
+
+			// let user = {
+			// 	username: this.state.username,
+			// 	password: this.state.password,
+			// }
+
+			this.props.loginRequest(this.state)
+				.then(res => this.context.router.history.push('/'),
+					err => this.setState({ errors: err.data.errors, isLoading: false }))
 		}
 	}
 
@@ -65,4 +91,13 @@ class Login extends Component {
 		)
 	}
 }
-export default Login
+
+LoginForm.PropTypes = {
+	login: PropTypes.func.isRequired
+}
+
+LoginForm.contextTypes = {
+	router: PropTypes.object.isRequired
+}
+
+export default connect(null, { loginRequest })(LoginForm)
