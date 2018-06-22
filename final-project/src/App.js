@@ -13,6 +13,12 @@ import Upload from './components/upload'
 import { userRegistrationRequest } from './actions/register.actions'
 
 class App extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			user: {}
+		}
+	}
 	render() {
 		return (
 			<Router>
@@ -25,7 +31,8 @@ class App extends Component {
 					{/*<Route path="/register" component={RegisterPage} registerUser={userRegistrationRequest}/>*/}
 					<Route path="/register" render={(props) => <RegisterForm {...props} registerUser={userRegistrationRequest}/>}/>
 					{/*<RegisterForm registerUser={userRegistrationRequest}/>*/}
-					<Route path="/upload" component={Upload}/>
+					{/*<Route path="/upload" component={Upload}/>*/}
+					<Route path="/upload" render={(props) => <Upload {...props} user={this.state.user}/>}/>
 					<FixedBottomBar/>
 				</div>
 			</Router>

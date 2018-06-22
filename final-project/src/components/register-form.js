@@ -106,6 +106,17 @@ class RegisterForm extends Component {
 						{errors.username && <span className="help-block">{errors.username}</span>}
 					</div>
 
+					<div className={classnames("form-group", { 'has-error': errors.displayName })}>
+						<label >Display Name</label>
+						<input name="displayName"
+						       value={this.state.displayName}
+						       onChange={this.onChange}
+						       placeholder="Enter your displayName"
+						       type="text"
+						       className="form-control"/>
+						{errors.displayName && <span className="help-block">{errors.displayName}</span>}
+					</div>
+
 					<div className={classnames("form-group", { 'has-error': errors.password1 })}>
 						<label>Password</label>
 						<input name="password1"

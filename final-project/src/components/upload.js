@@ -11,10 +11,11 @@ class Upload extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			songTitle: '',
-			songDescription: '',
+			// user: {},
+			title: '',
+			description: '',
 			genre: '',
-			albumArtUrl: '',
+			imgUrl: '',
 			errors: {}
 		}
 
@@ -24,25 +25,30 @@ class Upload extends Component {
 		this.onChange = this.onChange.bind(this)
 	}
 
-  // componentDidMount() { }
+	componentWillReceiveProps(props) {
+		this.setState({user: this.props.user.displayName})
+	}
+
+	// componentDidMount() { }
 
 	createSong() {
 		if (this.isValid()) {
 			this.setState({errors: {}, isLoading: true})
 
 			let newSong = {
-				title: this.state.songTitle,
-				description: this.state.songDescription,
+				title: this.state.title,
+				// artist: this.props.user,
+				description: this.state.description,
 				genre: this.state.genre,
-				albumArtUrl: this.state.albumArtUrl
+				imgUrl: this.state.imgUrl
 			};
 
 			console.log(newSong);
 			this.songService
 				.createSong(newSong)
-				// .then(() => {
-				//  this.context.router.history.push('/stream')
-				// })
+				.then(() => {
+					this.context.router.history.push('/stream')
+				})
 		}
 	}
 
@@ -66,21 +72,22 @@ class Upload extends Component {
 	render() {
 		const { errors } = this.state
 		return (
-			<form onSubmit={this.createSong} className="container">
-				<div className={classnames("form-group", { 'has-error': errors.songTitle })}>
+			//<form onSubmit={this.createSong} className="container">
+			<div className="container">
+				<div className={classnames("form-group", { 'has-error': errors.title })}>
 					<label>Song Title</label>
-					<input name="songTitle"
+					<input name="title"
 					       onChange={this.onChange}
-					       value={this.state.songTitle}
+					       value={this.state.title}
 					       placeholder="Enter your a song title"
 					       type="text"
 					       className="form-control"/>
-					{errors.songTitle && <span className="help-block">{errors.songTitle}</span>}
+					{errors.title && <span className="help-block">{errors.title}</span>}
 				</div>
 
 				<label>Description</label>
-				<input name="songDescription"
-				       value={this.state.songDescription}
+				<input name="description"
+				       value={this.state.description}
 				       onChange={this.onChange}
 				       placeholder="Enter a description for the track"
 				       type="text"
@@ -94,23 +101,23 @@ class Upload extends Component {
 				       type="text"
 				       className="form-control"/>
 
-				<div className={classnames("form-group", { 'has-error': errors.albumArtUrl })}>
+				<div className={classnames("form-group", { 'has-error': errors.imgUrl })}>
 					<label>Album Artwork</label>
-					<input name="albumArtUrl"
-					       value={this.state.albumArtUrl}
+					<input name="imgUrl"
+					       value={this.state.imgUrl}
 					       onChange={this.onChange}
 					       placeholder="Paste a link to the URL of your album artwork"
 					       type="text"
 					       className="form-control"/>
-					{errors.albumArtUrl && <span className="help-block">{errors.albumArtUrl}</span>}
+					{errors.imgUrl && <span className="help-block">{errors.imgUrl}</span>}
 				</div>
 
 				<div className="form-group">
 					<button className="btn btn-success"
-					        // onClick={this.createSong}
-							    style={{marginRight: 10}}>Upload</button>
+					        onClick={this.createSong}
+					        style={{marginRight: 10}}>Upload</button>
 				</div>
-			</form>
+			</div>
 		)
 	}
 }

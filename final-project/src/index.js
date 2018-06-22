@@ -5,15 +5,19 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
-import {createStore, applyMiddleware} from 'redux'
+import {createStore, applyMiddleware, compose} from 'redux'
 import App from './App'
+import rootReducer from './reducers/root.reducer'
 
 
-
-let store = createStore(
-		(state = {}) => state,
-		applyMiddleware(thunk)
-	)
+const store = createStore(
+		// (state = {}) => state,
+		rootReducer,
+		compose(
+			applyMiddleware(thunk),
+			window.devToolsExtension ? window.devToolsExtension() : f => f
+		)
+)
 
 ReactDOM.render(
 	<Provider store={store}>

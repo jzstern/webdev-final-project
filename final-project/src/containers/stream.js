@@ -3,17 +3,6 @@ import SongItem from '../components/song-item'
 import '../styles.css'
 import SongService from "../services/song.service.client";
 
-var songList = [
-	<SongItem/>,
-	<SongItem/>,
-	<SongItem/>,
-	<SongItem/>,
-	<SongItem/>,
-	<SongItem/>,
-	<SongItem/>,
-	<SongItem/>
-]
-
 class Stream extends Component {
 	constructor(props) {
 		super(props)
@@ -21,9 +10,10 @@ class Stream extends Component {
 			songList: null,
 			currentlyPlaying: null
 		}
-        this.songService = SongService.instance;
+
+		this.songService = SongService.instance;
 		this.setSongs = this.setSongs.bind(this);
-        this.renderSongs = this.renderSongs.bind(this);
+		this.renderSongs = this.renderSongs.bind(this);
 	}
 
 	componentDidMount() {
@@ -42,7 +32,7 @@ class Stream extends Component {
 	}
 
 	renderSongs() {
-		// console.log(this.state.songList);
+		console.log(this.state.songList);
 		let songs;
 		if (this.state.songList !== null) {
              songs = this.state.songList.map((song) => {
@@ -50,14 +40,12 @@ class Stream extends Component {
                                  title={song.title}
                                  artist={song.artist}
                                  genre={song.genre}
-                                 playCount={song.playCount}
-                                 likesCount={song.likesCount}
-                                 repostCount={song.repostCount}
+                                 stats={song.stats}
                                  // comments={song.comments}
                                  liked={song.liked}
                                  reposted={song.reposted}
                                  tweeted={song.tweeted}
-                                 albumArtUrl={song.albumArtUrl}
+                                 imgUrl={song.imgUrl}
                                  description={song.description}/>
             });
         }

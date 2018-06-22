@@ -26,7 +26,17 @@ module.exports = function (app) {
     }
 
     function createSong(req, res) {
-        var song = req.body;
+        let song = req.body;
+        let stats = {
+	        playCount: 0,
+	        likeCount: 0,
+	        repostCount: 0
+        }
+
+        song.stats = stats;
+
+        console.log(song);
+
         songModel.createSong(song)
             .then(function (song) {
                 req.session['currentSong'] = song;

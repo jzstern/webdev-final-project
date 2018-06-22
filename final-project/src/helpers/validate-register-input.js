@@ -13,6 +13,9 @@ export default function validateInput(data) {
 	if (data.username.length == 0) {
 		errors.username = 'This field is required'
 	}
+	if (data.displayName.length == 0) {
+		errors.displayName = 'This field is required'
+	}
 	if (data.password1.length == 0) {
 		errors.password1 = 'This field is required'
 	}

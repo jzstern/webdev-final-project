@@ -8,10 +8,12 @@ class SongItem extends Component {
 			id: '',
 			title: '',
 			artist: '',
-			albumArtUrl: 'https://i1.sndcdn.com/artworks-000206480020-ejb3mq-t500x500.jpg',
-			playCount: 6423,
-			likesCount: 257,
-			repostCount: 59,
+			imgUrl: 'https://i1.sndcdn.com/artworks-000206480020-ejb3mq-t500x500.jpg',
+			stats: {
+				playCount: 6423,
+				likeCount: 257,
+				repostCount: 59,
+			},
 			comments: [],
 			genre: 'Custom Genre',
 			liked: false,
@@ -38,14 +40,14 @@ class SongItem extends Component {
 			artist: this.props.artist,
 			genre: this.props.genre,
 			description: this.props.description,
-			playCount: this.props.playCount,
-			likesCount: this.props.likesCount,
-			repostCount: this.props.repostCount,
+			playCount: this.props.stats.playCount,
+			likeCount: this.props.stats.likeCount,
+			repostCount: this.props.stats.repostCount,
 			// comments: this.props.comments,
 			liked: this.props.liked,
 			reposted: this.props.reposted,
 			tweeted: this.props.tweeted,
-			albumArtUrl: this.props.albumArtUrl
+			imgUrl: this.props.imgUrl
 		});
 	}
 	
@@ -81,7 +83,7 @@ class SongItem extends Component {
 			<div className="container card">
 				<div className="flex-row">
 					<div className="pull-left p-3" style={{marginLeft: -14}}>
-						<img src={this.state.albumArtUrl} style={{height: 150, width: 150}}/>
+						<img src={this.state.imgUrl} style={{height: 150, width: 150}}/>
 					</div>
 					<div className="p-4">
 						<div className="row">
