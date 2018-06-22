@@ -5,12 +5,13 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 import Stream from './containers/stream'
 import NavigationBar from './components/navigation-bar'
 import FixedBottomBar from "./components/fixed-bottom-bar"
-import Login from './components/login'
+import LoginForm from './components/login'
 import RegisterForm from './components/register-form'
 import Upload from './components/upload'
 
 
 import { userRegistrationRequest } from './actions/register.actions'
+import { loginRequest } from './actions/login.actions'
 
 class App extends Component {
 	constructor(props) {
@@ -27,7 +28,8 @@ class App extends Component {
 					<link rel="stylesheet" href="../src/styles.css"/>
 					<NavigationBar/>
 					<Route path="/stream" component={Stream}/>
-					<Route path="/login" component={Login}/>
+					{/*<Route path="/login" component={LoginForm}/>*/}
+					<Route path="/login" render={(props) => <LoginForm {...props} login={loginRequest}/>}/>
 					{/*<Route path="/register" component={RegisterPage} registerUser={userRegistrationRequest}/>*/}
 					<Route path="/register" render={(props) => <RegisterForm {...props} registerUser={userRegistrationRequest}/>}/>
 					{/*<RegisterForm registerUser={userRegistrationRequest}/>*/}

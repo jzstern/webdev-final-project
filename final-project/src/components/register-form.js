@@ -3,10 +3,10 @@ import '../styles.css'
 import {Link} from 'react-router-dom'
 import {connect} from "react-redux";
 import UserService from '../services/user.service.client'
-import PropTypes from 'prop-types'
 import { userRegistrationRequest } from '../actions/register.actions'
 import validateInput from '../helpers/validate-register-input'
 import classnames from 'classnames'
+import PropTypes from 'prop-types'
 var propTypes = require('prop-types')
 
 class RegisterForm extends Component {
@@ -21,6 +21,7 @@ class RegisterForm extends Component {
 			errors: {},
 			isLoading: false
 		}
+
 		this.onChange = this.onChange.bind(this)
 		this.register = this.register.bind(this)
 		this.isValid = this.isValid.bind(this)
