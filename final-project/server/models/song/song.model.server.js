@@ -21,13 +21,19 @@ function findAllSongs() {
     return songModel.find();
 }
 
+function findSongsByName(songName) {
+    return songModel.find({"title": songName});
+    // return songModel.findOne({title: songName});
+}
+
 
 var api = {
     createSong: createSong,
     findAllSongs: findAllSongs,
     findSongById: findSongById,
     deleteSong: deleteSong,
-    updateSong: updateSong
+    updateSong: updateSong,
+    findSongsByName: findSongsByName
 
 };
 

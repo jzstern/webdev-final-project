@@ -28,6 +28,14 @@ class SongService {
 			})
 	}
 
+    findSongsByName(songName) {
+		// var song = {"title": songName};
+		return fetch(URL + "?title=" +songName)
+			.then(function(response) {
+				return response.json()
+            })
+    }
+
 	updateSong(song) {
 		return fetch(URL + '/' + song.songId, {
 			body: JSON.stringify(song),
