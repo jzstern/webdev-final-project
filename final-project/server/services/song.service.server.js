@@ -1,7 +1,6 @@
 module.exports = function (app) {
-    app.get('/api/song', findAllSongs);
+    app.get('/api/song', findSongs);
     app.get('/api/song/:songId', findSongById);
-    app.get('/api/song/:songName', findSongByName);
     app.post('/api/song', createSong);
     app.delete('/api/song/:songId', deleteSong);
     app.post('/api/song/:songId', updateSong);
@@ -16,21 +15,23 @@ module.exports = function (app) {
             })
     }
 
-    function findSongByName(title) {
-        return songModel.findOne({title: title},
-            function(err, title) {
-                if (err) throw error;
-                console.log("cannot find song by name");
-                console.log(title);
-            })
-    }
+    // function findSongsByName(req, res) {
+    //     var name = req.body.title;
+    //     const regex = new RegExp(escapeRegex(name));
+    //     // const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    //     songModel
+    //         .findSongsByName(regex)
+    //         .then(function (songs) {
+    //             res.json(songs);
+    //         });
+    // }
 
     function createSong(req, res) {
         let song = req.body;
         let stats = {
-	        playCount: 0,
-	        likeCount: 0,
-	        repostCount: 0
+            playCount: 0,
+            likeCount: 0,
+            repostCount: 0
         }
 
         song.stats = stats;
@@ -69,14 +70,28 @@ module.exports = function (app) {
                 }
             })
     }
-    function findAllSongs(req, res) {
-        songModel.findAllSongs()
-            .then(function (songs) {
-                res.send(songs);
-            })
+
+    function findSongs(req, res) {
+        if (req.query.title) {
+            console.log(req.query);
+            const regex = new RegExp(escapeRegex(req.query.title),'gi');
+            songModel
+                .findSongsByName(regex)
+                .then(function (songs) {
+                    res.json(songs);
+                });
+        } else {
+            songModel.findAllSongs()
+                .then(function (songs) {
+                    res.send(songs);
+                })
+        }
     }
 
     function findSongsByArtist(req, res) {
 
+    }
+    function escapeRegex(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     }
 }

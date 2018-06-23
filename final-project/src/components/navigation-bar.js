@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import '../styles.css'
+import SearchBar from './searchbar'
 
 class NavigationBar extends Component {
 	constructor(props) {
@@ -17,12 +18,8 @@ class NavigationBar extends Component {
 			<nav className="navbar navbar-expand-lg navbar-inverse justify-content-between">
 				<span className="glyphicon glyphicon-cloud"/>
 				<Link to={'/stream'}>StreamCloud</Link>
-				<div className="collapse navbar-collapse" id="navbarSupportedContent">
-					<form className="form-inline my-2 my-lg-0">
-						<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-						<button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-					</form>
-				</div>
+				<SearchBar renderResults={this.props.renderResults}/>
+
 				<ul className="nav navbar-right">
 					<li className="nav-item"><Link to={'/upload'}><span className="glyphicon glyphicon-cloud-upload fa-fw"/> Upload</Link></li>
 					<li className="nav-item"><Link to={'/register'}><span className="glyphicon glyphicon-user fa-fw"/> Sign Up</Link></li>

@@ -50,7 +50,7 @@ class SongItem extends Component {
 			imgUrl: this.props.imgUrl
 		});
 	}
-	
+
 	componentWillReceiveProps(newProps) {
 		// TODO ; fill out
 	}
