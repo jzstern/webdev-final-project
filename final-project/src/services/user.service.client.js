@@ -14,6 +14,23 @@ class UserService {
 		return this[_singleton]
 	}
 
+	login(user) {
+		return fetch(LOCAL_URL + 'login', {
+			body: JSON.stringify(user),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			method: 'POST'
+		})
+			.then(response => {
+				if (response.status === 404) {
+					alert('Login credentials incorrect')
+				} else {
+					return response.json()
+				}
+			})
+	}
+
 	findUserById(userId) {
 		return fetch(LOCAL_URL + 'user/' + userId)
 			.then(function(response) {

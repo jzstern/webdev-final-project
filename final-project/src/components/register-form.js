@@ -37,8 +37,7 @@ class RegisterForm extends Component {
 			let user = {
 				email: this.state.email,
 				username: this.state.username,
-				password1: this.state.password1,
-				password2: this.state.password2,
+				password: this.state.password1,
 				accountType: this.state.accountType
 			}
 

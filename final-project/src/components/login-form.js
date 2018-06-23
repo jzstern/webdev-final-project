@@ -29,14 +29,27 @@ class LoginForm extends Component {
 		if (this.isValid()) {
 			this.setState({ errors: {}, isLoading: true })
 
-			// let user = {
-			// 	username: this.state.username,
-			// 	password: this.state.password,
-			// }
+			let user = {
+				username: this.state.username,
+				password: this.state.password,
+			}
 
-			this.props.loginRequest(this.state)
-				.then(res => this.context.router.history.push('/'),
-					err => this.setState({ errors: err.data.errors, isLoading: false }))
+			this.userService
+				.login(user)
+				.then(res => {
+					this.context.router.history.push('/stream')
+				})
+				// .then(res => {
+				// 	if (res.status === 404) {
+				// 		alert('Login credentials incorrect')
+				// 	} else {
+				// 		this.context.router.history.push('/stream')
+				// 	}
+				// })
+
+			// this.props.loginRequest(this.state)
+			// 	.then(res => this.context.router.history.push('/'),
+			// 		err => this.setState({ errors: err.data.errors, isLoading: false }))
 		}
 	}
 
@@ -57,7 +70,7 @@ class LoginForm extends Component {
 	}
 
 	render() {
-		const { errors } = this.state
+		const { errors, isLoading } = this.state
 		return (
 			<div className="container">
 				<div className={classnames("form-group", { 'has-error': errors.username })}>
@@ -82,7 +95,7 @@ class LoginForm extends Component {
 					{errors.password && <span className="help-block">{errors.password}</span>}
 				</div>
 
-				<button className="btn btn-primary" style={{marginRight: 10}}>Login</button>
+				<button onClick={this.login} className="btn btn-primary" style={{marginRight: 10}}>Login</button>
 
 				<Link to={'/register'}>
 					<button className="btn btn-info">Register</button>
@@ -92,7 +105,7 @@ class LoginForm extends Component {
 	}
 }
 
-LoginForm.PropTypes = {
+LoginForm.propTypes = {
 	login: PropTypes.func.isRequired
 }
 

@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 import Stream from './containers/stream'
 import NavigationBar from './components/navigation-bar'
 import FixedBottomBar from "./components/fixed-bottom-bar"
-import LoginForm from './components/login'
+import LoginForm from './components/login-form'
 import RegisterForm from './components/register-form'
 import Upload from './components/upload'
 

@@ -1,4 +1,5 @@
 module.exports = function (app) {
+	// var cors = require('cors');
 	app.get('/api/user', findAllUsers);
 	app.get('/api/user/:userId', findUserById);
 	app.post('/api/user', createUser);
@@ -12,6 +13,17 @@ module.exports = function (app) {
 	app.get('/api/user/:userId/following', findAllFollowingForUser);
 
 	var userModel = require('../models/user/user.model.server');
+	//var bodyParser = require('body-parser');
+	//app.use(bodyParser.json());
+
+
+	// app.all('/', function(req, res, next) {
+	// 	res.header("Access-Control-Allow-Origin", "*");
+	// 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	// 	next();
+	// });
+
+	// app.use(cors({ origin: 'http://localhost:3000' , credentials :  true}));
 
 	function findUserById(req, res) {
 		var id = req.params['userId'];
@@ -107,10 +119,16 @@ module.exports = function (app) {
 
 	function login(req, res) {
 		var user = req.body;
-		userModel.findUserByCredentials(user.username, user.password)
+
+		userModel.findUserByCredentials(user)
 			.then(function (user) {
-				req.session['currentUser'] = user;
-				res.send(user);
+				if (user) {
+					req.session['currentUser'] = user;
+					res.send(user);
+				} else {
+					console.log('didnt find em')
+					res.sendStatus(404);
+				}
 			})
 	}
 

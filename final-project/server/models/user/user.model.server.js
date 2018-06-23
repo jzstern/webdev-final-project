@@ -56,14 +56,15 @@ function findAllUsers() {
     return userModel.find();
 }
 
-function findUserByCredentials(username, password) {
-    return userModel.findOne(
-        {username: username, password: password},
-        function(err, username) {
-            if (err) throw error;
-            console.log("cannot find user by credentials");
-            console.log(username);
-        })
+function findUserByCredentials(credentials) {
+    return userModel.findOne(credentials)
+    // return userModel.findOne(
+    //     {username: username, password: password},
+    //     function(err, username) {
+    //         if (err) throw error;
+    //         console.log("cannot find user by credentials");
+    //         console.log(username);
+    //     })
 }
 
 function findUserByUsername(username) {
