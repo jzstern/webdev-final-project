@@ -8,6 +8,7 @@ import FixedBottomBar from "./components/fixed-bottom-bar"
 import LoginForm from './components/login-form'
 import RegisterForm from './components/register-form'
 import Upload from './components/upload'
+import Profile from './containers/profile'
 
 
 import { userRegistrationRequest } from './actions/register.actions'
@@ -31,8 +32,9 @@ class App extends Component {
 					{/*<Route path="/login" component={LoginForm}/>*/}
 					<Route path="/login" render={(props) => <LoginForm {...props} login={loginRequest}/>}/>
 					{/*<Route path="/register" component={RegisterPage} registerUser={userRegistrationRequest}/>*/}
-					<Route path="/register" render={(props) => <RegisterForm {...props} registerUser={userRegistrationRequest}/>}/>
 					{/*<RegisterForm registerUser={userRegistrationRequest}/>*/}
+					<Route path="/register" render={(props) => <RegisterForm {...props} registerUser={userRegistrationRequest}/>}/>
+					<Route path="/profile" render={(props) => <Profile/>}/>
 					{/*<Route path="/upload" component={Upload}/>*/}
 					<Route path="/upload" render={(props) => <Upload {...props} user={this.state.user}/>}/>
 					<FixedBottomBar/>
