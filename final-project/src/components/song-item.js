@@ -80,20 +80,17 @@ class SongItem extends Component {
 		})
 
 		// load user info
-		const user = localStorage.getItem('user')
+		const user = JSON.parse(localStorage.getItem('user'))
 		this.setState({user: user})
 
 		if (this.isLoggedIn()) {
-			let likes = JSON.parse(user || "[]").likedSongs
-			let reposts = JSON.parse(user || "[]").repostedSongs
-
-			if (likes.length !== 0) {
-				if (likes.indexOf(this.props.id) !== -1) {
+			if (user.likedSongs.length !== 0) {
+				if (user.likedSongs.indexOf(this.props.id) !== -1) {
 					this.state.liked = true
 				}
 			}
-			if (reposts.length !== 0) {
-				if (reposts.indexOf(this.props.id) !== -1) {
+			if (user.repostedSongs.length !== 0) {
+				if (user.repostedSongs.indexOf(this.props.id) !== -1) {
 					this.state.reposted = true
 				}
 			}

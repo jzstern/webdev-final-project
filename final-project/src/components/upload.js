@@ -11,7 +11,6 @@ class Upload extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			// user: {},
 			title: '',
 			description: '',
 			genre: '',
@@ -19,15 +18,13 @@ class Upload extends Component {
 			errors: {}
 		}
 
-		this.songService = SongService.instance;
-		this.createSong = this.createSong.bind(this);
-		this.isValid = this.isValid.bind(this);
+		this.songService = SongService.instance
+		this.createSong = this.createSong.bind(this)
+		this.isValid = this.isValid.bind(this)
 		this.onChange = this.onChange.bind(this)
 	}
 
-	componentWillReceiveProps(props) {
-		this.setState({user: this.props.user.displayName})
-	}
+	// componentWillReceiveProps(props) {}
 
 	// componentDidMount() { }
 
@@ -37,13 +34,13 @@ class Upload extends Component {
 
 			let newSong = {
 				title: this.state.title,
-				// artist: this.props.user,
+				artist: JSON.parse(localStorage.getItem('user')).displayName,
+				artistId: JSON.parse(localStorage.getItem('user'))._id,
 				description: this.state.description,
 				genre: this.state.genre,
 				imgUrl: this.state.imgUrl
-			};
+			}
 
-			console.log(newSong);
 			this.songService
 				.createSong(newSong)
 				.then(() => {
@@ -54,13 +51,13 @@ class Upload extends Component {
 
 
 	isValid() {
-		const {errors, isValid} = validateInput(this.state);
+		const {errors, isValid} = validateInput(this.state)
 
 		if (!isValid) {
 			this.setState({ errors })
 		}
 
-		return isValid;
+		return isValid
 	}
 
 	onChange(e) {

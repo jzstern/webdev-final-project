@@ -14,6 +14,7 @@ class RegisterForm extends Component {
 		super(props)
 		this.state = {
 			email: '',
+			displayName: '',
 			username: '',
 			password1: '',
 			password2: '',
@@ -36,6 +37,7 @@ class RegisterForm extends Component {
 
 			let user = {
 				email: this.state.email,
+				displayName: this.state.displayName,
 				username: this.state.username,
 				password: this.state.password1,
 				accountType: this.state.accountType
@@ -45,8 +47,10 @@ class RegisterForm extends Component {
 				.createUser(user)
 				.then((res) => {
 					if (res.status === 500) {
-						alert('Sorry, that username is already taken');
+						alert('Sorry, that username is already taken')
 					} else {
+						console.log(res)
+						localStorage.setItem('user', JSON.stringify(res))
 						this.context.router.history.push('/stream')
 					}
 				})
@@ -95,17 +99,6 @@ class RegisterForm extends Component {
 						{errors.email && <span className="help-block">{errors.email}</span>}
 					</div>
 
-					<div className={classnames("form-group", { 'has-error': errors.username })}>
-						<label >Username</label>
-						<input name="username"
-						       value={this.state.username}
-						       onChange={this.onChange}
-						       placeholder="Enter your username"
-						       type="text"
-						       className="form-control"/>
-						{errors.username && <span className="help-block">{errors.username}</span>}
-					</div>
-
 					<div className={classnames("form-group", { 'has-error': errors.displayName })}>
 						<label >Display Name</label>
 						<input name="displayName"
@@ -115,6 +108,17 @@ class RegisterForm extends Component {
 						       type="text"
 						       className="form-control"/>
 						{errors.displayName && <span className="help-block">{errors.displayName}</span>}
+					</div>
+
+					<div className={classnames("form-group", { 'has-error': errors.username })}>
+						<label >Username</label>
+						<input name="username"
+						       value={this.state.username}
+						       onChange={this.onChange}
+						       placeholder="Enter your username"
+						       type="text"
+						       className="form-control"/>
+						{errors.username && <span className="help-block">{errors.username}</span>}
 					</div>
 
 					<div className={classnames("form-group", { 'has-error': errors.password1 })}>
