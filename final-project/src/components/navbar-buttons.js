@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import jQuery from 'jquery'
 
 class NavBarButtons extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			user: {
-				accountType: 'artist'
-			}
-		}
+		this.state = {}
+		this.logout = this.logout.bind(this)
 		this.isArtist = this.isArtist.bind(this)
+		this.isLoggedIn = this.isLoggedIn.bind(this)
 		this.displayUploadButton = this.displayUploadButton.bind(this)
 		this.displayLoggedInButtons = this.displayLoggedInButtons.bind(this)
 		this.displayLoggedOutButtons = this.displayLoggedOutButtons.bind(this)
@@ -25,7 +24,7 @@ class NavBarButtons extends Component {
 					</Link>
 				</li>
 				<li className="nav-item">
-					<Link to={'/stream'}>
+					<Link to={'/stream'} onClick={this.logout}>
 						<span className="glyphicon glyphicon-log-in fa-fw"/> Logout
 					</Link>
 				</li>
@@ -65,14 +64,26 @@ class NavBarButtons extends Component {
 		)
 	}
 
+	logout() {
+		localStorage.removeItem('user')
+	}
+
+	isLoggedIn() {
+		return localStorage.getItem('user') !== null
+	}
+
 	isArtist() {
-		return (this.state.user.accountType === 'artist' || this.state.user.accountType === 'artistPro')
+		return localStorage.getItem(('user')).accountType === 'artist' || localStorage.getItem(('user')).accountType === 'artistPro'
+	}
+
+	componentDidMount() {
+		this.setState({user: localStorage.getItem('user')})
 	}
 
 	render() {
 		return (
 			<div>
-				{ this.state.user.accountType === 'artist' ? this.displayLoggedInButtons() : this.displayLoggedOutButtons() }
+				{ this.isLoggedIn() ? this.displayLoggedInButtons() : this.displayLoggedOutButtons() }
 			</div>
 		)
 	}

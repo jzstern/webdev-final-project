@@ -37,7 +37,7 @@ class LoginForm extends Component {
 			this.userService
 				.login(user)
 				.then(res => {
-                    localStorage.setItem('user', JSON.stringify(res));
+					localStorage.setItem('user', JSON.stringify(res))
 					this.context.router.history.push('/stream')
 				})
 				// .then(res => {
@@ -53,7 +53,6 @@ class LoginForm extends Component {
 			// 		err => this.setState({ errors: err.data.errors, isLoading: false }))
 
 		}
-
 	}
 
 	isValid() {
