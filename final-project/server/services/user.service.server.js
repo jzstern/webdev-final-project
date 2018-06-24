@@ -42,7 +42,15 @@ module.exports = function (app) {
 	}
 
 	function profile(req, res) {
-		res.send(req.session['currentUser']);
+		console.log(req.session['currentUser'])
+
+		if (req.session['currentUser'] === undefined) {
+			console.log('ffs')
+			res.sendStatus(406)
+		} else {
+			res.send(req.session['currentUser']);
+		}
+
 	}
 
 	function createUser(req, res) {
@@ -126,7 +134,6 @@ module.exports = function (app) {
 					req.session['currentUser'] = user;
 					res.send(user);
 				} else {
-					console.log('didnt find em')
 					res.sendStatus(404);
 				}
 			})
