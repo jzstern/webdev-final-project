@@ -5,6 +5,8 @@ module.exports = function (app) {
     app.delete('/api/song/:songId', deleteSong);
     app.post('/api/song/:songId', updateSong);
     app.post('/api/song/like/:songId', likeSongById);
+    app.post('/api/song/unlike/:songId', unlikeSongById);
+    app.post('/api/song/repost/:songId', repostSongById);
 
     var songModel = require('../models/song/song.model.server');
 
@@ -19,6 +21,21 @@ module.exports = function (app) {
     function likeSongById(req, res) {
         var id = req.params['songId'];
         songModel.likeSongById(id)
+            .then(function (song) {
+                res.json(song);
+            })
+    }
+    function unlikeSongById(req, res) {
+        var id = req.params['songId'];
+        songModel.unlikeSongById(id)
+            .then(function (song) {
+                res.json(song);
+            })
+    }
+
+    function repostSongById(req, res) {
+        var id = req.params['songId'];
+        songModel.repostSongById(id)
             .then(function (song) {
                 res.json(song);
             })

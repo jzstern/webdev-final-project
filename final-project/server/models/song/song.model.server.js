@@ -32,6 +32,18 @@ function likeSongById(songId) {
         {_id: songId},
         { $inc: {"stats.likeCount": 1}});
 }
+function unlikeSongById(songId) {
+    return songModel.update(
+        {_id: songId},
+        { $inc: {"stats.likeCount": -1}});
+}
+
+function repostSongById(songId) {
+    return songModel.update(
+    {_id: songId},
+    { $inc: {"stats.repostCount": 1}});
+}
+
 
 
 
@@ -42,7 +54,9 @@ var api = {
     deleteSong: deleteSong,
     updateSong: updateSong,
     findSongsByName: findSongsByName,
-    likeSongById: likeSongById
+    likeSongById: likeSongById,
+    repostSongById: repostSongById,
+    unlikeSongById: unlikeSongById
 
 };
 

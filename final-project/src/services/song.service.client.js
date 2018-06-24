@@ -39,8 +39,31 @@ class SongService {
                 return response.json()
             })
 	}
+    unlikeSongById(songId) {
+        return fetch(URL + '/unlike/' + songId,
+            {
+                headers: {
+                    'content-type': 'application/json'
+                },
+                method: 'POST'
+            })
+            .then(function(response) {
+                return response.json()
+            })
+    }
 
-
+    repostSongById(songId) {
+        return fetch(URL + '/repost/' + songId,
+            {
+                headers: {
+                    'content-type': 'application/json'
+                },
+                method: 'POST'
+            })
+            .then(function(response) {
+                return response.json()
+            })
+	}
 
     findSongsByName(songName) {
 		// var song = {"title": songName};

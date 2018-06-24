@@ -8,7 +8,8 @@ class SongStats extends Component {
         this.state = {
             playCount: this.props.playCount,
             likeCount: this.props.likeCount,
-            comments: this.props.comments
+            comments: this.props.comments,
+            repostCount: this.props.repostCount
         }
     }
     render() {
@@ -21,6 +22,9 @@ class SongStats extends Component {
 
                 <span className="fa fa-sm fa-comment fa-fw"/>
                 <p>{this.props.comments.length}</p>
+
+                <span className="fa fa-retweet" aria-hidden="true"/>
+                <p>{this.props.repostCount}</p>
 
             </div>
         )
@@ -104,19 +108,24 @@ class SongItem extends Component {
     }
 
     toggleLike() {
-        // this.state.liked = !this.state.liked
         this.setState({liked: !this.state.liked})
-        console.log("toggling like!")
 
-        this.songService
-            .likeSongById(this.props.id)
-            .then(()=>
-                this.setState({id: this.props.id})); // to trigger song component re-rendered
+        if (!this.state.liked) {
+            this.songService
+                .likeSongById(this.props.id)
+                .then(() =>
+                    this.setState({id: this.props.id})); // to trigger song component re-rendered
+        } else {
+            this.songService
+                .unlikeSongById(this.props.id)
+        }
 
     }
 
     toggleRepost() {
         this.setState({reposted: !this.state.reposted})
+        this.songService
+            .repostSongById(this.props.id);
     }
 
     shareLink() {
@@ -152,8 +161,8 @@ class SongItem extends Component {
                                     {this.state.liked && <span className="fa fa-heart fa-fw" style={{color: 'blue'}}/>}
                                 </i>
                                 <i className="btn" onClick={this.toggleRepost}>
-                                    {this.state.reposted && <span className="fa fa-retweet fa-fw"/>}
-                                    {!this.state.reposted && <span className="fa fa-retweet fa-fw" style={{color: 'blue'}}/>}
+                                    {!this.state.reposted && <span className="fa fa-retweet fa-fw"/>}
+                                    {this.state.reposted && <span className="fa fa-retweet fa-fw" style={{color: 'blue'}}/>}
                                     {/*<span className="fa fa-retweet fa-dw"/>*/}
                                 </i>
                                 <i className="btn" onClick={this.shareLink}>
@@ -161,14 +170,15 @@ class SongItem extends Component {
                                 </i>
                                 <i className="btn" onClick={this.tweet}>
                                     {/*<span className="fa fa-twitter fa-fw"/>*/}
-                                    {this.state.tweeted && <span className="fa fa-twitter fa-fw"/>}
-                                    {!this.state.tweeted && <span className="fa fa-twitter fa-fw" style={{color: 'blue'}}/>}
+                                    {!this.state.tweeted && <span className="fa fa-twitter fa-fw"/>}
+                                    {this.state.tweeted && <span className="fa fa-twitter fa-fw" style={{color: 'blue'}}/>}
                                 </i>
                             </div>
 
                             <SongStats likeCount={this.state.likeCount}
                                        playCount={this.state.playCount}
-                                        comments={this.state.comments}/>
+                                        comments={this.state.comments}
+                                       repostCount={this.state.repostCount}/>
 
                         </div>
                     </div>
