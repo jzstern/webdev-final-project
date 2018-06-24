@@ -4,12 +4,21 @@ module.exports = function (app) {
     app.post('/api/song', createSong);
     app.delete('/api/song/:songId', deleteSong);
     app.post('/api/song/:songId', updateSong);
+    app.post('/api/song/like/:songId', likeSongById);
 
     var songModel = require('../models/song/song.model.server');
 
     function findSongById(req, res) {
         var id = req.params['songId'];
         songModel.findSongById(id)
+            .then(function (song) {
+                res.json(song);
+            })
+    }
+
+    function likeSongById(req, res) {
+        var id = req.params['songId'];
+        songModel.likeSongById(id)
             .then(function (song) {
                 res.json(song);
             })

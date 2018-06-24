@@ -27,6 +27,20 @@ class SongService {
 				return response.json()
 			})
 	}
+	likeSongById(songId) {
+		return fetch(URL + '/like/' + songId,
+			{
+                headers: {
+                    'content-type': 'application/json'
+                },
+                method: 'POST'
+			})
+            .then(function(response) {
+                return response.json()
+            })
+	}
+
+
 
     findSongsByName(songName) {
 		// var song = {"title": songName};

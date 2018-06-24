@@ -35,8 +35,9 @@ class Stream extends Component {
 		console.log(this.state.songList);
 		let songs;
 		if (this.state.songList !== null) {
-             songs = this.state.songList.map((song) => {
-                return <SongItem key={song._id}
+             songs = this.state.songList.map((song, key) => {
+                return <SongItem key={key}
+								 id = {song._id}
                                  title={song.title}
                                  artist={song.artist}
                                  genre={song.genre}

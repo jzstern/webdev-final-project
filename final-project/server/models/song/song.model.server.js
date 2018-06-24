@@ -4,6 +4,7 @@ var songModel = mongoose.model('SongModel', songSchema);
 
 function findSongById(songId) {
     return songModel.findById(songId);
+
 }
 
 function createSong(song) {
@@ -26,6 +27,13 @@ function findSongsByName(songName) {
     // return songModel.findOne({title: songName});
 }
 
+function likeSongById(songId) {
+    return songModel.update(
+        {_id: songId},
+        { $inc: {"stats.likeCount": 1}});
+}
+
+
 
 var api = {
     createSong: createSong,
@@ -33,7 +41,8 @@ var api = {
     findSongById: findSongById,
     deleteSong: deleteSong,
     updateSong: updateSong,
-    findSongsByName: findSongsByName
+    findSongsByName: findSongsByName,
+    likeSongById: likeSongById
 
 };
 
