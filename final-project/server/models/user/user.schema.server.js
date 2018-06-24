@@ -18,7 +18,9 @@ var userSchema = mongoose.Schema({
             type: Schema.Types.ObjectId,
             ref: 'user'
         }
-    }]
+    }],
+    likedSong: [],
+    repostSong: []
 }, {collection: 'user'});
 
 module.exports = userSchema;

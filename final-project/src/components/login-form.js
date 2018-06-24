@@ -37,6 +37,7 @@ class LoginForm extends Component {
 			this.userService
 				.login(user)
 				.then(res => {
+                    localStorage.setItem('user', JSON.stringify(res));
 					this.context.router.history.push('/stream')
 				})
 				// .then(res => {
@@ -50,7 +51,9 @@ class LoginForm extends Component {
 			// this.props.loginRequest(this.state)
 			// 	.then(res => this.context.router.history.push('/'),
 			// 		err => this.setState({ errors: err.data.errors, isLoading: false }))
+
 		}
+
 	}
 
 	isValid() {

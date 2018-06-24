@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import '../styles.css'
 import songService from "../services/song.service.client";
+import userService from "../services/user.service.client";
 
 class SongStats extends Component {
     constructor(props) {
@@ -53,10 +54,12 @@ class SongItem extends Component {
             description: 'This is a song! Here is where the waveform will go or something'
         }
         this.songService = songService.instance;
+        this.userService = userService.instance;
         this.tweet = this.tweet.bind(this)
         this.shareLink = this.shareLink.bind(this)
         this.toggleLike = this.toggleLike.bind(this)
         this.toggleRepost = this.toggleRepost.bind(this);
+        this.updateUserLikedSongs = this.updateUserLikedSongs.bind(this);
     }
 
     componentDidMount() {
@@ -79,6 +82,12 @@ class SongItem extends Component {
             tweeted: this.props.tweeted,
             imgUrl: this.props.imgUrl
         });
+
+        // load user info
+        localStorage.getItem('user') && this.setState({
+            user: JSON.parse(localStorage.getItem('user'))
+        }, () =>  console.log(this.state.user));
+
     }
 
     componentWillReceiveProps(newProps) {
@@ -101,6 +110,14 @@ class SongItem extends Component {
 
     }
 
+    // TODO retrieve user info, add current liked song to user song list
+    updateUserLikedSongs() {
+       var user = this.state.user;
+       user.likedSong.push(this.props.id);
+        this.userService
+            .updateUser(user);
+    }
+
     tweet() {
         let songURL = 'http://webdev.halhyatt.com/song/' + this.state.id
         this.setState({tweeted: !this.state.tweeted})
@@ -115,6 +132,7 @@ class SongItem extends Component {
                 .likeSongById(this.props.id)
                 .then(() =>
                     this.setState({id: this.props.id})); // to trigger song component re-rendered
+            this.updateUserLikedSongs();
         } else {
             this.songService
                 .unlikeSongById(this.props.id)
@@ -177,7 +195,7 @@ class SongItem extends Component {
 
                             <SongStats likeCount={this.state.likeCount}
                                        playCount={this.state.playCount}
-                                        comments={this.state.comments}
+                                       comments={this.state.comments}
                                        repostCount={this.state.repostCount}/>
 
                         </div>
