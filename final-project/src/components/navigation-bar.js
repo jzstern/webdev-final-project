@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import jQuery from 'jquery'
 import '../styles.css'
 
 class NavigationBar extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			user: {},
+			user: {
+				accountType: 'listener'
+			},
 			searchText: '',
 			username: '',
 			userId: ''
@@ -20,13 +23,11 @@ class NavigationBar extends Component {
 	}
 
 	isArtist() {
-		// return (this.state.user.accountType === 'artist' || this.state.user.accountType === 'artistPro')
-		return true
+		return (this.state.user.accountType === 'artist' || this.state.user.accountType === 'artistPro')
 	}
 
 	isLoggedIn() {
-		// return (this.state.user.isEmptyObject())
-		return true
+		return !jQuery.isEmptyObject(this.state.user)
 	}
 
 	displayUploadButton() {
