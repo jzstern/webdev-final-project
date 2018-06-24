@@ -14,6 +14,24 @@ class UserService {
 		return this[_singleton]
 	}
 
+	fetchUser() {
+		return fetch(LOCAL_URL + 'profile', {
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			method: 'GET'
+		})
+			.then(function(response) {
+				// console.log(response.json())
+				if (response.status === 406) {
+					console.log('cmon mate no user logged in')
+					return false
+				} else {
+					return response.json()
+				}
+			})
+	}
+
 	login(user) {
 		return fetch(LOCAL_URL + 'login', {
 			body: JSON.stringify(user),
@@ -26,6 +44,7 @@ class UserService {
 				if (response.status === 404) {
 					alert('Login credentials incorrect')
 				} else {
+					// TODO ; set the this.state.user object to user on app.js and re-render components
 					return response.json()
 				}
 			})

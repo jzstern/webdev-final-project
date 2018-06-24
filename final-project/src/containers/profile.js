@@ -20,9 +20,9 @@ class ProfilePage extends Component {
 	}
 
 	componentDidMount() {
-		// this.userService
-		// 	.fetchUser()
-		// 	.then(user => this.setState({user: user}))
+		this.userService
+			.fetchUser()
+			.then(user => this.setState({user: user}))
 		this.songService
 			.findAllSongs()
 			.then((songs) => {

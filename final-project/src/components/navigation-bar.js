@@ -1,25 +1,36 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import jQuery from 'jquery'
+import UserService from "../services/user.service.client"
 import '../styles.css'
 
 class NavigationBar extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			user: {
-				accountType: 'listener'
-			},
+			user: {},
 			searchText: '',
 			username: '',
 			userId: ''
 		}
 
+		this.userService = UserService.instance
 		this.isArtist = this.isArtist.bind(this)
 		this.isLoggedIn = this.isLoggedIn.bind(this)
 		this.displayUploadButton = this.displayUploadButton.bind(this)
 		this.displayLoggedInButtons = this.displayLoggedInButtons.bind(this)
 		this.displayLoggedOutButtons = this.displayLoggedOutButtons.bind(this)
+	}
+
+	componentDidMount() {
+		this.userService
+			.fetchUser()
+			.then(user => {
+				if (user) {
+					// TODO ; display logged out bar
+					this.setState({user: user})
+				}
+			})
 	}
 
 	isArtist() {
