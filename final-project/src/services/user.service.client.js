@@ -22,9 +22,7 @@ class UserService {
 			method: 'GET'
 		})
 			.then(function(response) {
-				// console.log(response.json())
 				if (response.status === 406) {
-					console.log('cmon mate no user logged in')
 					return false
 				} else {
 					return response.json()
@@ -65,14 +63,14 @@ class UserService {
 	}
 
 	updateUser(user) {
-		return fetch(LOCAL_URL + '/' + user.userId, {
+		return fetch(LOCAL_URL + 'user/' + user._id, {
 			body: JSON.stringify(user),
 			headers: {
 				'content-type': 'application/json'
 			},
 			method: 'PUT'
 		})
-			.then(function(response) {
+			.then(response => {
 				return response.json()
 			})
 	}
@@ -91,7 +89,7 @@ class UserService {
 	}
 
 	deleteUser(userId) {
-		return fetch(LOCAL_URL + '/' + userId, {
+		return fetch(LOCAL_URL + 'user/' + userId, {
 			method: 'DELETE'
 		})
 			.then(function(response) {

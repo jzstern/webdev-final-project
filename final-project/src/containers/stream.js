@@ -20,37 +20,31 @@ class Stream extends Component {
 		this.songService
 			.findAllSongs()
 			.then((songs) => {
-				this.setSongs(songs);
+				this.setSongs(songs)
 			})
 	}
 
 	setSongs(songs) {
-		this.setState({
-			songList: songs
-		});
-		this.renderSongs();
+		this.setState({songList: songs})
+		this.renderSongs()
 	}
 
 	renderSongs() {
-		console.log(this.state.songList);
 		let songs;
 		if (this.state.songList !== null) {
-             songs = this.state.songList.map((song, key) => {
-                return <SongItem key={key}
-								 id = {song._id}
-                                 title={song.title}
-                                 artist={song.artist}
-                                 genre={song.genre}
-                                 stats={song.stats}
-                                 // comments={song.comments}
-                                 liked={song.liked}
-                                 reposted={song.reposted}
-                                 tweeted={song.tweeted}
-                                 imgUrl={song.imgUrl}
-                                 description={song.description}/>
-            });
-        }
-		return songs;
+			songs = this.state.songList.map((song, key) => {
+				return <SongItem key={key}
+				                 id = {song._id}
+				                 title={song.title}
+				                 artist={song.artist}
+				                 genre={song.genre}
+				                 stats={song.stats}
+											// comments={song.comments}
+					               imgUrl={song.imgUrl}
+					               description={song.description}/>
+			})
+		}
+		return songs
 	}
 
 
@@ -65,22 +59,22 @@ class Stream extends Component {
 
 				<ul className="list-group list-group-flush">
 					{/*{songList.map((song) => (*/}
-						{/*<li key={song.id}*/}
-							{/*className="list-group-item">*/}
-							{/*<SongItem/>*/}
-						{/*</li>*/}
+					{/*<li key={song.id}*/}
+					{/*className="list-group-item">*/}
+					{/*<SongItem/>*/}
+					{/*</li>*/}
 					{/*))}*/}
 					{this.renderSongs()}
 
 					{/*{songList.map(song => (*/}
-						{/*<li className="list-group-item">*/}
-							{/*<SongItem key={song.id}*/}
-							          {/*title={song.title}*/}
-							          {/*artist={song.artist}*/}
-							          {/*playCount={song.playCount}*/}
-							          {/*repostCount={song.repostCount}*/}
-							          {/*comments={song.comments}/>*/}
-						{/*</li>*/}
+					{/*<li className="list-group-item">*/}
+					{/*<SongItem key={song.id}*/}
+					{/*title={song.title}*/}
+					{/*artist={song.artist}*/}
+					{/*playCount={song.playCount}*/}
+					{/*repostCount={song.repostCount}*/}
+					{/*comments={song.comments}/>*/}
+					{/*</li>*/}
 					{/*// ))}*/}
 				</ul>
 			</div>

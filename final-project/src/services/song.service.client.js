@@ -27,51 +27,63 @@ class SongService {
 				return response.json()
 			})
 	}
+
 	likeSongById(songId) {
-		return fetch(URL + '/like/' + songId,
-			{
-                headers: {
-                    'content-type': 'application/json'
-                },
-                method: 'POST'
+		return fetch(URL + '/like/' + songId, {
+				headers: {
+					'content-type': 'application/json'
+				},
+				method: 'PUT'
 			})
-            .then(function(response) {
-                return response.json()
-            })
-	}
-    unlikeSongById(songId) {
-        return fetch(URL + '/unlike/' + songId,
-            {
-                headers: {
-                    'content-type': 'application/json'
-                },
-                method: 'POST'
-            })
-            .then(function(response) {
-                return response.json()
-            })
-    }
-
-    repostSongById(songId) {
-        return fetch(URL + '/repost/' + songId,
-            {
-                headers: {
-                    'content-type': 'application/json'
-                },
-                method: 'POST'
-            })
-            .then(function(response) {
-                return response.json()
-            })
+			.then(function(response) {
+				return response.json()
+			})
 	}
 
-    findSongsByName(songName) {
+	unlikeSongById(songId) {
+		return fetch(URL + '/unlike/' + songId,
+			{
+				headers: {
+					'content-type': 'application/json'
+				},
+				method: 'PUT'
+			})
+			.then(function(response) {
+				return response.json()
+			})
+	}
+
+	repostSongById(songId) {
+		return fetch(URL + '/repost/' + songId, {
+				headers: {
+					'content-type': 'application/json'
+				},
+				method: 'PUT'
+			})
+			.then(function(response) {
+				return response.json()
+			})
+	}
+
+	unrepostSongById(songId) {
+		return fetch(URL + '/unrepost/' + songId, {
+				headers: {
+					'content-type': 'application/json'
+				},
+				method: 'PUT'
+			})
+			.then(function(response) {
+				return response.json()
+			})
+	}
+
+	findSongsByName(songName) {
 		// var song = {"title": songName};
 		return fetch(URL + "?title=" +songName)
 			.then(function(response) {
 				return response.json()
-            })
-    }
+			})
+	}
 
 	updateSong(song) {
 		return fetch(URL + '/' + song.songId, {

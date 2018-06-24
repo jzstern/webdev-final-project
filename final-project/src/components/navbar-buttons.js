@@ -24,7 +24,7 @@ class NavBarButtons extends Component {
 					</Link>
 				</li>
 				<li className="nav-item">
-					<Link to={'/stream'} onClick={this.logout}>
+					<Link to={'/login'} onClick={this.logout}>
 						<span className="glyphicon glyphicon-log-in fa-fw"/> Logout
 					</Link>
 				</li>
@@ -73,7 +73,8 @@ class NavBarButtons extends Component {
 	}
 
 	isArtist() {
-		return localStorage.getItem(('user')).accountType === 'artist' || localStorage.getItem(('user')).accountType === 'artistPro'
+		let user = JSON.parse(localStorage.getItem('user'))
+		return user.accountType === 'artist' || user.accountType === 'artistPro'
 	}
 
 	componentDidMount() {

@@ -44,7 +44,11 @@ function repostSongById(songId) {
     { $inc: {"stats.repostCount": 1}});
 }
 
-
+function unrepostSongById(songId) {
+	return songModel.update(
+		{_id: songId},
+		{ $inc: {"stats.repostCount": -1}});
+}
 
 
 var api = {
@@ -55,9 +59,9 @@ var api = {
     updateSong: updateSong,
     findSongsByName: findSongsByName,
     likeSongById: likeSongById,
+    unlikeSongById: unlikeSongById,
     repostSongById: repostSongById,
-    unlikeSongById: unlikeSongById
+    unrepostSongById: unrepostSongById
+}
 
-};
-
-module.exports = api;
+module.exports = api

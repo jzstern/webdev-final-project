@@ -8,7 +8,7 @@ module.exports = function (app) {
 	app.post('/api/register', register);
 	app.get('/api/profile', profile);
 	app.delete('/api/user/:userId', deleteUser);
-	app.post('/api/user/:userId', updateUser);
+	app.put('/api/user/:userId', updateUser);
 	app.get('/api/user/:userId/follower', findAllFollowerForUser);
 	app.get('/api/user/:userId/following', findAllFollowingForUser);
 
@@ -74,8 +74,8 @@ module.exports = function (app) {
 		var user = req.body;
 		userModel.deleteUser(user.id)
 			.then(function(error, user) {
-				if (user == null) {
-					res.send(error, 404);
+				if (user === null) {
+					res.sendStatus(404);
 				}
 				else {
 					res.send(user);
@@ -85,10 +85,10 @@ module.exports = function (app) {
 
 	function updateUser(req, res) {
 		var user = req.body;
-		userModel.updateUser(user.id, user)
-			.then(function(error, user) {
-				if (user == null) {
-					res.send(error, 404);
+		userModel.updateUser(user._id, user)
+			.then(function(user) {
+				if (user === null) {
+					res.sendStatus(404);
 				}
 				else {
 					res.send(user);
