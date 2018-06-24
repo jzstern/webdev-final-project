@@ -1,55 +1,18 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-import jQuery from 'jquery'
-import UserService from "../services/user.service.client"
-import '../styles.css'
-import SearchBar from './searchbar'
 
-class NavigationBar extends Component {
+class NavBarButtons extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			user: {},
-			searchText: '',
-			username: '',
-			userId: ''
+			user: {
+				accountType: 'artist'
+			}
 		}
-
-		this.userService = UserService.instance
 		this.isArtist = this.isArtist.bind(this)
-		this.isLoggedIn = this.isLoggedIn.bind(this)
 		this.displayUploadButton = this.displayUploadButton.bind(this)
 		this.displayLoggedInButtons = this.displayLoggedInButtons.bind(this)
 		this.displayLoggedOutButtons = this.displayLoggedOutButtons.bind(this)
-	}
-
-	componentDidMount() {
-		this.userService
-			.fetchUser()
-			.then(user => {
-				if (user) {
-					// TODO ; display logged out bar
-					this.setState({user: user})
-				}
-			})
-	}
-
-	isArtist() {
-		return (this.state.user.accountType === 'artist' || this.state.user.accountType === 'artistPro')
-	}
-
-	isLoggedIn() {
-		return !jQuery.isEmptyObject(this.state.user)
-	}
-
-	displayUploadButton() {
-		return(
-			<li hidden={!this.isArtist()} className="nav-item">
-				<Link to={'/upload'}>
-					<span className="glyphicon glyphicon-cloud-upload fa-fw"/> Upload
-				</Link>
-			</li>
-		)
 	}
 
 	displayLoggedInButtons() {
@@ -92,15 +55,26 @@ class NavigationBar extends Component {
 		)
 	}
 
+	displayUploadButton() {
+		return(
+			<li hidden={!this.isArtist()} className="nav-item">
+				<Link to={'/upload'}>
+					<span className="glyphicon glyphicon-cloud-upload fa-fw"/> Upload
+				</Link>
+			</li>
+		)
+	}
+
+	isArtist() {
+		return (this.state.user.accountType === 'artist' || this.state.user.accountType === 'artistPro')
+	}
+
 	render() {
 		return (
-			<nav className="navbar navbar-expand-lg navbar-inverse justify-content-between">
-				<span className="glyphicon glyphicon-cloud"/>
-				<Link to={'/stream'}>StreamCloud</Link>
-				<SearchBar renderResults={this.props.renderResults}/>
-				{ this.isLoggedIn() ? this.displayLoggedInButtons() : this.displayLoggedOutButtons() }
-			</nav>
+			<div>
+				{ this.state.user.accountType === 'artist' ? this.displayLoggedInButtons() : this.displayLoggedOutButtons() }
+			</div>
 		)
 	}
 }
-export default NavigationBar
+export default NavBarButtons

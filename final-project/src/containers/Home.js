@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import '../styles.css'
-import NavigationBar from './../components/navigation-bar'
+import NavigationBar from './navigation-bar'
 import SongItem from '../components/song-item'
 
 export default class extends Component {

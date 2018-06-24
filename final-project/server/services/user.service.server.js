@@ -42,15 +42,11 @@ module.exports = function (app) {
 	}
 
 	function profile(req, res) {
-		console.log(req.session['currentUser'])
-
 		if (req.session['currentUser'] === undefined) {
-			console.log('ffs')
 			res.sendStatus(406)
 		} else {
 			res.send(req.session['currentUser']);
 		}
-
 	}
 
 	function createUser(req, res) {
@@ -61,10 +57,7 @@ module.exports = function (app) {
 		userModel
 			.findUserByUsername(user.username)
 			.then(function (existingUser) {
-				console.log(existingUser)
 				if (existingUser !== undefined) {
-					console.log('no user of that name hurrr')
-          console.log(user.username)
 					// TODO ; also check if user w/ same email address already exists
 					userModel.createUser(user)
 						.then(function (user) {
