@@ -45,6 +45,7 @@ class Upload extends Component {
 				.createSong(newSong)
 				.then(() => {
 					this.context.router.history.push('/stream')
+					// TODO ; redirect to song's individual page
 				})
 		}
 	}

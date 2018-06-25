@@ -20,12 +20,14 @@ class ProfilePage extends Component {
 	}
 
 	componentDidMount() {
-		this.userService
-			.fetchUser()
-			.then(user => this.setState({user: user}))
+		// this.userService
+		// 	.fetchUser()
+		// 	.then(user => this.setState({user: user}))
+		this.setState({user: JSON.parse(localStorage.getItem('user'))})
 		this.songService
-			.findAllSongs()
+			.findAllSongsByArtist(JSON.parse(localStorage.getItem('user'))._id)
 			.then((songs) => {
+				console.log(songs)
 				this.setSongs(songs)
 			})
 	}
@@ -60,7 +62,8 @@ class ProfilePage extends Component {
 	render() {
 		return (
 			<div className="container">
-				<h1>PROFILE PAGE</h1>
+				<h1>PROFILE PAGE for {JSON.parse(localStorage.getItem('user')).displayName}</h1>
+
 				<div>
 					<a href="#">
 						<span className="glyphicon glyphicon-filter"/>

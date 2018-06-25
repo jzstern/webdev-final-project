@@ -8,6 +8,7 @@ module.exports = function (app) {
 	app.put('/api/song/unlike/:songId', unlikeSongById)
 	app.put('/api/song/repost/:songId', repostSongById)
 	app.put('/api/song/unrepost/:songId', unrepostSongById)
+	app.get('/api/song/:artistId', findAllSongsByArtist);
 
 	var songModel = require('../models/song/song.model.server')
 
@@ -64,19 +65,15 @@ module.exports = function (app) {
 
 	function createSong(req, res) {
 		let song = req.body
-		let stats = {
+		song.stats = {
 			playCount: 0,
 			likeCount: 0,
 			repostCount: 0
 		}
 
-		song.stats = stats
-
-		console.log(song)
-
 		songModel.createSong(song)
 			.then(function (song) {
-				req.session['currentSong'] = song
+				// req.session['currentSong'] = song
 				res.send(song)
 			})
 	}
@@ -109,7 +106,6 @@ module.exports = function (app) {
 
 	function findSongs(req, res) {
 		if (req.query.title) {
-			console.log(req.query)
 			const regex = new RegExp(escapeRegex(req.query.title),'gi')
 			songModel
 				.findSongsByName(regex)
@@ -124,8 +120,16 @@ module.exports = function (app) {
 		}
 	}
 
-	function findSongsByArtist(req, res) {
+	function findAllSongsByArtist(req, res) {
+		console.log('finding all songs by artist');
 
+		let artistId = req.params['artistId']
+		songModel
+			.findAllSongsByArtist(artistId)
+			.then(function (songs) {
+				console.log(songs)
+				res.json(songs)
+			})
 	}
 
 	function escapeRegex(text) {

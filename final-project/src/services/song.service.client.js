@@ -21,6 +21,18 @@ class SongService {
 			})
 	}
 
+	findAllSongsByArtist(artistId) {
+		return fetch(URL + '/' + artistId, {
+			headers: {
+				'content-type': 'application/json'
+			},
+			method: 'GET'
+		})
+			.then(function(response) {
+				return response.json()
+			})
+	}
+
 	findSongById(songId) {
 		return fetch(URL + '/' + songId)
 			.then(function(response) {
@@ -30,11 +42,11 @@ class SongService {
 
 	likeSongById(songId) {
 		return fetch(URL + '/like/' + songId, {
-				headers: {
-					'content-type': 'application/json'
-				},
-				method: 'PUT'
-			})
+			headers: {
+				'content-type': 'application/json'
+			},
+			method: 'PUT'
+		})
 			.then(function(response) {
 				return response.json()
 			})
@@ -55,11 +67,11 @@ class SongService {
 
 	repostSongById(songId) {
 		return fetch(URL + '/repost/' + songId, {
-				headers: {
-					'content-type': 'application/json'
-				},
-				method: 'PUT'
-			})
+			headers: {
+				'content-type': 'application/json'
+			},
+			method: 'PUT'
+		})
 			.then(function(response) {
 				return response.json()
 			})
@@ -67,11 +79,11 @@ class SongService {
 
 	unrepostSongById(songId) {
 		return fetch(URL + '/unrepost/' + songId, {
-				headers: {
-					'content-type': 'application/json'
-				},
-				method: 'PUT'
-			})
+			headers: {
+				'content-type': 'application/json'
+			},
+			method: 'PUT'
+		})
 			.then(function(response) {
 				return response.json()
 			})

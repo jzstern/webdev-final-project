@@ -42,11 +42,11 @@ module.exports = function (app) {
 	}
 
 	function profile(req, res) {
-		if (req.session['currentUser'] === undefined) {
-			res.sendStatus(406)
-		} else {
-			res.send(req.session['currentUser']);
-		}
+		// if (req.session['currentUser'] === undefined) {
+		// 	res.sendStatus(406)
+		// } else {
+		// 	res.send(req.session['currentUser']);
+		// }
 	}
 
 	function createUser(req, res) {
@@ -61,7 +61,7 @@ module.exports = function (app) {
 					// TODO ; also check if user w/ same email address already exists
 					userModel.createUser(user)
 						.then(function (user) {
-							req.session['currentUser'] = user;
+							// req.session['currentUser'] = user;
 							res.send(user);
 						})
 				} else {
@@ -124,7 +124,7 @@ module.exports = function (app) {
 		userModel.findUserByCredentials(user)
 			.then(function (user) {
 				if (user) {
-					req.session['currentUser'] = user;
+					// req.session['currentUser'] = user;
 					res.send(user);
 				} else {
 					res.sendStatus(404);
