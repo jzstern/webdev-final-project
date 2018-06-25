@@ -11,6 +11,10 @@ import Profile from './containers/profile'
 import { userRegistrationRequest } from './actions/register.actions'
 import { loginRequest } from './actions/login.actions'
 import Home from './containers/Home'
+import Likes from "./components/likes";
+import Reposts from "./components/reposts";
+import Tracks from "./components/tracks";
+
 
 class App extends Component {
 	constructor(props) {
@@ -35,6 +39,7 @@ class App extends Component {
 					{/*<RegisterForm registerUser={userRegistrationRequest}/>*/}
 					<Route path="/register" render={(props) => <RegisterForm {...props} registerUser={userRegistrationRequest}/>}/>
 					<Route path="/profile" render={(props) => <Profile/>}/>
+
 					{/*<Route path="/upload" component={Upload}/>*/}
 					<Route path="/upload" render={(props) => <Upload {...props} user={this.state.user}/>}/>
 					<FixedBottomBar/>
