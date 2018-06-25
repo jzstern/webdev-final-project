@@ -104,9 +104,8 @@ class ProfilePage extends Component {
                                     </ul>
                                 </div>
                                 <div className="card-body">
-                                    {/*{this.props.children}*/}
                                     <Route path='/profile/:userId/tracks' render={(props) => <Tracks/>}/>
-                                    <Route path='/profile/:userId/reposts' render={(props) => <Reposts/>}/>
+                                    <Route path='/profile/:userId/reposts' render={(props) => <Reposts user={this.state.user}/>}/>
                                     <Route path='/profile/:userId/likes' render={(props) => <Likes/>}/>
 
                                 </div>
