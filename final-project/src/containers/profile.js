@@ -23,6 +23,8 @@ class ProfilePage extends Component {
         this.userService = UserService.instance
         this.setSongs = this.setSongs.bind(this)
         this.renderSongs = this.renderSongs.bind(this)
+		this.getFollowers =  this.getFollowers.bind(this);
+        this.getFollowings = this.getFollowings.bind(this);
     }
 
     componentDidMount() {
@@ -33,12 +35,6 @@ class ProfilePage extends Component {
             user: JSON.parse(localStorage.getItem('user')),
             userId: JSON.parse(localStorage.getItem('user'))._id
         });
-        // this.songService
-        //     .findAllSongsByArtist(JSON.parse(localStorage.getItem('user'))._id)
-        //     .then((songs) => {
-        //         console.log(songs)
-        //         this.setSongs(songs)
-        //     })
     }
 
     componentWillReceiveProps(newProps) {
@@ -51,6 +47,12 @@ class ProfilePage extends Component {
         this.renderSongs()
     }
 
+    getFollowers() {
+    	//TODO
+	}
+    getFollowings() {
+       // TODO
+	}
     renderSongs() {
         let songs
         if (this.state.songList !== null) {
@@ -112,38 +114,31 @@ class ProfilePage extends Component {
                             </div>
                         </div>
                         <div className="col-sm-4">
+                            <div className="row">
                             <div className="col-sm-6">
                                 Followers
+
+
                             </div>
                             <div className="col-sm-6">
                                 Following
                             </div>
+                            </div>
+                            <div class="row">
+                                <div className="col-sm-6">
+									{this.getFollowers()}
+
+
+                                </div>
+                                <div className="col-sm-6">
+									{this.getFollowings()}
+                                </div>
+							</div>
 
                         </div>
                     </div>
                 </div>
 
-
-                <ul className="list-group list-group-flush">
-                    {/*{songList.map((song) => (*/}
-                    {/*<li key={song.id}*/}
-                    {/*className="list-group-item">*/}
-                    {/*<SongItem/>*/}
-                    {/*</li>*/}
-                    {/*))}*/}
-                    {this.renderSongs()}
-
-                    {/*{songList.map(song => (*/}
-                    {/*<li className="list-group-item">*/}
-                    {/*<SongItem key={song.id}*/}
-                    {/*title={song.title}*/}
-                    {/*artist={song.artist}*/}
-                    {/*playCount={song.playCount}*/}
-                    {/*repostCount={song.repostCount}*/}
-                    {/*comments={song.comments}/>*/}
-                    {/*</li>*/}
-                    {/*// ))}*/}
-                </ul>
             </div>
         )
     }
