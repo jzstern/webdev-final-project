@@ -106,7 +106,7 @@ class ProfilePage extends Component {
                                 <div className="card-body">
                                     <Route path='/profile/:userId/tracks' render={(props) => <Tracks/>}/>
                                     <Route path='/profile/:userId/reposts' render={(props) => <Reposts user={this.state.user}/>}/>
-                                    <Route path='/profile/:userId/likes' render={(props) => <Likes/>}/>
+                                    <Route path='/profile/:userId/likes' render={(props) => <Likes user={this.state.user}/>}/>
 
                                 </div>
                             </div>

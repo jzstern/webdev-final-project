@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import SongItem from '../components/song-item'
+import SongItemWrapper from './song-item-wrapper'
 
 export default class Reposts extends Component {
     constructor(props) {
@@ -23,10 +23,10 @@ export default class Reposts extends Component {
         let songs;
         if (this.state.repostedSongs) {
             songs = this.state.repostedSongs.map((song, key) => {
-                return (
-                    <li className="list-group-item">{song}</li>
-                )
-
+                if (song !== null)
+                    return <div className="container">
+                        <SongItemWrapper song={song}/>
+                    </div>
             })
         }
         return songs
@@ -35,7 +35,7 @@ export default class Reposts extends Component {
     render() {
         return (
             <div className="card-body">
-                <h5 className="card-title">Reposts Component</h5>
+                <h5 className="card-title">Songs you reposted</h5>
 
                 <ul className="list-group list-group-flush">
 
