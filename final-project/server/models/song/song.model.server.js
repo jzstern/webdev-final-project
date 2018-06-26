@@ -14,8 +14,18 @@ function deleteSong(songId) {
 }
 
 function updateSong(songId, newSong) {
-	return songModel.update({_id: songId}, {$set:newSong});
+	return songModel.update({_id: songId},
+		{$set:newSong});
 }
+
+// function updateSong(songId, newSong) {
+//     return songModel.replaceOne(
+//     	{_id: songId},
+//         {newSong},
+// 		{
+//     		upsert: true
+// 		});
+// }
 
 function findAllSongs() {
 	return songModel.find();
@@ -50,7 +60,8 @@ function unrepostSongById(songId) {
 }
 
 function findAllSongsByArtist(artistId) {
-  return songModel.find({artistId: artistId})
+	console.log(songModel.find({artistId: artistId}));
+  return songModel.find({artistId: artistId});
 }
 
 

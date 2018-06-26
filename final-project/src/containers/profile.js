@@ -33,12 +33,12 @@ class ProfilePage extends Component {
             user: JSON.parse(localStorage.getItem('user')),
             userId: JSON.parse(localStorage.getItem('user'))._id
         });
-        this.songService
-            .findAllSongsByArtist(JSON.parse(localStorage.getItem('user'))._id)
-            .then((songs) => {
-                console.log(songs)
-                this.setSongs(songs)
-            })
+        // this.songService
+        //     .findAllSongsByArtist(JSON.parse(localStorage.getItem('user'))._id)
+        //     .then((songs) => {
+        //         console.log(songs)
+        //         this.setSongs(songs)
+        //     })
     }
 
     componentWillReceiveProps(newProps) {
@@ -104,7 +104,7 @@ class ProfilePage extends Component {
                                     </ul>
                                 </div>
                                 <div className="card-body">
-                                    <Route path='/profile/:userId/tracks' render={(props) => <Tracks/>}/>
+                                    <Route path='/profile/:userId/tracks' render={(props) => <Tracks user={this.state.user}/>}/>
                                     <Route path='/profile/:userId/reposts' render={(props) => <Reposts user={this.state.user}/>}/>
                                     <Route path='/profile/:userId/likes' render={(props) => <Likes user={this.state.user}/>}/>
 

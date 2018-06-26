@@ -18,8 +18,6 @@ export default class Reposts extends Component {
 
     }
     renderSongs() {
-        console.log(this.props.user);
-        console.log(this.props.user.repostedSongs);
         let songs;
         if (this.state.repostedSongs) {
             songs = this.state.repostedSongs.map((song, key) => {

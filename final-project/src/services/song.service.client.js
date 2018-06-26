@@ -22,14 +22,9 @@ class SongService {
 	}
 
 	findAllSongsByArtist(artistId) {
-		return fetch(URL + '/' + artistId, {
-			headers: {
-				'content-type': 'application/json'
-			},
-			method: 'GET'
-		})
+		return fetch(URL + '/artist/' + artistId)
 			.then(function(response) {
-				return response.json()
+				return response ? response.json() : {}
 			})
 	}
 

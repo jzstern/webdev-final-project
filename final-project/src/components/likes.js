@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import SongItem from '../components/song-item'
 import songService from '../services/song.service.client'
 import SongItemWrapper from './song-item-wrapper'
 
