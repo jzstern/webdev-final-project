@@ -3,9 +3,9 @@ import SongItem from '../components/song-item'
 import SongService from "../services/song.service.client"
 import UserService from "../services/user.service.client"
 import {Link, Route} from 'react-router-dom'
-import Likes from "../components/likes"
-import Reposts from "../components/reposts"
-import Tracks from "../components/tracks"
+import Likes from "./likes"
+import Reposts from "./reposts"
+import Tracks from "./tracks"
 import '../styles.css'
 
 
@@ -28,6 +28,7 @@ class ProfilePage extends Component {
 		this.getFollowing = this.getFollowing.bind(this)
 		this.followUser = this.followUser.bind(this)
 		this.unfollowUser = this.unfollowUser.bind(this)
+		this.isFollowingUser = this.isFollowingUser.bind(this)
 	}
 
 	componentDidMount() {
@@ -38,14 +39,10 @@ class ProfilePage extends Component {
 		let chunks = url.split("/")
 		let profileId = chunks[4]
 
-		var profile = {}
-
 		this.userService.findUserById(profileId)
 			.then(user => {
-				profile = user
-
 				this.setState({
-					profile: profile,
+					profile: user,
 					user: JSON.parse(localStorage.getItem('user')),
 					userId: JSON.parse(localStorage.getItem('user'))._id
 				})
@@ -71,16 +68,26 @@ class ProfilePage extends Component {
 		alert("unfollow user")
 	}
 
+	isFollowingUser() {
+		let following = JSON.parse(localStorage.getItem('user')).following
+
+		if (following.indexOf(this.state.profile.userId) === -1) {
+			return false
+		} else {
+			return true
+		}
+	}
+
 	getFollowers() {
 		if (this.state.user && this.state.user.followers) {
-			console.log(this.state.user)
+			// console.log(this.state.user)
 			return <h4>{this.state.user.followers.length}</h4>
 		}
 	}
 
 	getFollowing() {
 		if (this.state.user && this.state.user.following) {
-			console.log(this.state.user)
+			// console.log(this.state.user)
 			return <h4>{this.state.user.following.length}</h4>
 		}
 	}
@@ -108,15 +115,15 @@ class ProfilePage extends Component {
 	render() {
 		return (
 			<div className="container">
-				<h2>{JSON.parse(localStorage.getItem('user')).displayName}</h2>
+				<h2>{this.state.profile.displayName}</h2>
 
 				<div hidden={this.state.profile._id === this.state.userId} className="container-fluid">
-					<button type="button"
+					{!this.isFollowingUser() && <button type="button"
 					        className="btn btn-secondary"
-					        onClick={this.followUser}>Follow</button>
-					<button type="button"
+					        onClick={this.followUser}>Follow</button>}
+					{this.isFollowingUser() && <button type="button"
 					        className="btn btn-secondary"
-					        onClick={this.unfollowUser}>Unfollow</button>
+					        onClick={this.unfollowUser}>Unfollow</button>}
 				</div>
 
 				<div className="container-fluid">
@@ -153,7 +160,7 @@ class ProfilePage extends Component {
 									Following
 								</div>
 							</div>
-							<div class="row">
+							<div className="row">
 								<div className="col-sm-6">
 									{this.getFollowers()}
 								</div>

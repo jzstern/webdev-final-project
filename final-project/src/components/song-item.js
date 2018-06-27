@@ -68,26 +68,24 @@ class SongItem extends Component {
 	}
 
 	componentDidMount() {
-		let artist
-
 		this.userService.findUserById(this.props.artistId)
-			.then(res => {
-				artist = res
+			.then(artist => {
+				this.setState({
+					id: this.props.id,
+					artistId: this.props.artistId,
+					displayName: artist.displayName,
+					title: this.props.title,
+					genre: this.props.genre,
+					description: this.props.description,
+					stats: {
+						playCount: this.props.stats.playCount,
+						likeCount: this.props.stats.likeCount,
+						repostCount: this.props.stats.repostCount
+					},
+					// comments: this.props.comments,
+					imgUrl: this.props.imgUrl
+				})
 			})
-
-		this.setState({
-			id: this.props.id,
-			artistId: this.props.artistId,
-			// displayName: artist.displayName,
-			title: this.props.title,
-			genre: this.props.genre,
-			description: this.props.description,
-			playCount: this.props.stats.playCount,
-			likeCount: this.props.stats.likeCount,
-			repostCount: this.props.stats.repostCount,
-			// comments: this.props.comments,
-			imgUrl: this.props.imgUrl
-		})
 
 		// load logged in user info
 		const user = JSON.parse(localStorage.getItem('user'))
@@ -271,21 +269,18 @@ class SongItem extends Component {
 									<span className="glyphicon glyphicon-share fa-fw"/>
 								</i>
 								<i className="btn" onClick={this.tweet}>
-									{/*<span className="fa fa-twitter fa-fw"/>*/}
-									{!this.state.tweeted && <span className="fa fa-twitter fa-fw"/>}
-									{this.state.tweeted && <span className="fa fa-twitter fa-fw" style={{color: 'blue'}}/>}
+									<span className="fa fa-twitter fa-fw"/>
 								</i>
 							</div>
 
-							<SongStats likeCount={this.state.likeCount}
-							           playCount={this.state.playCount}
-							           comments={this.state.comments}
-							           repostCount={this.state.repostCount}/>
+							<SongStats playCount={this.state.stats.playCount}
+							           likeCount={this.state.stats.likeCount}
+							           repostCount={this.state.stats.repostCount}
+							           comments={this.state.comments}/>
 						</div>
 					</div>
 				</div>
 			</div>
-
 		)
 	}
 }

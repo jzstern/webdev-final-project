@@ -34,7 +34,7 @@ export default class extends Component {
 			songs = this.state.results.map((song) => {
 				return <SongItem key={song._id}
 				                 title={song.title}
-				                 artist={song.artist}
+				                 artistId={song.artistId}
 				                 genre={song.genre}
 				                 stats={song.stats}
 				                 liked={song.liked}
