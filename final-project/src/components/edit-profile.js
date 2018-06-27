@@ -136,7 +136,7 @@ class EditProfile extends Component {
 			</div>
 
 			<div className="form-group">
-				<button onClick={this.update} className="btn btn-secondary btn-success" style={{marginRight: 10}}>Update</button>
+				<button onClick={this.update} className="btn btn-success" style={{marginRight: 10}}>Update</button>
 			</div>
 		</div>
 	)
