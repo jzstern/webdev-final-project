@@ -75,6 +75,12 @@ class UserService {
 				return response.json()
 			})
 	}
+	findAllUsers()  {
+		return fetch(LOCAL_URL + 'user')
+			.then(function(response) {
+				return response.json()
+			})
+	}
 
 	findUserByUsername(username) {
 		return fetch(LOCAL_URL + '/' + username)
