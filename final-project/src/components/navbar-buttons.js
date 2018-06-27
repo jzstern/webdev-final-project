@@ -73,6 +73,7 @@ class NavBarButtons extends Component {
 
 	isLoggedIn() {
 		return localStorage.getItem('user') !== null
+
 	}
 
 	isArtist() {

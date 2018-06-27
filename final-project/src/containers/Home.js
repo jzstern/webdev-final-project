@@ -11,6 +11,7 @@ import Profile from '../containers/profile'
 import EditProfile from '../components/edit-profile'
 import { userRegistrationRequest } from '../actions/register.actions'
 import { loginRequest } from '../actions/login.actions'
+import Admin from '../containers/admin'
 import '../styles.css'
 
 export default class extends Component {
@@ -75,6 +76,9 @@ export default class extends Component {
 
 				{/*<Route path="/upload" component={Upload}/>*/}
 				<Route path="/upload" render={(props) => <Upload {...props} user={this.state.user}/>}/>
+
+				<Route path="/admin" render={(props) => <Admin {...props} />}/>
+
 				<FixedBottomBar/>
 			</div>
 		)

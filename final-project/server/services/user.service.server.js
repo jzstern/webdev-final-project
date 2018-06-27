@@ -73,8 +73,8 @@ module.exports = function (app) {
 	}
 
 	function deleteUser(req, res) {
-		var user = req.body;
-		userModel.deleteUser(user.id)
+		var user = req.params['userId'];
+		userModel.deleteUser(user)
 			.then(function(error, user) {
 				if (user === null) {
 					res.sendStatus(404);

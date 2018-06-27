@@ -78,7 +78,7 @@ function findUserByUsername(username) {
 }
 
 function deleteUser(userId) {
-    return userModel.remove({_id:userId});
+    return userModel.deleteOne({_id:userId});
 }
 
 function updateUser(userId, newUser) {
