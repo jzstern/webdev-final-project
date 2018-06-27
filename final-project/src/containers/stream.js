@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import SongItem from '../components/song-item'
-import SongService from "../services/song.service.client";
+import SongService from "../services/song.service.client"
 import '../styles.css'
 
 class Stream extends Component {
@@ -11,9 +11,9 @@ class Stream extends Component {
 			currentlyPlaying: null
 		}
 
-		this.songService = SongService.instance;
-		this.setSongs = this.setSongs.bind(this);
-		this.renderSongs = this.renderSongs.bind(this);
+		this.songService = SongService.instance
+		this.setSongs = this.setSongs.bind(this)
+		this.renderSongs = this.renderSongs.bind(this)
 	}
 
 	componentDidMount() {
@@ -30,7 +30,7 @@ class Stream extends Component {
 	}
 
 	renderSongs() {
-		let songs;
+		let songs
 		if (this.state.songList !== null) {
 			songs = this.state.songList.map((song, key) => {
 				return <SongItem key={key}
@@ -46,40 +46,15 @@ class Stream extends Component {
 		}
 		return songs
 	}
-
-
+	
 	render() {
 		return (
 			<div className="container">
-				<div>
-					<a href="#">
-						<span className="glyphicon glyphicon-filter"/>
-					</a>
-				</div>
-
 				<ul className="list-group list-group-flush">
-					{/*{songList.map((song) => (*/}
-					{/*<li key={song.id}*/}
-					{/*className="list-group-item">*/}
-					{/*<SongItem/>*/}
-					{/*</li>*/}
-					{/*))}*/}
 					{this.renderSongs()}
-
-					{/*{songList.map(song => (*/}
-					{/*<li className="list-group-item">*/}
-					{/*<SongItem key={song.id}*/}
-					{/*title={song.title}*/}
-					{/*artist={song.artist}*/}
-					{/*playCount={song.playCount}*/}
-					{/*repostCount={song.repostCount}*/}
-					{/*comments={song.comments}/>*/}
-					{/*</li>*/}
-					{/*// ))}*/}
 				</ul>
 			</div>
 		)
 	}
 }
-
 export default Stream

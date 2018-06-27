@@ -25,9 +25,7 @@ export default class extends Component {
 
 	componentDidMount() {
 		let url = window.location.href
-		console.log(url)
 		if (url === 'http://localhost:3000/') {
-			console.log('redirect pls')
 			window.location.href = 'http://localhost:3000/stream'
 		}
 	}
