@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
-import SongItem from '../components/song-item'
-import SongService from "../services/song.service.client"
 import UserService from "../services/user.service.client"
-import {Link, Route} from 'react-router-dom'
 import '../styles.css'
 
 class Admin extends Component {
@@ -13,7 +10,9 @@ class Admin extends Component {
             email: '',
             displayName: '',
             password: '',
-            accountType:'listener'
+            accountType:'listener',
+            username: '',
+            editUserId: null
 
         }
         this.userService = UserService.instance;
@@ -23,6 +22,8 @@ class Admin extends Component {
         this.fetchUsers = this.fetchUsers.bind(this);
         this.register = this.register.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.fillFormWithUserInfo = this.fillFormWithUserInfo.bind(this);
+        this.displayEditButton = this.displayEditButton.bind(this);
     }
 
     componentDidMount() {
@@ -45,6 +46,12 @@ class Admin extends Component {
         }
     }
 
+    displayEditButton() {
+        console.log(this.state.editUserId);
+        return <button className="btn btn-primary"
+                hidden={this.state.editUserId == null}
+                onClick={() => this.edit(this.state.editUserId)}>Edit User</button>
+    }
     register(e) {
         e.preventDefault()
 
@@ -62,13 +69,38 @@ class Admin extends Component {
                 if (res.status === 500) {
                     alert('Sorry, that username is already taken')
                 } else {
-                   this.fetchUsers();
+                    this.fetchUsers();
                 }
             })
     }
+    fillFormWithUserInfo(userId) {
+        this.userService
+            .findUserById(userId)
+            .then((res) => this.setState({
+                email: res.email,
+                displayName: res.displayName,
+                accountType: res.accountType,
+                username: res.username,
+                editUserId: userId
+            }));
+    }
 
     edit(userId) {
+        console.log(userId);
+        let user = {
+            email: this.state.email,
+            _id: userId,
+            displayName: this.state.displayName,
+            username: this.state.username,
+            password: this.state.password,
+            accountType: this.state.accountType
+        }
 
+        this.userService
+            .updateUser(user)
+            .then((res) => {
+                this.fetchUsers();
+            })
     }
 
     renderUsers() {
@@ -76,13 +108,13 @@ class Admin extends Component {
         if (this.state.users !== null) {
             userlist = this.state.users.map((user) => {
                 return <li className="list-group-item">
-                    {user.displayName}
+                    <a onClick={() => {this.fillFormWithUserInfo(user._id)}}>{user.displayName}</a>
                     <span className="float-right">
                      <button onClick={() =>
                      {this.delete(user._id)}}><i className="fa fa-trash"></i>
                      </button>
-                     <button onCLick={() =>
-                     {this.edit(user._id)}}><i className="fa fa-pencil"></i>
+                     <button onClick={() =>
+                     {this.setState({editUserId: user._id})}}><i className="fa fa-pencil"></i>
                      </button>
             </span>
                 </li>
@@ -178,9 +210,8 @@ class Admin extends Component {
                             <button className="btn btn-secondary" style={{marginRight: 10}}>Create User</button>
                         </div>
 
-                        <Link to={'/login'}>
-                            <button className="btn btn-primary">Edit User</button>
-                        </Link>
+                        { this.state.editUserId  ? this.displayEditButton() : <div></div> }
+
                     </form>
                 </div>
             </div>
