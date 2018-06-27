@@ -1,11 +1,11 @@
 var express = require('express')
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/webdev-final-project');
+mongoose.connect('mongodb://ds119350.mlab.com:19350/webdev-final-project');
 
 // these credentials can be stored as variables on
-var username = "admin";
-var password = "admin123";
+var username = "admin2";
+var password = "admin2";
 
 var connectionString;
 connectionString = 'mongodb://' + username + ':' + password;
@@ -29,14 +29,12 @@ app.use(function(req, res, next) {
     next();
 });
 
-
 var session = require('express-session')
 app.use(session({
     resave: false,
     saveUninitialized: true,
     secret: 'any string'
 }));
-
 
 app.get('/', function (req, res) {
     res.send('Hello World')
@@ -71,4 +69,8 @@ userService(app);
 var songService = require('./services/song.service.server');
 songService(app);
 
-app.listen(4000)
+// twitter stuff
+var twitterService = require('./services/twitter.service.server')
+twitterService(app);
+
+app.listen(4000);
