@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from "react-redux";
 import UserService from '../services/user.service.client'
-import { userRegistrationRequest } from '../actions/register.actions'
-import classnames from 'classnames'
 import '../styles.css'
 
 class EditProfile extends Component {
@@ -134,13 +132,4 @@ class EditProfile extends Component {
 		)
 	}
 }
-
 export default EditProfile
-//
-// EditProfile.propTypes = {
-// 	registerUser: PropTypes.func.isRequired
-// }
-//
-// EditProfile.contextTypes = {
-// 	router: PropTypes.object.isRequired
-// }

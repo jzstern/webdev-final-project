@@ -92,8 +92,8 @@ module.exports = function (app) {
 	}
 
 	function updateSong(req, res) {
-		console.log(req.body);
 		let song = req.body;
+		console.log(song);
 		songModel.updateSong(song.id, song)
 			.then(function(error, song) {
 				if (song === null) {
@@ -123,8 +123,6 @@ module.exports = function (app) {
 	}
 
 	function findAllSongsByArtist(req, res) {
-		console.log('finding all songs by artist');
-
 		let artistId = req.params['artistId']
 		songModel
 			.findAllSongsByArtist(artistId)

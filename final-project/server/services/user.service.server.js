@@ -158,6 +158,7 @@ module.exports = function (app) {
 	}
 
 	function followUser(req, res) {
+		console.log('TRYNA FOLLOW THIS USER')
 		var profileId = req.params['profileId'];
 		var currentUserId = req.body.userId;
 		// var currentUser = req.session['currentUser'];
