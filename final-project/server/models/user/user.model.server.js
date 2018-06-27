@@ -101,6 +101,27 @@ function findAllFollower(userId) {
     });
 }
 
+function followUser(currentUser, friendId) {
+    // add current user as a follower to the person being followed
+    userModel.update(
+        {_id: friendId},
+        { $push: { followers: currentUser}}
+    );
+    return userModel.update(
+        {_id: currentUser},
+        { $push: { following: friendId }});
+}
+
+function unfollowUser(currentUser, friendId) {
+    userModel.update(
+        {_id: friendId},
+        { $pull: { followers: currentUser}}
+    );
+    return userModel.update(
+        {_id: currentUser},
+        { pull: { following: friendId }});
+}
+
 var api = {
     createUser: createUser,
     findAllUsers: findAllUsers,
@@ -110,7 +131,9 @@ var api = {
     findUserByCredentials: findUserByCredentials,
     findUserByUsername: findUserByUsername,
     findAllFollower: findAllFollower,
-    findAllFollowing: findAllFollowing
+    findAllFollowing: findAllFollowing,
+    followUser: followUser,
+    unfollowUser: unfollowUser
 };
 
 module.exports = api;

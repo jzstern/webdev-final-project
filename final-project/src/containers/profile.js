@@ -26,6 +26,8 @@ class ProfilePage extends Component {
 		this.renderSongs = this.renderSongs.bind(this)
 		this.getFollowers =  this.getFollowers.bind(this)
 		this.getFollowing = this.getFollowing.bind(this)
+		this.followUser = this.followUser.bind(this)
+		this.unfollowUser = this.unfollowUser.bind(this)
 	}
 
 	componentDidMount() {
@@ -48,11 +50,11 @@ class ProfilePage extends Component {
 					userId: JSON.parse(localStorage.getItem('user'))._id
 				})
 			})
-
-
 	}
 
-	componentWillReceiveProps(newProps) {}
+	componentWillReceiveProps(newProps) {
+		//TODO  after an update is made, should fetch the user from server again and store in browser local storage
+	}
 
 	setSongs(songs) {
 		this.setState({
@@ -61,19 +63,35 @@ class ProfilePage extends Component {
 		this.renderSongs()
 	}
 
+	followUser() {
+		alert("you are following this user")
+	}
+
+	unfollowUser() {
+		alert("unfollow user")
+	}
+
 	getFollowers() {
-		//TODO
+		if (this.state.user && this.state.user.followers) {
+			console.log(this.state.user)
+			return <h4>{this.state.user.followers.length}</h4>
+		}
 	}
+
 	getFollowing() {
-		// TODO
+		if (this.state.user && this.state.user.following) {
+			console.log(this.state.user)
+			return <h4>{this.state.user.following.length}</h4>
+		}
 	}
+
 	renderSongs() {
 		let songs
 		if (this.state.songList !== null) {
 			songs = this.state.songList.map((song) => {
 				return <SongItem key={song._id}
+				                 artistId={song.artistId}
 				                 title={song.title}
-				                 artist={song.artist}
 				                 genre={song.genre}
 				                 stats={song.stats}
 					// comments={song.comments}
@@ -92,15 +110,13 @@ class ProfilePage extends Component {
 			<div className="container">
 				<h2>{JSON.parse(localStorage.getItem('user')).displayName}</h2>
 
-				<div>
-					<a href="#">
-						<span className="glyphicon glyphicon-filter"/>
-					</a>
-				</div>
-
 				<div hidden={this.state.profile._id === this.state.userId} className="container-fluid">
-					<button type="button" className="btn btn-secondary">Follow</button>
-					<button type="button" className="btn btn-secondary">Unfollow</button>
+					<button type="button"
+					        className="btn btn-secondary"
+					        onClick={this.followUser}>Follow</button>
+					<button type="button"
+					        className="btn btn-secondary"
+					        onClick={this.unfollowUser}>Unfollow</button>
 				</div>
 
 				<div className="container-fluid">
@@ -124,6 +140,7 @@ class ProfilePage extends Component {
 									<Route path='/profile/:userId/tracks' render={(props) => <Tracks user={this.state.user}/>}/>
 									<Route path='/profile/:userId/reposts' render={(props) => <Reposts user={this.state.user}/>}/>
 									<Route path='/profile/:userId/likes' render={(props) => <Likes user={this.state.user}/>}/>
+
 								</div>
 							</div>
 						</div>
@@ -131,27 +148,22 @@ class ProfilePage extends Component {
 							<div className="row">
 								<div className="col-sm-6">
 									Followers
-
-
 								</div>
 								<div className="col-sm-6">
 									Following
 								</div>
 							</div>
-							<div className="row">
+							<div class="row">
 								<div className="col-sm-6">
 									{this.getFollowers()}
-
 								</div>
 								<div className="col-sm-6">
 									{this.getFollowing()}
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
-
 			</div>
 		)
 	}

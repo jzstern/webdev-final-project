@@ -11,6 +11,8 @@ module.exports = function (app) {
 	app.put('/api/user/:userId', updateUser);
 	app.get('/api/user/:userId/follower', findAllFollowerForUser);
 	app.get('/api/user/:userId/following', findAllFollowingForUser);
+	app.get('api/user/:friendId/follow', followUser);
+    app.get('api/user/:friendId/unfollow', unfollowUser);
 
 	var userModel = require('../models/user/user.model.server');
 	//var bodyParser = require('body-parser');
@@ -91,6 +93,7 @@ module.exports = function (app) {
 					res.sendStatus(404);
 				}
 				else {
+                    req.session['currentUser'] = user;
 					res.send(user);
 				}
 			})
@@ -107,6 +110,7 @@ module.exports = function (app) {
 			.findUserByUsername(username)
 			.then(function(user) {
 				if (!user) {
+                    req.session['currentUser'] = user;
 					return userModel
 						.createUser(newUser)}});
 	}
@@ -124,7 +128,7 @@ module.exports = function (app) {
 		userModel.findUserByCredentials(user)
 			.then(function (user) {
 				if (user) {
-					// req.session['currentUser'] = user;
+					req.session['currentUser'] = user;
 					res.send(user);
 				} else {
 					res.sendStatus(404);
@@ -152,4 +156,23 @@ module.exports = function (app) {
 				res.send(users);
 			})
 	}
+
+	function followUser(req, res) {
+        var friendId = req.params['friendId'];
+        var currentUser = req.session['currentUser'];
+        userModel.followUser(currentUser, friendId)
+			.then(function(user) {
+				res.send(user);
+            })
+	}
+
+    function unfollowUser(req, res) {
+        var friendId = req.params['friendId'];
+        var currentUser = req.session['currentUser'];
+        userModel.unfollowUser(currentUser, friendId)
+			.then(function(user) {
+        	res.send(user);
+		})
+    }
+
 }

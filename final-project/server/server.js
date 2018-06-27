@@ -1,7 +1,7 @@
 var express = require('express')
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/webdev-final-project');
+// mongoose.connect('mongodb://localhost/webdev-final-project');
 
 // these credentials can be stored as variables on
 var username = "admin";
