@@ -36,10 +36,13 @@ class Admin extends Component {
     }
 
     delete(userId) {
-        alert('delete button is clicked');
-        this.userService
-            .deleteUser(userId)
-            .then(() => {this.fetchUsers()});
+        if (window.confirm('Are you sure you want to delete?')) {
+            this.userService
+                .deleteUser(userId)
+                .then(() => {
+                    this.fetchUsers()
+                });
+        }
     }
 
     register(e) {
