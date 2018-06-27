@@ -122,6 +122,7 @@ function unfollowUser(currentUser, friendId) {
         { pull: { following: friendId }});
 }
 
+
 var api = {
     createUser: createUser,
     findAllUsers: findAllUsers,
