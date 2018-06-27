@@ -13,10 +13,9 @@ export default class Reposts extends Component {
 
 	componentDidMount() {
 		this.setState(
-			{user: this.props.user,
-				repostedSongs: this.props.user.repostedSongs}
+			{user: this.props.profile,
+				repostedSongs: this.props.profile.repostedSongs}
 		)
-
 	}
 
 	renderSongs() {

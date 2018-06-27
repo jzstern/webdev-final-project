@@ -72,9 +72,7 @@ export default class extends Component {
 				<Route path="/register" render={(props) => <RegisterForm {...props} registerUser={userRegistrationRequest}/>}/>
 				<Route path="/profile" render={(props) => <Profile/>}/>
 				<Route path="/edit-profile" render={(props) => <EditProfile/>}/>
-				<Route path="/playlist" render={(props) => <Playlist/>}
-
-				{/*<Route path="/upload" component={Upload}/>*/}
+				<Route path="/playlist" render={(props) => <Playlist/>}/>
 				<Route path="/upload" render={(props) => <Upload {...props} user={this.state.user}/>}/>
 
 				<Route path="/admin" render={(props) => <Admin {...props} />}/>

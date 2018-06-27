@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var PlaylistSchema = require('./playlist.schema.server');
+var PlaylistSchema = require('../playlist/playlist.schema.server');
 
 var userSchema = mongoose.Schema({
 	email: String,

@@ -15,14 +15,16 @@ class PlaylistTab extends Component {
 	}
 
 	componentDidMount() {
-		this.playlistService
-			.findAllPlaylistsForUser(this.props.user._id)
-			.then(playlists => {
-				this.setState({
-					user: this.props.user,
-					playlists: playlists
-				}, this.renderPlaylists())
-			})
+		if (this.props.profile && this.props.profile._id) {
+			this.playlistService
+				.findAllPlaylistsForUser(this.props.profile._id)
+				.then(playlists => {
+					this.setState({
+						user: this.props.profile,
+						playlists: playlists
+					}, this.renderPlaylists())
+				})
+		}
 	}
 
 	createPlaylist() {
@@ -39,12 +41,17 @@ class PlaylistTab extends Component {
 			playlists = this.state.playlists.map((playlist, key) => {
 				if (playlist !== null) {
 					return (
-						<div key={key} className="container">
-							<Playlist songs={playlist} key={playlist._id}/>
-						</div>
+						<Link key={key} className="container">
+							<p>Playlist placeholder</p>
+							<p>{playlist.name}</p>
+							<p>Number of songs: {playlist.songs.length}</p>
+							{/*<Playlist songs={playlist} key={playlist._id}/>*/}
+						</Link>
 					)
 				}
 			})
+		} else {
+			console.log('no playlists here')
 		}
 		return playlists
 	}

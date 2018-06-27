@@ -6,6 +6,7 @@ import {Link, Route} from 'react-router-dom'
 import Likes from "./likes-tab"
 import Reposts from "./reposts-tab"
 import Tracks from "./tracks-tab"
+import PlaylistTab from './playlists-tab'
 import '../styles.css'
 import Admin from '../containers/admin'
 
@@ -49,17 +50,17 @@ class ProfilePage extends Component {
 				} else {
 					user = JSON.parse(localStorage.getItem('user'))
 					userId = user._id
+
 					if (user.accountType === 'admin') {
-                        window.location.href = 'http://localhost:3000/admin'
-                    }
+						window.location.href = 'http://localhost:3000/admin'
+					}
 				}
 				this.setState({
 					profile: profile,
 					user: user,
 					userId: userId
 				})
-			});
-
+			})
 	}
 
 	componentWillReceiveProps(newProps) {
@@ -158,13 +159,13 @@ class ProfilePage extends Component {
 
 	getFollowers() {
 		if (this.state.profile && this.state.profile.followers) {
-		return <h4>{this.state.profile.followers.length}</h4>
+			return <h4>{this.state.profile.followers.length}</h4>
 		}
 	}
 
 	getFollowing() {
 		if (this.state.profile && this.state.profile.following) {
-		return <h4>{this.state.profile.following.length}</h4>
+			return <h4>{this.state.profile.following.length}</h4>
 		}
 	}
 
@@ -219,13 +220,16 @@ class ProfilePage extends Component {
 										<li className="nav-item">
 											<Link to={`/profile/${this.state.profile._id}/likes`}>Likes</Link>
 										</li>
+										<li className="nav-item">
+											<Link to={`/profile/${this.state.profile._id}/playlists`}>Playlists</Link>
+										</li>
 									</ul>
 								</div>
 								<div className="card-body">
-									<Route path='/profile/:userId/tracks' render={(props) => <Tracks user={this.state.user}/>}/>
-									<Route path='/profile/:userId/reposts' render={(props) => <Reposts user={this.state.user}/>}/>
-									<Route path='/profile/:userId/likes' render={(props) => <Likes user={this.state.user}/>}/>
-
+									<Route path='/profile/:userId/tracks' render={(props) => <Tracks profile={this.state.profile}/>}/>
+									<Route path='/profile/:userId/reposts' render={(props) => <Reposts profile={this.state.profile}/>}/>
+									<Route path='/profile/:userId/likes' render={(props) => <Likes profile={this.state.profile}/>}/>
+									<Route path='/profile/:userId/playlists' render={(props) => <PlaylistTab profile={this.state.profile}/>}/>
 								</div>
 							</div>
 						</div>
