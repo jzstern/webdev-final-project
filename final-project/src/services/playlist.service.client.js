@@ -40,7 +40,8 @@ class PlaylistService {
 			})
 	}
 
-	createPlaylistForUser(userId) {
+	createPlaylistForUser() {
+		let userId = JSON.parse(localStorage.getItem('user'))
 		return fetch(URL, {
 			body: JSON.stringify(userId),
 			headers: {

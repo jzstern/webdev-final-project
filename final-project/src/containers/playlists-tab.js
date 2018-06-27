@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import PlaylistService from '../services/playlist.service.client'
 
 class PlaylistTab extends Component {
@@ -25,7 +26,11 @@ class PlaylistTab extends Component {
 	}
 
 	createPlaylist() {
-		
+		this.playlistService
+			.createPlaylistForUser()
+			.then(playlistId => {
+				window.location.href = 'http://localhost:3000/playlist/' + playlistId
+			})
 	}
 
 	renderPlaylists() {
