@@ -77,6 +77,9 @@ function getSession(req, res) {
 var userService = require('./services/user.service.server');
 userService(app);
 
+var playlistService = require('./services/playlist.service.server');
+playlistService(app);
+
 var songService = require('./services/song.service.server');
 songService(app);
 

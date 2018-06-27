@@ -16,15 +16,6 @@ module.exports = function (app) {
 
 	var userModel = require('../models/user/user.model.server');
 	//var bodyParser = require('body-parser');
-	//app.use(bodyParser.json());
-
-
-	// app.all('/', function(req, res, next) {
-	// 	res.header("Access-Control-Allow-Origin", "*");
-	// 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
-	// 	next();
-	// });
-
 	// app.use(cors({ origin: 'http://localhost:3000' , credentials :  true}));
 	function findUserById(req, res) {
 		var id = req.params['userId'];
@@ -86,18 +77,7 @@ module.exports = function (app) {
 
 	function updateUser(req, res) {
 		var user = req.body;
-<<<<<<< HEAD
-		userModel.updateUser(user._id, user)
-		.then(function(updatedUser) {
-			if (updatedUser === null) {
-				res.sendStatus(404);
-			}
-			else {
-				// req.session['currentUser'] = user;
-				res.send(updatedUser);
-			}
-		})
-=======
+
 		userModel
 			.updateUser(user._id, user)
 			.then(function(response) {
@@ -113,7 +93,6 @@ module.exports = function (app) {
 						})
 				}
 			})
->>>>>>> be85978209afd6968ba9c54cfba045023a359093
 	}
 
 	function register(req, res) {
@@ -183,7 +162,6 @@ module.exports = function (app) {
 				userModel.followUser(currentUserId, profileId)
 				.then(function(user) {
 					res.send(user);
-<<<<<<< HEAD
 				})
 			}
 
@@ -197,53 +175,5 @@ module.exports = function (app) {
 					res.send(user);
 				})
 			}
-=======
-				} else {
-					res.sendStatus(404);
-				}
-			})
-	}
 
-	function logout(req, res) {
-		req.session.destroy();
-		res.send(200);
-	}
-
-	function findAllFollowingForUser(req, res) {
-		var id = req.params['userId'];
-		userModel.findAllFollowing(id)
-			.then(function (users) {
-				res.send(users);
-			})
-	}
-
-	function findAllFollowerForUser(req, res) {
-		var id = req.params['userId'];
-		userModel.findAllFollower(id)
-			.then(function (users) {
-				res.send(users);
-			})
-	}
-
-	function followUser(req, res) {
-		var profileId = req.params['profileId'];
-		var currentUserId = req.body.userId;
-		// var currentUser = req.session['currentUser'];
-		userModel.followUser(currentUserId, profileId)
-			.then(function(user) {
-				res.send(user);
-			})
-	}
-
-	function unfollowUser(req, res) {
-		var profileId = req.params['profileId'];
-		var currentUserId = req.body.userId;
-		// var currentUser = req.session['currentUser'];
-		userModel.unfollowUser(currentUserId, profileId)
-			.then(function(user) {
-				res.send(user);
-			})
-	}
->>>>>>> be85978209afd6968ba9c54cfba045023a359093
-
-		}
+}
