@@ -7,6 +7,7 @@ import Likes from "./likes"
 import Reposts from "./reposts"
 import Tracks from "./tracks"
 import '../styles.css'
+import Admin from '../containers/admin'
 
 class ProfilePage extends Component {
 	constructor(props) {
@@ -48,13 +49,17 @@ class ProfilePage extends Component {
 				} else {
 					user = JSON.parse(localStorage.getItem('user'))
 					userId = user._id
+					if (user.accountType === 'admin') {
+                        window.location.href = 'http://localhost:3000/admin'
+                    }
 				}
 				this.setState({
 					profile: profile,
 					user: user,
 					userId: userId
 				})
-			})
+			});
+
 	}
 
 	componentWillReceiveProps(newProps) {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import UserService from "../services/user.service.client"
 import '../styles.css'
+import {Link, Route} from 'react-router-dom'
 
 class Admin extends Component {
     constructor(props) {
@@ -27,6 +28,14 @@ class Admin extends Component {
     }
 
     componentDidMount() {
+        let user, userId;
+        user = JSON.parse(localStorage.getItem('user'))
+        userId = user._id
+        if (user.accountType !== 'admin') {
+            window.location.href = 'http://localhost:3000/profile/' + JSON.parse(localStorage.getItem('user'))._id
+                + '/tracks';
+        }
+
         this.fetchUsers();
     }
 
