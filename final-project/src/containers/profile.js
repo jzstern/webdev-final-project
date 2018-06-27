@@ -8,7 +8,6 @@ import Likes from "../components/likes";
 import Reposts from "../components/reposts";
 import Tracks from "../components/tracks";
 
-
 class ProfilePage extends Component {
     constructor(props) {
         super(props)
@@ -16,9 +15,9 @@ class ProfilePage extends Component {
             user: {},
             userId: null,
             songList: null,
-            currentlyPlaying: null
+            currentlyPlaying: null,
+			profileId: null
         }
-
         this.songService = SongService.instance
         this.userService = UserService.instance
         this.setSongs = this.setSongs.bind(this)
@@ -31,11 +30,13 @@ class ProfilePage extends Component {
 
     componentDidMount() {
         // this.userService
-        // 	.fetchUser()
+        // 	.profile()
         // 	.then(user => this.setState({user: user}))
+        // localStorage.setItem('user', JSON.stringify(res))
         this.setState({
             user: JSON.parse(localStorage.getItem('user')),
-            userId: JSON.parse(localStorage.getItem('user'))._id
+            userId: JSON.parse(localStorage.getItem('user'))._id,
+			// profileId: this.props.param.match.
         });
     }
 
