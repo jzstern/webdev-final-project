@@ -22,6 +22,7 @@ class Admin extends Component {
         this.edit = this.edit.bind(this);
         this.fetchUsers = this.fetchUsers.bind(this);
         this.register = this.register.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
@@ -58,9 +59,7 @@ class Admin extends Component {
                 if (res.status === 500) {
                     alert('Sorry, that username is already taken')
                 } else {
-                    console.log(res)
-                    localStorage.setItem('user', JSON.stringify(res))
-                    this.context.router.history.push('/stream')
+                   this.fetchUsers();
                 }
             })
     }
@@ -87,6 +86,11 @@ class Admin extends Component {
             })
         }
         return userlist
+    }
+    onChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
 
     render() {
