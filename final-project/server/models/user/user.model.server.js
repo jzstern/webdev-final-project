@@ -82,7 +82,7 @@ function deleteUser(userId) {
 }
 
 function updateUser(userId, newUser) {
-    return userModel.update({_id: userId}, {$set:newUser});
+	return userModel.update({_id: userId}, {$set:newUser});
 }
 
 function findAllFollowing(userId) {

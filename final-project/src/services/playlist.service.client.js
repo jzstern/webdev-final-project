@@ -16,6 +16,7 @@ class PlaylistService {
 	findAllPlaylistsForUser(userId) {
 		return fetch(URL + '/user/' + userId)
 			.then(function(response) {
+				console.log(response)
 				return response ? response.json() : {}
 			})
 	}

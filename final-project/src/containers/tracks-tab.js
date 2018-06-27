@@ -13,14 +13,14 @@ export default class Tracks extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.user && this.props.user._id) {
+		if (this.props.profile && this.props.profile._id) {
 			this.songService
-				.findAllSongsByArtist(this.props.user._id)
+				.findAllSongsByArtist(this.props.profile._id)
 				.then((res) => {
 					this.setState({
 						tracks: res,
-						user: this.props.user,
-						userId: this.props.user._id
+						user: this.props.profile,
+						userId: this.props.profile._id
 					})
 				})
 		}

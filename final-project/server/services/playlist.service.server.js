@@ -10,6 +10,7 @@ module.exports = function (app) {
 
     var playlistModel = require('../models/playlist/playlist.model.server')
 
+
     function findAllPlaylists(req, res) {
         playlistModel
             .findAllPlaylists()
@@ -50,6 +51,7 @@ module.exports = function (app) {
             })
 
     }
+
 
     function createPlaylistForUser(req, res) {
         let playlist = req.body;
