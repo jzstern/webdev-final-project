@@ -1,29 +1,44 @@
-module exports = function(app){
+// adapted from https://github.com/jaredhanson/passport-twitter
+module.exports = function(app){
   app.get('/api/twitter', twitter);
-  app.get('/api/song/:songId', findSongById);
+  app.get('/api/twitter',
+    require('connect-ensure-login').ensureLoggedIn(), profile);
+  app.post('/api/twitter/tweet', tweet);
+  app.get('/api/twitter/login', login);
+  
+  var request = require('request'),
   var express = require('express');
   var passport = require('passport');
   var Strategy = require('passport-twitter').Strategy;
 
-  function twitter() {
+  // return logged in profile
+  function twitter(req, res) {
+    res.send('twitter');
+  }
 
+  // return
+  function profile(req, res) {
+    res.send({ user: req.user });
+  }
+
+  // compose a tweet
+  function tweet(req, res) {
+    var tweet = req.tweet;
+    res.send('{tweet: tweet}');
+  }
+
+  // authenticate
+  function login(req, res) {
+    var response = passport.authenticate('twitter')
+    res.send(passport.);
   }
   // Configure the Twitter strategy for use by Passport.
-  //
-  // OAuth 1.0-based strategies require a `verify` function which receives the
-  // credentials (`token` and `tokenSecret`) for accessing the Twitter API on the
-  // user's behalf, along with the user's profile.  The function must invoke `cb`
-  // with a user object, which will be set at `req.user` in route handlers after
-  // authentication.
   passport.use(new Strategy({
     consumerKey: 'GM07MlAidvgOM18vG4gqSk6vg',
     consumerSecret: 'IsLU8JDNW4npTea4GXjukuM2881BU7Rp4MkEuBzzOSy0jnTj1u',
     callbackURL: 'http://127.0.0.1:4000/login/twitter/return'
-  },
-  function(token, tokenSecret, profile, cb) {
-    // In this example, the user's Twitter profile is supplied as the user
-    // record.  In a production-quality application, the Twitter profile should
-    // be associated with a user record in the application's database, which
+  },function(token, tokenSecret, profile, cb) {
+    // Should associate with user record in the application's database, which
     // allows for account linking and authentication with other identity
     // providers.
     return cb(null, profile);
@@ -31,13 +46,10 @@ module exports = function(app){
 
   // Configure Passport authenticated session persistence.
   //
-  // In order to restore authentication state across HTTP requests, Passport needs
-  // to serialize users into and deserialize users out of the session.  In a
-  // production-quality application, this would typically be as simple as
-  // supplying the user ID when serializing, and querying the user record by ID
-  // from the database when deserializing.  However, due to the fact that this
-  // example does not have a database, the complete Twitter profile is serialized
-  // and deserialized.
+  // In order to restore authentication state across HTTP requests, Passport
+  // needs to serialize users into and deserialize users out of the session.
+  // Right now, the complete Twitter profile is serialized and deserialized.
+  // but this should be done in the database using UserId
   passport.serializeUser(function(user, cb) {
     cb(null, user);
   });
@@ -45,13 +57,6 @@ module exports = function(app){
   passport.deserializeUser(function(obj, cb) {
     cb(null, obj);
   });
-
-  // Create a new Express application.
-  var app = express();
-
-  // Configure view engine to render EJS templates.
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
 
   // Use application-level middleware for common functionality, including
   // logging, parsing, and session handling.
@@ -64,31 +69,31 @@ module exports = function(app){
   // session.
   app.use(passport.initialize());
   app.use(passport.session());
-
+  /*
   // Define routes.
-  app.get('/',
+  app.get('/twitter',
   function(req, res) {
     res.render('home', { user: req.user });
   });
 
-  app.get('/login',
+  app.get('/twitter/login',
   function(req, res){
     res.render('login');
   });
 
-  app.get('/login/twitter',
+  app.get('/twitter/login/twitter',
   passport.authenticate('twitter'));
 
-  app.get('/login/twitter/return',
+  app.get('/twitter/login/twitter/return',
   passport.authenticate('twitter', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   });
 
-  app.get('/profile',
+  app.get('/twitter/profile',
   require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
     res.render('profile', { user: req.user });
   });
-
+  */
 }

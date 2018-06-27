@@ -91,6 +91,7 @@ module.exports = function (app) {
     function findSongsByArtist(req, res) {
 
     }
+
     function escapeRegex(text) {
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     }
