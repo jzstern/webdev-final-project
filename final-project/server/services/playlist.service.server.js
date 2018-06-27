@@ -1,7 +1,7 @@
 module.exports = function (app) {
     app.get('/api/playlist/user/:userId', findAllPlaylistsForUser)
     app.get('/api/playlist/:playlistId', findPlaylistById)
-    app.get('/api/playlist/all', findAllPlaylists)
+    app.get('/api/playlists', findAllPlaylists)
     app.put('/api/playlist/:playlistId', updatePlaylist)
     app.post('/api/playlist', createPlaylistForUser)
     app.delete('/api/playlist/:playlistId', deletePlaylist)
