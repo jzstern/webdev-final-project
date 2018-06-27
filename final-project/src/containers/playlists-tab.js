@@ -31,6 +31,7 @@ class PlaylistTab extends Component {
 		this.playlistService
 			.createPlaylistForUser()
 			.then(playlistId => {
+				console.log(playlistId)
 				window.location.href = 'http://localhost:3000/playlist/' + playlistId
 			})
 	}

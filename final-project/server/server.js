@@ -77,10 +77,18 @@ function getSession(req, res) {
 var userService = require('./services/user.service.server');
 userService(app);
 
+var playlistService = require('./services/playlist.service.server');
+playlistService(app);
+
 var songService = require('./services/song.service.server');
 songService(app);
 
+<<<<<<< HEAD
 var twitterService = require('./services/twitter.service.server')
 twitterService(app);
 
 app.listen(4000)
+=======
+
+app.listen(4000)
+>>>>>>> e7279eed2be87fb2c48494a539308702301e66b4

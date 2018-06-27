@@ -88,6 +88,7 @@ class SongItem extends Component {
 	componentWillReceiveProps(newProps) {
 		this.setState({
 			id: newProps.id,
+			artistId: this.props.artistId,
 			title: newProps.title,
 			displayName: newProps.displayName,
 			genre: newProps.genre,
@@ -120,8 +121,6 @@ class SongItem extends Component {
 
 	unlikeSongForUser() {
 		var user = JSON.parse(localStorage.getItem('user'))
-		// let likes = JSON.parse(user || "[]").likedSongs
-
 		var index = user.likedSongs.indexOf(this.props.id)
 		user.likedSongs.splice(index, 1)
 
