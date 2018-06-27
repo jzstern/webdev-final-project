@@ -19,7 +19,7 @@ class NavBarButtons extends Component {
 			<ul className="nav navbar-right">
 				{ this.isArtist() ? this.displayUploadButton() : null }
 				<li className="nav-item">
-					<Link to={'/profile'}>
+					<Link to={'/profile/' + JSON.parse(localStorage.getItem('user'))._id + '/tracks'}>
 						<span className="glyphicon glyphicon-user fa-fw"/> Profile
 					</Link>
 				</li>
@@ -78,7 +78,7 @@ class NavBarButtons extends Component {
 	}
 
 	componentDidMount() {
-		this.setState({user: localStorage.getItem('user')})
+		// console.log(JSON.parse(localStorage.getItem('user'))._id)
 	}
 
 	render() {

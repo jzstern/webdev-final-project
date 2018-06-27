@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import SongItem from '../components/song-item'
-import '../styles.css'
 import SongService from "../services/song.service.client";
+import '../styles.css'
 
 class Stream extends Component {
 	constructor(props) {
@@ -36,7 +36,7 @@ class Stream extends Component {
 				return <SongItem key={key}
 				                 id = {song._id}
 				                 title={song.title}
-				                 artist={song.artist}
+				                 artistId={song.artistId}
 				                 genre={song.genre}
 				                 stats={song.stats}
 											// comments={song.comments}

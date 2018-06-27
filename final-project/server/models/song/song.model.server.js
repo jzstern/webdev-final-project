@@ -60,7 +60,7 @@ function unrepostSongById(songId) {
 }
 
 function findAllSongsByArtist(artistId) {
-	console.log(songModel.find({artistId: artistId}));
+	// console.log(songModel.find({artistId: artistId}));
   return songModel.find({artistId: artistId});
 }
 
