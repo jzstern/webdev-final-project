@@ -1,12 +1,10 @@
 module.exports = function (app) {
-
-    app.get('http://localhost:4000/api/playlist/user/:userId', findAllPlaylistsForUser)
-    app.get('http://localhost:4000/api/playlist/:playlistId', findPlaylistById)
-    app.get('http://localhost:4000/api/playlists', findAllPlaylists)
-    app.put('http://localhost:4000/api/playlist/:playlistId', updatePlaylist)
-    app.post('http://localhost:4000/api/playlist', createPlaylistForUser)
-    app.delete('http://localhost:4000/api/playlist/:playlistId', deletePlaylist)
-
+    app.get('/api/playlist/user/:userId', findAllPlaylistsForUser)
+    app.get('/api/playlist/:playlistId', findPlaylistById)
+    app.get('/api/playlist/all', findAllPlaylists)
+    app.put('/api/playlist/:playlistId', updatePlaylist)
+    app.post('/api/playlist', createPlaylistForUser)
+    app.delete('/api/playlist/:playlistId', deletePlaylist)
 
     var playlistModel = require('../models/playlist/playlist.model.server')
 
