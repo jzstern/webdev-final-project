@@ -38,6 +38,7 @@ class LoginForm extends Component {
 				.login(user)
 				.then(res => {
 					localStorage.setItem('user', JSON.stringify(res))
+					localStorage
 					this.context.router.history.push('/stream')
 				})
 				// .then(res => {

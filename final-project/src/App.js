@@ -3,12 +3,14 @@ import '../node_modules/font-awesome/css/font-awesome.css'
 import React, { Component } from 'react'
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 import Home from './containers/Home'
+import TwitterAuth from './components/twitter-auth'
 
 class App extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			user: {}
+			user: {},
+			twitter: { isAuthenticated: false, user: null, token: ''}
 		}
 	}
 

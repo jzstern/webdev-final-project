@@ -26,21 +26,20 @@ module.exports = function (app) {
 	// });
 
 	// app.use(cors({ origin: 'http://localhost:3000' , credentials :  true}));
-
 	function findUserById(req, res) {
 		var id = req.params['userId'];
 		userModel.findUserById(id)
-			.then(function (user) {
-				res.json(user);
-			})
+		.then(function (user) {
+			res.json(user);
+		})
 	}
 
 	function findUserByUsername(req, res) {
 		var username = req.params['username'];
 		userModel.findUserByUsername(username)
-			.then(function (user) {
-				res.json(user);
-			})
+		.then(function (user) {
+			res.json(user);
+		})
 	}
 
 	function profile(req, res) {
@@ -57,46 +56,46 @@ module.exports = function (app) {
 		// https://www.youtube.com/watch?v=gZ_fR6o98dE
 
 		userModel
-			.findUserByUsername(user.username)
-			.then(function (existingUser) {
-				if (existingUser !== undefined) {
-					// TODO ; also check if user w/ same email address already exists
-					userModel.createUser(user)
-						.then(function (user) {
-							// req.session['currentUser'] = user;
-							res.send(user);
-						})
-				} else {
-					res.sendStatus(500);
-				}
-			})
+		.findUserByUsername(user.username)
+		.then(function (existingUser) {
+			if (existingUser !== undefined) {
+				// TODO ; also check if user w/ same email address already exists
+				userModel.createUser(user)
+				.then(function (user) {
+					// req.session['currentUser'] = user;
+					res.send(user);
+				})
+			} else {
+				res.sendStatus(500);
+			}
+		})
 	}
 
 	function deleteUser(req, res) {
 		var user = req.params['userId'];
 		userModel.deleteUser(user)
-			.then(function(error, user) {
-				if (user === null) {
-					res.sendStatus(404);
-				}
-				else {
-					res.send(user);
-				}
-			})
+		.then(function(error, user) {
+			if (user === null) {
+				res.sendStatus(404);
+			}
+			else {
+				res.send(user);
+			}
+		})
 	}
 
 	function updateUser(req, res) {
 		var user = req.body;
 		userModel.updateUser(user._id, user)
-			.then(function(updatedUser) {
-				if (updatedUser === null) {
-					res.sendStatus(404);
-				}
-				else {
-					// req.session['currentUser'] = user;
-					res.send(updatedUser);
-				}
-			})
+		.then(function(updatedUser) {
+			if (updatedUser === null) {
+				res.sendStatus(404);
+			}
+			else {
+				// req.session['currentUser'] = user;
+				res.send(updatedUser);
+			}
+		})
 	}
 
 	function register(req, res) {
@@ -107,77 +106,77 @@ module.exports = function (app) {
 			password: password
 		};
 		userModel
-			.findUserByUsername(username)
-			.then(function(user) {
-				if (!user) {
-					req.session['currentUser'] = user;
-					return userModel
-						.createUser(newUser)}});
-	}
+		.findUserByUsername(username)
+		.then(function(user) {
+			if (!user) {
+				req.session['currentUser'] = user;
+				return userModel
+				.createUser(newUser)}});
+			}
 
-	function findAllUsers(req, res) {
-		userModel.findAllUsers()
-			.then(function (users) {
-				res.send(users);
-			})
-	}
+			function findAllUsers(req, res) {
+				userModel.findAllUsers()
+				.then(function (users) {
+					res.send(users);
+				})
+			}
 
-	function login(req, res) {
-		var user = req.body;
+			function login(req, res) {
+				var user = req.body;
 
-		userModel.findUserByCredentials(user)
-			.then(function (user) {
-				if (user) {
-					req.session['currentUser'] = user;
+				userModel.findUserByCredentials(user)
+				.then(function (user) {
+					if (user) {
+						req.session['currentUser'] = user;
+						res.send(user);
+					} else {
+						res.sendStatus(404);
+					}
+				})
+			}
+
+			function logout(req, res) {
+				req.session.destroy();
+				res.send(200);
+			}
+
+			function findAllFollowingForUser(req, res) {
+				var id = req.params['userId'];
+				userModel.findAllFollowing(id)
+				.then(function (users) {
+					res.send(users);
+				})
+			}
+
+			function findAllFollowerForUser(req, res) {
+				var id = req.params['userId'];
+				userModel.findAllFollower(id)
+				.then(function (users) {
+					res.send(users);
+				})
+			}
+
+			function followUser(req, res) {
+				console.log('TRYNA FOLLOW THIS USER')
+				var profileId = req.params['profileId'];
+				var currentUserId = req.body.userId;
+				// var currentUser = req.session['currentUser'];
+				console.log(currentUserId + ' is following ' + profileId)
+				userModel.followUser(currentUserId, profileId)
+				.then(function(user) {
 					res.send(user);
-				} else {
-					res.sendStatus(404);
-				}
-			})
-	}
+				})
+			}
 
-	function logout(req, res) {
-		req.session.destroy();
-		res.send(200);
-	}
+			function unfollowUser(req, res) {
+				var profileId = req.params['profileId'];
+				var currentUserId = req.body.userId;
+				// var currentUser = req.session['currentUser'];
+				console.log(currentUserId + ' is unfollowing ' + profileId)
+				userModel.unfollowUser(currentUserId, profileId)
+				.then(function(user) {
+					res.send(user);
+				})
+			}
 
-	function findAllFollowingForUser(req, res) {
-		var id = req.params['userId'];
-		userModel.findAllFollowing(id)
-			.then(function (users) {
-				res.send(users);
-			})
-	}
-
-	function findAllFollowerForUser(req, res) {
-		var id = req.params['userId'];
-		userModel.findAllFollower(id)
-			.then(function (users) {
-				res.send(users);
-			})
-	}
-
-	function followUser(req, res) {
-		console.log('TRYNA FOLLOW THIS USER')
-		var profileId = req.params['profileId'];
-		var currentUserId = req.body.userId;
-		// var currentUser = req.session['currentUser'];
-		console.log(currentUserId + ' is following ' + profileId)
-		userModel.followUser(currentUserId, profileId)
-			.then(function(user) {
-				res.send(user);
-			})
-	}
-
-	function unfollowUser(req, res) {
-		var profileId = req.params['profileId'];
-		var currentUserId = req.body.userId;
-		// var currentUser = req.session['currentUser'];
-		console.log(currentUserId + ' is unfollowing ' + profileId)
-		userModel.unfollowUser(currentUserId, profileId)
-			.then(function(user) {
-				res.send(user);
-			})
-	}
-
-}
+		}

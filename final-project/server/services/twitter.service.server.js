@@ -1,6 +1,30 @@
 module.exports = function (app) {
-  var jwt = require('jsonwebtoken');
+
+  var expressJwt = require('express-jwt');
+  var passport = require('passport');
   var TwitterTokenStrategy = require('passport-twitter-token');
+  var Router = require('router')
+  var router = Router()
+  var request=require('request')
+  var userModel = require('../models/user/user.model.server');
+  var userService = require('../services/user.service.server')
+
+  passport.use(new TwitterTokenStrategy({
+    consumerKey: 'GM07MlAidvgOM18vG4gqSk6vg',
+    consumerSecret: 'IsLU8JDNW4npTea4GXjukuM2881BU7Rp4MkEuBzzOSy0jnTj1u',
+    includeEmail: true,
+    callbackURL: 'http://localhost:4000'
+  },
+  function(token, tokenSecret, profile, callback) {
+    console.log('callback')
+		user = userService.findUserbyId(id);
+		user.twitterProvider = {
+			id: profile.id,
+			token: token,
+			tokenSecret: tokenSecret
+		}
+		userModel.updateUser(id, user)
+	}))
 
   // create token
   var createToken = function(auth) {
@@ -36,33 +60,35 @@ module.exports = function (app) {
     }
   });
 
-  router.route('/auth/twitter/reverse')
-  .post(function(req, res) {
+app.post('/api/auth/twitter/reverse',
+  function(req, res) {
+    console.log('/api/auth/twitter/reverse')
+    id = req.id;
     request.post({
       url: 'https://api.twitter.com/oauth/request_token',
       oauth: {
         oauth_callback: "http%3A%2F%2Flocalhost%3A3000%2Ftwitter-callback",
-        consumer_key: 'KEY',
-        consumer_secret: 'SECRET'
+        consumer_key: 'GM07MlAidvgOM18vG4gqSk6vg',
+        consumer_secret: 'IsLU8JDNW4npTea4GXjukuM2881BU7Rp4MkEuBzzOSy0jnTj1u'
       }
     }, function (err, r, body) {
       if (err) {
         return res.send(500, { message: err.message });
       }
-
-
       var jsonStr = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
+      console.log(JSON.parse(jsonStr));
       res.send(JSON.parse(jsonStr));
     });
-  });
+  })
 
-  router.route('/auth/twitter')
-  .post((req, res, next) => {
+app.post('api/auth/twitter',
+  function(req, res, next){
+    console.log('/api/auth/twitter')
     request.post({
       url: `https://api.twitter.com/oauth/access_token?oauth_verifier`,
       oauth: {
-        consumer_key: 'KEY',
-        consumer_secret: 'SECRET',
+        consumer_key: 'GM07MlAidvgOM18vG4gqSk6vg',
+        consumer_secret: 'IsLU8JDNW4npTea4GXjukuM2881BU7Rp4MkEuBzzOSy0jnTj1u',
         token: req.query.oauth_token
       },
       form: { oauth_verifier: req.query.oauth_verifier }
@@ -82,15 +108,15 @@ module.exports = function (app) {
       next();
     });
   }, passport.authenticate('twitter-token', {session: false}), function(req, res, next) {
-      if (!req.user) {
-        return res.send(401, 'User Not Authenticated');
-      }
+    if (!req.user) {
+      return res.send(401, 'User Not Authenticated');
+    }
 
-      // prepare token for API
-      req.auth = {
-        id: req.user.id
-      };
+    // prepare token for API
+    req.auth = {
+      id: req.user.id
+    };
 
-      return next();
-}, generateToken, sendToken);
+    return next();
+  }, generateToken, sendToken);
 }

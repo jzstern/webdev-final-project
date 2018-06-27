@@ -81,5 +81,6 @@ var songService = require('./services/song.service.server');
 songService(app);
 
 var twitterService = require('./services/twitter.service.server')
+twitterService(app);
 
 app.listen(4000)

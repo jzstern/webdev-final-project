@@ -12,7 +12,14 @@ var userSchema = mongoose.Schema({
 	following: [String],
 	followers: [String],
 	likedSongs: [String],
-	repostedSongs: [String]
+	repostedSongs: [String],
+	twitterProvider: {
+      type: {
+        id: [String],
+        token: [String]
+      },
+      select: false
+    }
 }, {collection: 'user'});
 
 module.exports = userSchema;

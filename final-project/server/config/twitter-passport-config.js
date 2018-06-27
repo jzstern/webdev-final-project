@@ -2,7 +2,7 @@
 
 var passport = require('passport'),
   TwitterTokenStrategy = require('passport-twitter-token'),
-  User = require('mongoose').model('User');
+  //User = require('mongoose').model('User');
 
 module.exports = function () {
 
@@ -16,5 +16,4 @@ module.exports = function () {
         return done(err, user);
       });
     }));
-
 };
