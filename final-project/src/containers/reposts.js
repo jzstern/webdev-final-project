@@ -24,7 +24,7 @@ export default class Reposts extends Component {
 		if (this.state.repostedSongs) {
 			songs = this.state.repostedSongs.map((song, key) => {
 				if (song !== null)
-					return <div className="container">
+					return <div key={key} className="container">
               <SongItemWrapper song={song} key={song._id}/>
           </div>
 			})

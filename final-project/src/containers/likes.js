@@ -26,7 +26,7 @@ export default class Likes extends Component {
 			songs = this.state.likedSongsId.map((song, key) => {
 				if (song !== null) {
 					return (
-            <div className="container">
+            <div key={key} className="container">
                 <SongItemWrapper song={song} key={song._id}/>
             </div>
           )
