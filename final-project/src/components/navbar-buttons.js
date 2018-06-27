@@ -77,7 +77,7 @@ class NavBarButtons extends Component {
 
 	isArtist() {
 		let user = JSON.parse(localStorage.getItem('user'))
-		return user.accountType === 'artist' || user.accountType === 'artistPro'
+		return user.accountType === 'artist' || user.accountType === 'artistPro' || user.accountType === 'admin'
 	}
 
 	componentDidMount() {
