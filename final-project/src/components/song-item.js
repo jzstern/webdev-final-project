@@ -188,7 +188,7 @@ class SongItem extends Component {
 
 	tweet() {
 		if (this.isLoggedIn()) {
-			let songURL = 'http://webdev.halhyatt.com/song/' + this.state.id
+			let songURL = '/song' + this.state.id
 			this.setState({tweeted: !this.state.tweeted})
 			//	make API call to post tweet
 		} else {
@@ -224,7 +224,7 @@ class SongItem extends Component {
 				}
 			})
 		} else {
-			alert('You must be logged in to tweet a song')
+			alert('You must be logged in to repost a song')
 		}
 	}
 
