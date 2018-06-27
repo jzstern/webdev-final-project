@@ -2,11 +2,11 @@ import React, {Component} from 'react'
 import SongItem from '../components/song-item'
 import SongService from "../services/song.service.client"
 import UserService from "../services/user.service.client"
+import {Link, Route} from 'react-router-dom'
+import Likes from "../components/likes"
+import Reposts from "../components/reposts"
+import Tracks from "../components/tracks"
 import '../styles.css'
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-import Likes from "../components/likes";
-import Reposts from "../components/reposts";
-import Tracks from "../components/tracks";
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -16,33 +16,44 @@ class ProfilePage extends Component {
             userId: null,
             songList: null,
             currentlyPlaying: null,
-			profileId: null
+			profile: []
         }
+
         this.songService = SongService.instance
         this.userService = UserService.instance
         this.setSongs = this.setSongs.bind(this)
         this.renderSongs = this.renderSongs.bind(this)
         this.getFollowers =  this.getFollowers.bind(this);
-        this.getFollowings = this.getFollowings.bind(this);
+        this.getFollowing = this.getFollowing.bind(this);
         this.followUser = this.followUser.bind(this);
         this.unfollowUser = this.unfollowUser.bind(this);
     }
 
     componentDidMount() {
         // this.userService
-        // 	.profile()
+        // 	.fetchUser()
         // 	.then(user => this.setState({user: user}))
-        // localStorage.setItem('user', JSON.stringify(res))
-        this.setState({
-            user: JSON.parse(localStorage.getItem('user')),
-            userId: JSON.parse(localStorage.getItem('user'))._id,
-			// profileId: this.props.param.match.
-        });
+        let url = window.location.href
+        let chunks = url.split("/")
+        let profileId = chunks[4]
+
+        var profile = {}
+
+        this.userService.findUserById(profileId)
+            .then(user => {
+                profile = user
+
+                this.setState({
+                    profile: profile,
+                    user: JSON.parse(localStorage.getItem('user')),
+                    userId: JSON.parse(localStorage.getItem('user'))._id
+                })
+            })
     }
 
     componentWillReceiveProps(newProps) {
         //TODO
-		// after an update is made, should fetch the user from server again and store in browser local storage
+        // after an update is made, should fetch the user from server again and store in browser local storage
 
     }
 
@@ -54,55 +65,53 @@ class ProfilePage extends Component {
     }
 
     followUser() {
-        alert("you are following this user");
+        alert("you are following this user")
     }
+
     unfollowUser() {
-		alert("unfollow user");
+        alert("unfollow user")
     }
+
     getFollowers() {
-    	if (this.state.user && this.state.user.followers) {
-    		console.log(this.state.user);
+        if (this.state.user && this.state.user.followers) {
+            console.log(this.state.user)
             return <h4>{this.state.user.followers.length}</h4>
         }
     }
-    getFollowings() {
+
+    getFollowing() {
         if (this.state.user && this.state.user.following) {
-            console.log(this.state.user);
+            console.log(this.state.user)
             return <h4>{this.state.user.following.length}</h4>
         }
     }
+
     renderSongs() {
         let songs
         if (this.state.songList !== null) {
             songs = this.state.songList.map((song) => {
                 return <SongItem key={song._id}
+                                 artistId={song.artistId}
                                  title={song.title}
-                                 artist={song.artist}
                                  genre={song.genre}
                                  stats={song.stats}
+
 					// comments={song.comments}
                                  liked={song.liked}
                                  reposted={song.reposted}
                                  tweeted={song.tweeted}
                                  imgUrl={song.imgUrl}
                                  description={song.description}/>
-            });
+            })
         }
-        return songs;
+        return songs
     }
 
     render() {
         return (
             <div className="container">
-                <h2>{JSON.parse(localStorage.getItem('user')).displayName}</h2>
-
-                <div>
-                    <a href="#">
-                        <span className="glyphicon glyphicon-filter"/>
-                    </a>
-                </div>
-
-                <div className="container-fluid">
+				<h2>{this.state.profile.displayName}</h2>
+                <div hidden={this.state.profile._id === this.state.userId} className="container-fluid">
                     <button type="button"
                             className="btn btn-secondary"
                             onClick={this.followUser}>Follow</button>
@@ -140,8 +149,6 @@ class ProfilePage extends Component {
                             <div className="row">
                                 <div className="col-sm-6">
                                     Followers
-
-
                                 </div>
                                 <div className="col-sm-6">
                                     Following
@@ -150,18 +157,14 @@ class ProfilePage extends Component {
                             <div class="row">
                                 <div className="col-sm-6">
                                     {this.getFollowers()}
-
-
                                 </div>
                                 <div className="col-sm-6">
-                                    {this.getFollowings()}
+                                    {this.getFollowing()}
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
         )
     }

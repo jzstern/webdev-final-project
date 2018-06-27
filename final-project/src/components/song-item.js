@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import songService from "../services/song.service.client"
 import userService from "../services/user.service.client"
+import {Link} from 'react-router-dom'
 import '../styles.css'
 
 class SongStats extends Component {
@@ -37,8 +38,9 @@ class SongItem extends Component {
 		super(props)
 		this.state = {
 			id: '',
+			artistId: '',
 			title: '',
-			artist: '',
+			displayName: '',
 			imgUrl: '',
 			stats: {
 				playCount: 0,
@@ -66,10 +68,18 @@ class SongItem extends Component {
 	}
 
 	componentDidMount() {
+		let artist
+
+		this.userService.findUserById(this.props.artistId)
+			.then(res => {
+				artist = res
+			})
+
 		this.setState({
 			id: this.props.id,
+			artistId: this.props.artistId,
+			// displayName: artist.displayName,
 			title: this.props.title,
-			artist: this.props.artist,
 			genre: this.props.genre,
 			description: this.props.description,
 			playCount: this.props.stats.playCount,
@@ -79,7 +89,7 @@ class SongItem extends Component {
 			imgUrl: this.props.imgUrl
 		})
 
-		// load user info
+		// load logged in user info
 		const user = JSON.parse(localStorage.getItem('user'))
 		this.setState({user: user})
 
@@ -101,7 +111,7 @@ class SongItem extends Component {
 		this.setState({
 			id: newProps.id,
 			title: newProps.title,
-			artist: newProps.artist,
+			displayName: newProps.displayName,
 			genre: newProps.genre,
 			description: newProps.description,
 			playCount: newProps.stats.playCount,
@@ -238,9 +248,9 @@ class SongItem extends Component {
 								<span className="glyphicon glyphicon-play"/>
 							</button>
 							<h4>{this.state.title}</h4>
-							<a href="#" className="pull-right">
-								<h4>{this.state.artist}</h4>
-							</a>
+							<Link to={`/profile/${this.state.artistId}`}>
+								<h4>{this.state.displayName}</h4>
+							</Link>
 						</div>
 						<div className="p-4">
 							<h4>{this.state.description}</h4>
