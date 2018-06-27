@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var PlaylistSchema = require('../playlist/playlist.schema.server');
 
 var userSchema = mongoose.Schema({
 	email: String,
@@ -13,13 +14,7 @@ var userSchema = mongoose.Schema({
 	followers: [String],
 	likedSongs: [String],
 	repostedSongs: [String],
-	twitterProvider: {
-      type: {
-        id: [String],
-        token: [String]
-      },
-      select: false
-    }
+	playlists: [String]
 }, {collection: 'user'});
 
 module.exports = userSchema;

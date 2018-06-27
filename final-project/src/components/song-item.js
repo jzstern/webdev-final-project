@@ -1,38 +1,14 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
+import SongStats from './song-stats'
 import songService from "../services/song.service.client"
 import userService from "../services/user.service.client"
+<<<<<<< HEAD
 import {Link} from 'react-router-dom'
 import { Share } from 'react-twitter-widgets'
+=======
+>>>>>>> be85978209afd6968ba9c54cfba045023a359093
 import '../styles.css'
-
-class SongStats extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			playCount: this.props.playCount,
-			likeCount: this.props.likeCount,
-			comments: this.props.comments,
-			repostCount: this.props.repostCount
-		}
-	}
-	render() {
-		return (
-			<div className="row pull-right">
-				<span className="fa fa-sm fa-play fa-fw"/>
-				<p className="pr-2">{this.props.playCount}</p>
-
-				<span className="fa fa-heart" aria-hidden="true"/>
-				<p>{this.props.likeCount}</p>
-
-				<span className="fa fa-retweet" aria-hidden="true"/>
-				<p>{this.props.repostCount}</p>
-
-				<span className="fa fa-sm fa-comment fa-fw"/>
-				<p>{this.props.comments.length}</p>
-			</div>
-		)
-	}
-}
 
 class SongItem extends Component {
 	constructor(props) {

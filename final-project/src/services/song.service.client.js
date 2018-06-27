@@ -13,7 +13,7 @@ class SongService {
 		return this[_singleton]
 	}
 
-	// find all songs for the current user
+	// find all songs
 	findAllSongs() {
 		return fetch(URL)
 			.then(function(response) {

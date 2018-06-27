@@ -10,7 +10,7 @@ function createSong(song) {
 	return songModel.create(song);
 }
 function deleteSong(songId) {
-	return songModel.remove({_id:songId});
+	return songModel.deleteOne({_id:songId});
 }
 
 function updateSong(songId, newSong) {

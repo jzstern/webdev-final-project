@@ -15,8 +15,8 @@ export default class Likes extends Component {
 
 	componentDidMount() {
 		this.setState(
-			{user: this.props.user,
-				likedSongsId: this.props.user.likedSongs}
+			{user: this.props.profile,
+				likedSongsId: this.props.profile.likedSongs}
 		)
 	}
 

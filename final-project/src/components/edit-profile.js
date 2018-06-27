@@ -22,19 +22,28 @@ class EditProfile extends Component {
 	}
 
 	update() {
-		let user = {
+		let user = JSON.parse(localStorage.getItem('user'))
+
+		let newUser = {
+			_id: user._id,
 			email: this.state.email,
 			displayName: this.state.displayName,
 			username: this.state.username,
 			firstName: this.state.firstName,
 			lastName: this.state.lastName,
-			accountType: this.state.accountType
+			accountType: this.state.accountType,
+			followers: user.followers,
+			following: user.following,
+			password: user.password,
+			likedSongs: user.likedSongs,
+			repostedSongs: user.repostedSongs
 		}
 
 		this.userService
-			.updateUser(user)
-			.then(() => {
-				localStorage.setItem('user', JSON.stringify(user))
+			.updateUser(newUser)
+			.then(res => {
+				// console.log(res)
+				localStorage.setItem('user', JSON.stringify(res))
 				alert('Profile successfully updated')
 				// this.context.router.history.push('/stream')
 			})
@@ -127,7 +136,7 @@ class EditProfile extends Component {
 			</div>
 
 			<div className="form-group">
-				<button onClick={this.update} className="btn btn-secondary btn-success" style={{marginRight: 10}}>Update</button>
+				<button onClick={this.update} className="btn btn-success" style={{marginRight: 10}}>Update</button>
 			</div>
 		</div>
 	)
