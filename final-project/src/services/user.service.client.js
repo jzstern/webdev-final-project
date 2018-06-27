@@ -14,6 +14,27 @@ class UserService {
 		return this[_singleton]
 	}
 
+	followUser(profileId) {
+		let currentUser = JSON.parse(localStorage.getItem('user'))
+		return fetch(LOCAL_URL + 'user/' + profileId + '/follow', {
+			body: JSON.stringify(currentUser._id),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			method: 'PUT'
+		})
+	}
+
+	unfollowUser(profileId) {
+		return fetch(LOCAL_URL + 'user/' + profileId + '/unfollow', {
+			body: JSON.stringify(JSON.parse(localStorage.getItem('user')._id)),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			method: 'PUT'
+		})
+	}
+
 	fetchUser() {
 		return fetch(LOCAL_URL + 'profile', {
 			headers: {
@@ -63,6 +84,7 @@ class UserService {
 	}
 
 	updateUser(user) {
+		console.log('boutta update user: ' + user)
 		return fetch(LOCAL_URL + 'user/' + user._id, {
 			body: JSON.stringify(user),
 			headers: {

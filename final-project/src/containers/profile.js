@@ -41,6 +41,7 @@ class ProfilePage extends Component {
 
 		this.userService.findUserById(profileId)
 			.then(user => {
+				console.log(user)
 				this.setState({
 					profile: user,
 					user: JSON.parse(localStorage.getItem('user')),
@@ -61,17 +62,25 @@ class ProfilePage extends Component {
 	}
 
 	followUser() {
-		alert("you are following this user")
+		this.userService
+			.followUser(this.state.profile._id)
+			.then(res => {
+				alert("You are now following this user")
+			})
 	}
 
 	unfollowUser() {
-		alert("unfollow user")
+		this.userService
+			.unfollowUser(this.state.profile._id)
+			.then(res => {
+				alert("You are no longer following this user")
+			})
 	}
 
 	isFollowingUser() {
 		let following = JSON.parse(localStorage.getItem('user')).following
 
-		if (following.indexOf(this.state.profile.userId) === -1) {
+		if (following.indexOf(this.state.profile._id) === -1) {
 			return false
 		} else {
 			return true

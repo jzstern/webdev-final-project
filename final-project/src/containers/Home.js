@@ -8,6 +8,7 @@ import LoginForm from '../components/login-form'
 import RegisterForm from '../components/register-form'
 import Upload from '../components/upload'
 import Profile from '../containers/profile'
+import EditProfile from '../components/edit-profile'
 import { userRegistrationRequest } from '../actions/register.actions'
 import { loginRequest } from '../actions/login.actions'
 import '../styles.css'
@@ -63,6 +64,7 @@ export default class extends Component {
 				{/*<RegisterForm registerUser={userRegistrationRequest}/>*/}
 				<Route path="/register" render={(props) => <RegisterForm {...props} registerUser={userRegistrationRequest}/>}/>
 				<Route path="/profile" render={(props) => <Profile/>}/>
+				<Route path="/edit-profile" render={(props) => <EditProfile/>}/>
 
 				{/*<Route path="/upload" component={Upload}/>*/}
 				<Route path="/upload" render={(props) => <Upload {...props} user={this.state.user}/>}/>

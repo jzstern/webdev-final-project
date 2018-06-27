@@ -17,10 +17,10 @@ class NavBarButtons extends Component {
 	displayLoggedInButtons() {
 		return (
 			<ul className="nav navbar-right">
-                <li className="nav-item">
-                    <h4 style={{color: 'white', fontWeight: 'lighter'}}>Hi, {JSON.parse(localStorage.getItem('user')).displayName}</h4>
+				<li className="nav-item">
+					<h4 style={{color: 'white', fontWeight: 'lighter'}}>Hi, {JSON.parse(localStorage.getItem('user')).displayName}</h4>
 				</li>
-                { this.isArtist() ? this.displayUploadButton() : null }
+				{ this.isArtist() ? this.displayUploadButton() : null }
 				<li className="nav-item">
 					<Link to={'/profile/' + JSON.parse(localStorage.getItem('user'))._id + '/tracks'}>
 						<span className="glyphicon glyphicon-user fa-fw"/> Profile
@@ -32,9 +32,9 @@ class NavBarButtons extends Component {
 					</Link>
 				</li>
 				<li className="nav-item">
-					<a href="#">
-						<span className="glyphicon glyphicon-cog fa-fw"/> Settings
-					</a>
+					<Link to={'/edit-profile/' + JSON.parse(localStorage.getItem('user'))._id}>
+						<span className="glyphicon glyphicon-cog fa-fw"/> Edit Profile
+					</Link>
 				</li>
 			</ul>
 		)

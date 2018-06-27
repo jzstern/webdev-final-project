@@ -11,8 +11,8 @@ module.exports = function (app) {
 	app.put('/api/user/:userId', updateUser);
 	app.get('/api/user/:userId/follower', findAllFollowerForUser);
 	app.get('/api/user/:userId/following', findAllFollowingForUser);
-	app.get('api/user/:friendId/follow', followUser);
-    app.get('api/user/:friendId/unfollow', unfollowUser);
+	app.put('api/user/:profileId/follow', followUser);
+	app.put('api/user/:profileId/unfollow', unfollowUser);
 
 	var userModel = require('../models/user/user.model.server');
 	//var bodyParser = require('body-parser');
@@ -54,7 +54,7 @@ module.exports = function (app) {
 	function createUser(req, res) {
 		var user = req.body;
 		// TODO ; add server side validation for empty fields
-    // https://www.youtube.com/watch?v=gZ_fR6o98dE
+		// https://www.youtube.com/watch?v=gZ_fR6o98dE
 
 		userModel
 			.findUserByUsername(user.username)
@@ -88,13 +88,13 @@ module.exports = function (app) {
 	function updateUser(req, res) {
 		var user = req.body;
 		userModel.updateUser(user._id, user)
-			.then(function(user) {
-				if (user === null) {
+			.then(function(updatedUser) {
+				if (updatedUser === null) {
 					res.sendStatus(404);
 				}
 				else {
-                    req.session['currentUser'] = user;
-					res.send(user);
+					// req.session['currentUser'] = user;
+					res.send(updatedUser);
 				}
 			})
 	}
@@ -110,7 +110,7 @@ module.exports = function (app) {
 			.findUserByUsername(username)
 			.then(function(user) {
 				if (!user) {
-                    req.session['currentUser'] = user;
+					req.session['currentUser'] = user;
 					return userModel
 						.createUser(newUser)}});
 	}
@@ -158,21 +158,25 @@ module.exports = function (app) {
 	}
 
 	function followUser(req, res) {
-        var friendId = req.params['friendId'];
-        var currentUser = req.session['currentUser'];
-        userModel.followUser(currentUser, friendId)
+		var profileId = req.params['profileId'];
+		var currentUserId = req.body.userId;
+		// var currentUser = req.session['currentUser'];
+		console.log(currentUserId + ' is following ' + profileId)
+		userModel.followUser(currentUserId, profileId)
 			.then(function(user) {
 				res.send(user);
-            })
+			})
 	}
 
-    function unfollowUser(req, res) {
-        var friendId = req.params['friendId'];
-        var currentUser = req.session['currentUser'];
-        userModel.unfollowUser(currentUser, friendId)
+	function unfollowUser(req, res) {
+		var profileId = req.params['profileId'];
+		var currentUserId = req.body.userId;
+		// var currentUser = req.session['currentUser'];
+		console.log(currentUserId + ' is unfollowing ' + profileId)
+		userModel.unfollowUser(currentUserId, profileId)
 			.then(function(user) {
-        	res.send(user);
-		})
-    }
+				res.send(user);
+			})
+	}
 
 }
