@@ -75,6 +75,12 @@ class UserService {
 				return response.json()
 			})
 	}
+	findAllUsers()  {
+		return fetch(LOCAL_URL + 'user')
+			.then(function(response) {
+				return response.json()
+			})
+	}
 
 	findUserByUsername(username) {
 		return fetch(LOCAL_URL + '/' + username)
@@ -84,7 +90,7 @@ class UserService {
 	}
 
 	updateUser(user) {
-		console.log('boutta update user: ' + user)
+		
 		return fetch(LOCAL_URL + 'user/' + user._id, {
 			body: JSON.stringify(user),
 			headers: {

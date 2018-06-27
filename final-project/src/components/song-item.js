@@ -246,7 +246,7 @@ class SongItem extends Component {
 								<span className="glyphicon glyphicon-play"/>
 							</button>
 							<h4>{this.state.title}</h4>
-							<Link to={`/profile/${this.state.artistId}`}>
+							<Link to={`/profile/${this.state.artistId}/tracks`}>
 								<h4>{this.state.displayName}</h4>
 							</Link>
 						</div>

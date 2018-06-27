@@ -9,20 +9,10 @@ var userSchema = mongoose.Schema({
 	lastName: String,
 	displayName: String,
 	accountType: String,
-	following: [{
-		user: {
-			type: Schema.Types.ObjectId,
-			ref: 'user'
-		}
-	}],
-	followers: [{
-		user: {
-			type: Schema.Types.ObjectId,
-			ref: 'user'
-		}
-	}],
-	likedSongs: [],
-	repostedSongs: []
+	following: [String],
+	followers: [String],
+	likedSongs: [String],
+	repostedSongs: [String]
 }, {collection: 'user'});
 
 module.exports = userSchema;

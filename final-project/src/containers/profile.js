@@ -40,18 +40,45 @@ class ProfilePage extends Component {
 		let profileId = chunks[4]
 
 		this.userService.findUserById(profileId)
-			.then(user => {
-				console.log(user)
+			.then(profile => {
+				let user, userId
+				if (!localStorage.getItem('user')) {
+					user = null
+					userId = null
+				} else {
+					user = JSON.parse(localStorage.getItem('user'))
+					userId = user._id
+				}
 				this.setState({
-					profile: user,
-					user: JSON.parse(localStorage.getItem('user')),
-					userId: JSON.parse(localStorage.getItem('user'))._id
+					profile: profile,
+					user: user,
+					userId: userId
 				})
 			})
 	}
 
 	componentWillReceiveProps(newProps) {
 		//TODO  after an update is made, should fetch the user from server again and store in browser local storage
+		let url = window.location.href
+		let chunks = url.split("/")
+		let profileId = chunks[4]
+
+		this.userService.findUserById(profileId)
+			.then(profile => {
+				let user, userId
+				if (!localStorage.getItem('user')) {
+					user = null
+					userId = null
+				} else {
+					user = JSON.parse(localStorage.getItem('user'))
+					userId = user._id
+				}
+				this.setState({
+					profile: profile,
+					user: user,
+					userId: userId
+				})
+			})
 	}
 
 	setSongs(songs) {
@@ -62,42 +89,77 @@ class ProfilePage extends Component {
 	}
 
 	followUser() {
+		let user = JSON.parse(localStorage.getItem('user'))
+		let artist = this.state.profile
+		user.following.push(artist._id)
+		artist.followers.push(user._id)
+
 		this.userService
-			.followUser(this.state.profile._id)
-			.then(res => {
-				alert("You are now following this user")
+			.updateUser(user)
+			.then(() => {
+				localStorage.setItem('user', JSON.stringify(user))
+				this.userService
+					.updateUser(artist)
+					.then(this.setState({ profile: artist, user: user }))
 			})
+
+		// this.userService
+		// .followUser(this.state.profile._id)
+		// .then(res => {
+		// 	if (res.statusCode === 404) {
+		// 		console.log('jeez')
+		// 	} else {
+		// 		alert("You are now following this user")
+		// 	}
+		// })
 	}
 
 	unfollowUser() {
+		let user = JSON.parse(localStorage.getItem('user'))
+		let artist = this.state.profile
+		let uIndex = user.following.indexOf(artist._id)
+		let aIndex = artist.followers.indexOf(user._id)
+		user.following.splice(uIndex, 1)
+		artist.followers.splice(aIndex, 1)
+
 		this.userService
-			.unfollowUser(this.state.profile._id)
-			.then(res => {
-				alert("You are no longer following this user")
+			.updateUser(user)
+			.then(() => {
+				localStorage.setItem('user', JSON.stringify(user))
+				this.userService
+					.updateUser(artist)
+					.then(this.setState({ profile: artist, user: user }))
 			})
+		// this.userService
+		// 	.unfollowUser(this.state.profile._id)
+		// 	.then(res => {
+		// 		alert("You are no longer following this user")
+		// 	})
 	}
 
 	isFollowingUser() {
-		let following = JSON.parse(localStorage.getItem('user')).following
-
-		if (following.indexOf(this.state.profile._id) === -1) {
+		if (!localStorage.getItem('user')) {
 			return false
 		} else {
-			return true
+			let following = JSON.parse(localStorage.getItem('user')).following
+
+			if (following.indexOf(this.state.profile._id) === -1) {
+				return false
+			} else {
+				return true
+			}
 		}
 	}
 
 	getFollowers() {
-		if (this.state.user && this.state.user.followers) {
-			// console.log(this.state.user)
-			return <h4>{this.state.user.followers.length}</h4>
+		if (this.state.profile && this.state.profile.followers) {
+		return <h4>{this.state.profile.followers.length}</h4>
 		}
 	}
 
 	getFollowing() {
-		if (this.state.user && this.state.user.following) {
-			// console.log(this.state.user)
-			return <h4>{this.state.user.following.length}</h4>
+		if (this.state.profile && this.state.profile.following) {
+		return <h4>{this.state.profile.following.length}</h4>
 		}
 	}
 
@@ -126,7 +188,9 @@ class ProfilePage extends Component {
 			<div className="container">
 				<h2>{this.state.profile.displayName}</h2>
 
-				<div hidden={this.state.profile._id === this.state.userId} className="container-fluid">
+				<div hidden={this.state.profile._id === this.state.userId}
+				     style={{marginBottom: 10}}
+				     className="container-fluid">
 					{!this.isFollowingUser() && <button type="button"
 					                                    className="btn btn-secondary"
 					                                    onClick={this.followUser}>Follow</button>}

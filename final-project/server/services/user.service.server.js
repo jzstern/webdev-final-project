@@ -73,8 +73,8 @@ module.exports = function (app) {
 	}
 
 	function deleteUser(req, res) {
-		var user = req.body;
-		userModel.deleteUser(user.id)
+		var user = req.params['userId'];
+		userModel.deleteUser(user)
 			.then(function(error, user) {
 				if (user === null) {
 					res.sendStatus(404);
@@ -158,6 +158,7 @@ module.exports = function (app) {
 	}
 
 	function followUser(req, res) {
+		console.log('TRYNA FOLLOW THIS USER')
 		var profileId = req.params['profileId'];
 		var currentUserId = req.body.userId;
 		// var currentUser = req.session['currentUser'];
