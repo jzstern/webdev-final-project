@@ -2,6 +2,7 @@ module.exports = function (app) {
 
     app.get('http://localhost:4000/api/playlist/user/:userId', findAllPlaylistsForUser)
     app.get('http://localhost:4000/api/playlist/:playlistId', findPlaylistById)
+    app.get('http://localhost:4000/api/playlists', findAllPlaylists)
     app.put('http://localhost:4000/api/playlist/:playlistId', updatePlaylist)
     app.post('http://localhost:4000/api/playlist', createPlaylistForUser)
     app.delete('http://localhost:4000/api/playlist/:playlistId', deletePlaylist)
@@ -9,6 +10,13 @@ module.exports = function (app) {
 
     var playlistModel = require('../models/playlist/playlist.model.server')
 
+    function findAllPlaylists(req, res) {
+        playlistModel
+            .findAllPlaylists()
+            .then(function (playlists) {
+                res.json(playlists)
+            })
+    }
     function findAllPlaylistsForUser(req, res) {
         let userId = req.params['userId']
         playlistModel
