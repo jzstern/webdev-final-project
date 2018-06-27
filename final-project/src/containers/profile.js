@@ -211,13 +211,13 @@ class ProfilePage extends Component {
 								<div className="card-header">
 									<ul className="nav nav-tabs card-header-tabs">
 										<li className="nav-item">
-											<Link to={`/profile/${this.state.userId}/tracks`}>Tracks</Link>
+											<Link to={`/profile/${this.state.profile._id}/tracks`}>Tracks</Link>
 										</li>
 										<li className="nav-item">
-											<Link to={`/profile/${this.state.userId}/reposts`}>Repost</Link>
+											<Link to={`/profile/${this.state.profile._id}/reposts`}>Repost</Link>
 										</li>
 										<li className="nav-item">
-											<Link to={`/profile/${this.state.userId}/likes`}>Likes</Link>
+											<Link to={`/profile/${this.state.profile._id}/likes`}>Likes</Link>
 										</li>
 									</ul>
 								</div>
