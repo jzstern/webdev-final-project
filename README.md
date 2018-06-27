@@ -15,6 +15,11 @@ Jeremy Stern, Erin Zhang, Harold Hyatt
   - [Listener ](#listener)
   - [Artist](#artist)
   - [Artist Pro](#artist-pro)
+- [Example Roles](#example-roles)
+  - [alice/alice](#alicealice)
+  - [bob/bob](#bobbob)
+  - [charlie/charlie](#charliecharlie)
+  - [admin/admin](#adminadmin)
 [Use Cases](#use-cases)
   - [Follow Artist](#follow-artist)
   - [Search by Song Title](#search-by-song-title)
@@ -61,6 +66,10 @@ Artist pro has access to an advanced features than an artist or listener. This i
 
 # Example Users
 
+These are examples of users in our project database. They can be logged in as:
+
+username/password
+
 ### alice/alice
 
 Alice is a Listener. As a listener, you have the ability to interact with the songs in your stream. You can follow other users by clicking on their tracks or profiles. You can also like or share tracks. You can navigate to your profile by clicking no the navigation pane at the top of your page. Here, you can edit your basic profile information, such as your password.
@@ -81,38 +90,47 @@ When logged in as the administrator, you have the ability to create, read, updat
 
 ### Follow Artist
 
-Logged in as alice (Listener). Click on a song artist. In their profile, click "follow". You have now followed this artist. Following an artist is a user-to-user use case. 
+Use Case 1: Logged in as alice (Listener). Click on a song artist. In their profile, click "follow". You have now followed this artist. Following an artist is a user-to-user use case. 
 
 ### Search by Song Title
 
-You can search for domain objects by typing into the search bar. You do not have to be logged in. Type "Better With You" into the search bar and view the results. You should see the song result below.
+Use Case 2: You can search for domain objects by typing into the search bar. You do not have to be logged in. Type "Better With You" into the search bar and view the results. You should see the song result below.
 
 ### Navigate to Song
 
-Clicking on a song title in the stream or in search results will bring you to the song's page. This is an example of navigation to a domain object
+Use Case 3: Clicking on a song title in the stream or in search results will bring you to the song's page. This is an example of navigation to a domain object
 
 ### View Liked Songs
 
-Logged in as alice (Listener). Go to your profile, and click "likes". Your liked tracks will be displayed as a list.
+Use Case 4: Logged in as alice (Listener). Go to your profile by clicking the top right "profile" button, or navigate to /profile. Click "likes" to view liked songs. Your songs tracks will be displayed as a list.
 
 ### View Song Stream
 
-As any user, navigate to the home page by clicking on the logo on the top left of the page. This will render your stream of songs.
+Use Case 5: As any user, navigate to the home page by clicking on the logo on the top left of the page. This will render your stream of songs from other users.
 
 ### Like a Song
 
-Logged in as alice (Listener). Find a song on your stream and click the heart. This will add the song to your liked tracks and color
+Use Case 6: Logged in as alice (Listener). Find a song on your stream and click the heart. This will add the song to your liked tracks. Liked tracks are viewable on the /profile page
 
 ### Add Song to Playlist
 
+Use Case 7: 
+
 ### Admin Create
+
+Use Case 8: Logged in as admin. Navigate to /admin. This will render a list of all the users in the database. At the top of the page, there are forms that allow you to enter the details for a new user. Once the details are filled out, click "create" to add a new user to the database.
 
 ### Admin Read
 
+Use Case 9: Logged in as admin. Navigate to /admin. This page will read all the users in the database and render them into a viewable list.
+
 ### Admin Update
+
+Use Case 10: Logged in as admin. Navigate to /admin. In the list of users, click the "edit" button. This will allow you to enter new data for a user. Press "save" when completed, and the user will be updated in the database.
 
 ### Admin Delete
 
+Use Case 11: Logged in as admin. Navigate to /admin. Next to each rendered user, there will be a button labeled "delete". Use this button to delete the user from the database.
 
 # Design
 
