@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Route} from 'react-router-dom'
+import {Route, Redirect} from 'react-router-dom'
 import NavigationBar from './navigation-bar'
 import SongItem from '../components/song-item'
 import Stream from '../containers/stream'
@@ -22,7 +22,14 @@ export default class extends Component {
 		this.renderResults = this.renderResults.bind(this)
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		let url = window.location.href
+		console.log(url)
+		if (url === 'http://localhost:3000/') {
+			console.log('redirect pls')
+			window.location.href = 'http://localhost:3000/stream'
+		}
+	}
 
 	// when songs are received, set to state then render
 	renderResults(results) {
