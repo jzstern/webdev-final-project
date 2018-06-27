@@ -77,7 +77,44 @@ When using the app as an artist pro, you have access to a additional features wh
 
 When logged in as the administrator, you have the ability to create, read, update, and delete users. Instead of a profile, the administrator has access to a special panel where all the platform users are rendered. You can then click on any user to edit their information, or remove them from the app.
 
-## Design
+# Use Cases
+
+### Follow Artist
+
+Logged in as alice (Listener). Click on a song artist. In their profile, click "follow". You have now followed this artist. Following an artist is a user-to-user use case. 
+
+### Search by Song Title
+
+You can search for domain objects by typing into the search bar. You do not have to be logged in. Type "Better With You" into the search bar and view the results. You should see the song result below.
+
+### Navigate to Song
+
+Clicking on a song title in the stream or in search results will bring you to the song's page. This is an example of navigation to a domain object
+
+### View Liked Songs
+
+Logged in as alice (Listener). Go to your profile, and click "likes". Your liked tracks will be displayed as a list.
+
+### View Song Stream
+
+As any user, navigate to the home page by clicking on the logo on the top left of the page. This will render your stream of songs.
+
+### Like a Song
+
+Logged in as alice (Listener). Find a song on your stream and click the heart. This will add the song to your liked tracks and color
+
+### Add Song to Playlist
+
+### Admin Create
+
+### Admin Read
+
+### Admin Update
+
+### Admin Delete
+
+
+# Design
 
 ### Class Diagram
 ![Class Diagram](https://i.imgur.com/17evE8q.png) 
@@ -85,4 +122,4 @@ When logged in as the administrator, you have the ability to create, read, updat
 ### Sequence Diagram
 ![Sequence Diagram](https://i.imgur.com/FFmd0pE.png)
 
-## External API Twitter
+# External API Twitter
