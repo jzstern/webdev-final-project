@@ -2,13 +2,14 @@ import React, {Component} from 'react'
 import SongItem from '../components/song-item'
 import SongService from "../services/song.service.client"
 import PlaylistService from "../services/playlist.service.client"
+import Stream from "./stream"
 import '../styles.css'
 
 class Playlist extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			songs: null,
+			songs: null
 		}
 
 		this.songService = SongService.instance
@@ -18,7 +19,7 @@ class Playlist extends Component {
 	}
 
 	componentDidMount() {
-		this.songService
+		this.playlistService
 			.findAllSongs()
 			.then((songs) => {
 				this.setSongs(songs)
@@ -51,9 +52,11 @@ class Playlist extends Component {
 	render() {
 		return (
 			<div className="container">
+				<h1>THIS IS A PLAYLIST</h1>
 				<ul className="list-group list-group-flush">
 					{/*{this.renderSongs()}*/}
 				</ul>
+				<Stream/>
 			</div>
 		)
 	}

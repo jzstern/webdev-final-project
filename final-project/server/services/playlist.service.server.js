@@ -17,6 +17,7 @@ module.exports = function (app) {
 				res.json(playlists)
 			})
 	}
+
 	function findPlaylistById(req, res) {
 		let playlistId = req.params['playlistId']
 		playlistModel
@@ -25,6 +26,7 @@ module.exports = function (app) {
 				res.json(playlist)
 			})
 	}
+
 	function updatePlaylist(req, res) {
 		let playlist = req.body;
 		let playlistId = req.params['playlistId'];
@@ -50,7 +52,6 @@ module.exports = function (app) {
 				res.send(playlist)
 			})
 	}
-
 
 	function deletePlaylist(req, res) {
 		let playlistId = req.params['playlistId'];

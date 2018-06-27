@@ -80,6 +80,7 @@ class SongItem extends Component {
 	componentWillReceiveProps(newProps) {
 		this.setState({
 			id: newProps.id,
+			artistId: this.props.artistId,
 			title: newProps.title,
 			displayName: newProps.displayName,
 			genre: newProps.genre,
@@ -112,8 +113,6 @@ class SongItem extends Component {
 
 	unlikeSongForUser() {
 		var user = JSON.parse(localStorage.getItem('user'))
-		// let likes = JSON.parse(user || "[]").likedSongs
-
 		var index = user.likedSongs.indexOf(this.props.id)
 		user.likedSongs.splice(index, 1)
 
@@ -237,9 +236,9 @@ class SongItem extends Component {
 									{this.state.reposted && <span className="fa fa-retweet fa-fw" style={{color: 'blue'}}/>}
 									{/*<span className="fa fa-retweet fa-dw"/>*/}
 								</i>
-								<i className="btn" onClick={this.shareLink}>
-									<span className="glyphicon glyphicon-share fa-fw"/>
-								</i>
+								{/*<i className="btn" onClick={this.shareLink}>*/}
+									{/*<span className="glyphicon glyphicon-share fa-fw"/>*/}
+								{/*</i>*/}
 								<i className="btn" onClick={this.tweet}>
 									<span className="fa fa-twitter fa-fw"/>
 								</i>
