@@ -63,8 +63,6 @@ class ProfilePage extends Component {
 		let chunks = url.split("/")
 		let profileId = chunks[4]
 
-		console.log('INSIDE COMPONENTWILLRECEIVEPROPS')
-
 		this.userService.findUserById(profileId)
 			.then(profile => {
 				let user, userId
