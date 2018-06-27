@@ -3,11 +3,7 @@ import {Link} from 'react-router-dom'
 import SongStats from './song-stats'
 import songService from "../services/song.service.client"
 import userService from "../services/user.service.client"
-<<<<<<< HEAD
-import {Link} from 'react-router-dom'
 import { Share } from 'react-twitter-widgets'
-=======
->>>>>>> be85978209afd6968ba9c54cfba045023a359093
 import '../styles.css'
 
 class SongItem extends Component {
