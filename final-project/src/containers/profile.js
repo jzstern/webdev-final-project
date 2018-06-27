@@ -3,9 +3,9 @@ import SongItem from '../components/song-item'
 import SongService from "../services/song.service.client"
 import UserService from "../services/user.service.client"
 import {Link, Route} from 'react-router-dom'
-import Likes from "./likes"
-import Reposts from "./reposts"
-import Tracks from "./tracks"
+import Likes from "./likes-tab"
+import Reposts from "./reposts-tab"
+import Tracks from "./tracks-tab"
 import '../styles.css'
 import Admin from '../containers/admin'
 
