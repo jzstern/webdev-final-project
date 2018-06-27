@@ -23,8 +23,10 @@ class ProfilePage extends Component {
         this.userService = UserService.instance
         this.setSongs = this.setSongs.bind(this)
         this.renderSongs = this.renderSongs.bind(this)
-		this.getFollowers =  this.getFollowers.bind(this);
+        this.getFollowers =  this.getFollowers.bind(this);
         this.getFollowings = this.getFollowings.bind(this);
+        this.followUser = this.followUser.bind(this);
+        this.unfollowUser = this.unfollowUser.bind(this);
     }
 
     componentDidMount() {
@@ -38,6 +40,9 @@ class ProfilePage extends Component {
     }
 
     componentWillReceiveProps(newProps) {
+        //TODO
+		// after an update is made, should fetch the user from server again and store in browser local storage
+
     }
 
     setSongs(songs) {
@@ -47,12 +52,24 @@ class ProfilePage extends Component {
         this.renderSongs()
     }
 
+    followUser() {
+        alert("you are following this user");
+    }
+    unfollowUser() {
+		alert("unfollow user");
+    }
     getFollowers() {
-    	//TODO
-	}
+    	if (this.state.user && this.state.user.followers) {
+    		console.log(this.state.user);
+            return <h4>{this.state.user.followers.length}</h4>
+        }
+    }
     getFollowings() {
-       // TODO
-	}
+        if (this.state.user && this.state.user.following) {
+            console.log(this.state.user);
+            return <h4>{this.state.user.following.length}</h4>
+        }
+    }
     renderSongs() {
         let songs
         if (this.state.songList !== null) {
@@ -85,7 +102,12 @@ class ProfilePage extends Component {
                 </div>
 
                 <div className="container-fluid">
-                    <button type="button" className="btn btn-secondary">Follow/Unfollow</button>
+                    <button type="button"
+                            className="btn btn-secondary"
+                            onClick={this.followUser}>Follow</button>
+                    <button type="button"
+                            className="btn btn-secondary"
+                            onClick={this.unfollowUser}>Unfollow</button>
                 </div>
 
                 <div className="container-fluid">
@@ -115,25 +137,25 @@ class ProfilePage extends Component {
                         </div>
                         <div className="col-sm-4">
                             <div className="row">
-                            <div className="col-sm-6">
-                                Followers
+                                <div className="col-sm-6">
+                                    Followers
 
 
-                            </div>
-                            <div className="col-sm-6">
-                                Following
-                            </div>
+                                </div>
+                                <div className="col-sm-6">
+                                    Following
+                                </div>
                             </div>
                             <div class="row">
                                 <div className="col-sm-6">
-									{this.getFollowers()}
+                                    {this.getFollowers()}
 
 
                                 </div>
                                 <div className="col-sm-6">
-									{this.getFollowings()}
+                                    {this.getFollowings()}
                                 </div>
-							</div>
+                            </div>
 
                         </div>
                     </div>
