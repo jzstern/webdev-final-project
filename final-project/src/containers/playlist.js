@@ -9,7 +9,8 @@ class Playlist extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			songs: null
+			songs: null,
+			playlistId: ''
 		}
 
 		this.songService = SongService.instance
@@ -19,8 +20,16 @@ class Playlist extends Component {
 	}
 
 	componentDidMount() {
+        let url = window.location.href
+        let chunks = url.split("/")
+        let playlistId = chunks[3]
+
+		this.setState({
+            playlistId: playlistId
+		});
+
 		this.playlistService
-			.findAllSongs()
+			.findAllSongs(playlistId)
 			.then((songs) => {
 				this.setSongs(songs)
 			})
@@ -53,6 +62,7 @@ class Playlist extends Component {
 		return (
 			<div className="container">
 				<h1>THIS IS A PLAYLIST</h1>
+				<h2>{this.state.playlistId}</h2>
 				<ul className="list-group list-group-flush">
 					{/*{this.renderSongs()}*/}
 				</ul>

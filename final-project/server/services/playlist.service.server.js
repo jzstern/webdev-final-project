@@ -5,9 +5,18 @@ module.exports = function (app) {
     app.put('/api/playlist/:playlistId', updatePlaylist)
     app.post('/api/playlist', createPlaylistForUser)
     app.delete('/api/playlist/:playlistId', deletePlaylist)
+    app.get('/api/playlist/:playlistId/songs', findAllSongsForPlaylist)
 
 	var playlistModel = require('../models/playlist/playlist.model.server')
 
+    function findAllSongsForPlaylist(req, res) {
+        let playlistId = req.params['playlistId']
+        playlistModel
+            .findAllSongsForPlaylist(playlistId)
+            .then(function (songs) {
+                res.json(songs)
+            })
+    }
 	function findAllPlaylists(req, res) {
 		playlistModel
 			.findAllPlaylists()

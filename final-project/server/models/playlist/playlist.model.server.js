@@ -28,6 +28,9 @@ function findAllPlaylists() {
     return playlistModel.find();
 }
 
+function findAllSongsForPlaylist(playlistId) {
+    return playlistModel.find({_id: playlistId}, {songs: 1, _id: 0});
+}
 
 var api = {
     findAllPlaylistsForUser: findAllPlaylistsForUser,
@@ -35,7 +38,8 @@ var api = {
     updatePlaylist: updatePlaylist,
     createPlaylistForUser: createPlaylistForUser,
     deletePlaylist: deletePlaylist,
-    findAllPlaylists: findAllPlaylists
+    findAllPlaylists: findAllPlaylists,
+    findAllSongsForPlaylist: findAllSongsForPlaylist
 };
 
 module.exports = api;
