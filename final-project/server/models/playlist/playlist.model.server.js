@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var playlistSchema = require('./playlist.schema.server');
 var playlistModel = mongoose.model('PlaylistModel', playlistSchema);
-var Schema = mongoose.Schema;
 
 
 function findAllPlaylistsForUser(userId) {
@@ -22,7 +21,11 @@ function createPlaylistForUser(playlist) {
 }
 
 function deletePlaylist(playlistId) {
-    return playlistMode.deleteOne({_id: playlistId});
+    return playlistModel.deleteOne({_id: playlistId});
+}
+
+function findAllPlaylists() {
+    return playlistModel.find();
 }
 
 
@@ -31,7 +34,8 @@ var api = {
     findPlaylistById: findPlaylistById,
     updatePlaylist: updatePlaylist,
     createPlaylistForUser: createPlaylistForUser,
-    deletePlaylist: deletePlaylist
+    deletePlaylist: deletePlaylist,
+    findAllPlaylists: findAllPlaylists
 };
 
 module.exports = api;

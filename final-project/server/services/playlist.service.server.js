@@ -1,23 +1,28 @@
 module.exports = function (app) {
-
-	app.get('http://localhost:4000/api/playlist/user/:userId', findAllPlaylistsForUser)
-	app.get('http://localhost:4000/api/playlist/:playlistId', findPlaylistById)
-	app.put('http://localhost:4000/api/playlist/:playlistId', updatePlaylist)
-	app.post('http://localhost:4000/api/playlist', createPlaylistForUser)
-	app.delete('http://localhost:4000/api/playlist/:playlistId', deletePlaylist)
+	app.get('/api/playlist/user/:userId', findAllPlaylistsForUser)
+	app.get('/api/playlist/:playlistId', findPlaylistById)
+	app.get('/api/playlist/all', findAllPlaylists)
+	app.put('/api/playlist/:playlistId', updatePlaylist)
+	app.post('/api/playlist', createPlaylistForUser)
+	app.delete('/api/playlist/:playlistId', deletePlaylist)
 
 	var playlistModel = require('../models/playlist/playlist.model.server')
 
+	function findAllPlaylists(req, res) {
+		playlistModel
+			.findAllPlaylists()
+			.then(function (playlists) {
+				res.json(playlists)
+			})
+	}
 	function findAllPlaylistsForUser(req, res) {
 		let userId = req.params['userId']
 		playlistModel
 			.findAllPlaylistsForUser(userId)
 			.then(function (playlists) {
-			  console.log(playlists)
 				res.json(playlists)
 			})
 	}
-
 	function findPlaylistById(req, res) {
 		let playlistId = req.params['playlistId']
 		playlistModel
@@ -26,7 +31,6 @@ module.exports = function (app) {
 				res.json(playlist)
 			})
 	}
-
 	function updatePlaylist(req, res) {
 		let playlist = req.body;
 		let playlistId = req.params['playlistId'];
@@ -42,8 +46,8 @@ module.exports = function (app) {
 					console.log(playlist);
 				}
 			})
-
 	}
+
 
 	function createPlaylistForUser(req, res) {
 		let playlist = req.body;
