@@ -14,7 +14,7 @@ var userSchema = mongoose.Schema({
 	followers: [String],
 	likedSongs: [String],
 	repostedSongs: [String],
-	playlists: [PlaylistSchema]
+	playlists: [String]
 }, {collection: 'user'});
 
 module.exports = userSchema;
