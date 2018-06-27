@@ -1,9 +1,6 @@
 # Music Streaming App
 This is a music streaming platform created as a final project for CS4550 at Northeastern University.
 
-Contact Jeremy at stern.je@husky.neu.edu or (650) 678-1873
-Jeremy Stern, Erin Zhang, Harold Hyatt
-
 ## Table of Contents
 
 - [Configuration](#setup)

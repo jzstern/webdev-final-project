@@ -37,6 +37,15 @@ app.use(session({
     secret: 'any string'
 }));
 
+var twitterSchema = {
+  twitterProvider: {
+      type: {
+        id: String,
+        token: String
+      },
+      select: false
+    }
+}
 
 app.get('/', function (req, res) {
     res.send('Hello World')
@@ -74,5 +83,7 @@ playlistService(app);
 var songService = require('./services/song.service.server');
 songService(app);
 
+var twitterService = require('./services/twitter.service.server')
+twitterService(app);
 
 app.listen(4000)

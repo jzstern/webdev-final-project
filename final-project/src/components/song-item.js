@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import SongStats from './song-stats'
 import songService from "../services/song.service.client"
 import userService from "../services/user.service.client"
+import { Share } from 'react-twitter-widgets'
 import '../styles.css'
 
 class SongItem extends Component {
@@ -61,7 +62,10 @@ class SongItem extends Component {
 
 		// load logged in user info
 		const user = JSON.parse(localStorage.getItem('user'))
-		this.setState({user: user})
+		const twitter = JSON.parse(localStorage.getItem('twitter'))
+		this.setState({
+										user: user,
+										twitter: twitter })
 
 		if (this.isLoggedIn()) {
 			if (user.likedSongs.length !== 0) {
@@ -159,6 +163,7 @@ class SongItem extends Component {
 
 	tweet() {
 		if (this.isLoggedIn()) {
+			console.log(this.state.twitter)
 			let songURL = '/song' + this.state.id
 			this.setState({tweeted: !this.state.tweeted})
 			//	make API call to post tweet
@@ -236,14 +241,14 @@ class SongItem extends Component {
 									{this.state.reposted && <span className="fa fa-retweet fa-fw" style={{color: 'blue'}}/>}
 									{/*<span className="fa fa-retweet fa-dw"/>*/}
 								</i>
-								{/*<i className="btn" onClick={this.shareLink}>*/}
-									{/*<span className="glyphicon glyphicon-share fa-fw"/>*/}
-								{/*</i>*/}
-								<i className="btn" onClick={this.tweet}>
-									<span className="fa fa-twitter fa-fw"/>
+								<i className="btn" onClick={this.shareLink}>
+									<span className="glyphicon glyphicon-share fa-fw"/>
 								</i>
+								<Share url={this.shareLink}/>
+								{/*<i className="btn" onClick={this.tweet}>
+									<span className="fa fa-twitter fa-fw"/>
+								</i>*/}
 							</div>
-
 							<SongStats playCount={this.state.stats.playCount}
 							           likeCount={this.state.stats.likeCount}
 							           repostCount={this.state.stats.repostCount}
