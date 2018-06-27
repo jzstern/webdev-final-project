@@ -90,6 +90,8 @@ class UserService {
 	}
 
 	updateUser(user) {
+		console.log('boutta update this dude: ')
+		console.log(user)
 		return fetch(LOCAL_URL + 'user/' + user._id, {
 			body: JSON.stringify(user),
 			headers: {

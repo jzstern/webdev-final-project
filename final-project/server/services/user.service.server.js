@@ -8,9 +8,9 @@ module.exports = function (app) {
 	app.post('/api/register', register);
 	app.get('/api/profile', profile);
 	app.delete('/api/user/:userId', deleteUser);
-	app.put('/api/user/:userId', updateUser);
 	app.get('/api/user/:userId/follower', findAllFollowerForUser);
 	app.get('/api/user/:userId/following', findAllFollowingForUser);
+	app.put('/api/user/:userId', updateUser);
 	app.put('api/user/:profileId/follow', followUser);
 	app.put('api/user/:profileId/unfollow', unfollowUser);
 
@@ -87,14 +87,19 @@ module.exports = function (app) {
 
 	function updateUser(req, res) {
 		var user = req.body;
-		userModel.updateUser(user._id, user)
-			.then(function(updatedUser) {
-				if (updatedUser === null) {
+		userModel
+			.updateUser(user._id, user)
+			.then(function(response) {
+				if (response === null) {
 					res.sendStatus(404);
 				}
 				else {
-					// req.session['currentUser'] = user;
-					res.send(updatedUser);
+					userModel
+						.findUserById(user._id)
+						.then(function(updatedUser) {
+							res.send(updatedUser);
+						// req.session['currentUser'] = user;
+						})
 				}
 			})
 	}
@@ -158,11 +163,9 @@ module.exports = function (app) {
 	}
 
 	function followUser(req, res) {
-		console.log('TRYNA FOLLOW THIS USER')
 		var profileId = req.params['profileId'];
 		var currentUserId = req.body.userId;
 		// var currentUser = req.session['currentUser'];
-		console.log(currentUserId + ' is following ' + profileId)
 		userModel.followUser(currentUserId, profileId)
 			.then(function(user) {
 				res.send(user);
@@ -173,7 +176,6 @@ module.exports = function (app) {
 		var profileId = req.params['profileId'];
 		var currentUserId = req.body.userId;
 		// var currentUser = req.session['currentUser'];
-		console.log(currentUserId + ' is unfollowing ' + profileId)
 		userModel.unfollowUser(currentUserId, profileId)
 			.then(function(user) {
 				res.send(user);
