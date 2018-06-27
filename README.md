@@ -8,10 +8,6 @@ Jeremy Stern, Erin Zhang, Harold Hyatt
 
 - [Configuration](#setup)
 - [Roles](#roles)
-- [Design](#design)
-  - [Class Diagram](#class-diagram)
-  - [Sequence Diagram](#sequence-diagram)
-- [Roles](#roles)
   - [Listener ](#listener)
   - [Artist](#artist)
   - [Artist Pro](#artist-pro)
@@ -20,7 +16,7 @@ Jeremy Stern, Erin Zhang, Harold Hyatt
   - [bob/bob](#bobbob)
   - [charlie/charlie](#charliecharlie)
   - [admin/admin](#adminadmin)
-[Use Cases](#use-cases)
+- [Use Cases](#use-cases)
   - [Follow Artist](#follow-artist)
   - [Search by Song Title](#search-by-song-title)
   - [Navigate to Song](#navigate-to-song)
@@ -32,6 +28,9 @@ Jeremy Stern, Erin Zhang, Harold Hyatt
   - [Admin Read](#admin-read)
   - [Admin Update](#admin-update)
   - [Admin Delete](#admin-delete)
+- [Design](#design)
+  - [Class Diagram](#class-diagram)
+  - [Sequence Diagram](#sequence-diagram)
 - [External API Twitter](#external-api-twitter)
 
 ## Configuration
@@ -141,3 +140,5 @@ Use Case 11: Logged in as admin. Navigate to /admin. Next to each rendered user,
 ![Sequence Diagram](https://i.imgur.com/FFmd0pE.png)
 
 # External API Twitter
+
+We used Twitter as an external API. Twitter allows users to tweet their favorite tracks.
