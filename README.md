@@ -9,13 +9,25 @@ Jeremy Stern, Erin Zhang, Harold Hyatt
 - [Configuration](#setup)
 - [Roles](#roles)
 - [Design](#design)
-	- [Class Diagram](#class-diagram)
-	- [Sequence Diagram](#sequence-diagram)
+  - [Class Diagram](#class-diagram)
+  - [Sequence Diagram](#sequence-diagram)
 - [Roles](#roles)
-	[Listener ](#listener)
-	[Artist](#artist)
-	[Artist Pro](#artist-pro)
-- [External API: Twitter](#external-api)
+  - [Listener ](#listener)
+  - [Artist](#artist)
+  - [Artist Pro](#artist-pro)
+[Use Cases](#use-cases)
+  - [Follow Artist](#follow-artist)
+  - [Search by Song Title](#search-by-song-title)
+  - [Navigate to Song](#navigate-to-song)
+  - [View Liked Songs](#view-liked-songs)
+  - [View Song Stream](#view-song-stream)
+  - [Like a Song](#like-a-song)
+  - [Add Song to Playlist](#add-song-to-playlist)
+  - [Admin Create](#admin-create)
+  - [Admin Read](#admin-read)
+  - [Admin Update](#admin-update)
+  - [Admin Delete](#admin-delete)
+- [External API Twitter](#external-api-twitter)
 
 ## Configuration
 Start the Server on http://localhost:4000
@@ -73,7 +85,4 @@ When logged in as the administrator, you have the ability to create, read, updat
 ### Sequence Diagram
 ![Sequence Diagram](https://i.imgur.com/FFmd0pE.png)
 
-## Roles
-### Listener
-### Artist
-### Artist Pro
+## External API Twitter
