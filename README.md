@@ -31,15 +31,15 @@ This is a music streaming platform created as a final project for CS4550 at Nort
 - [External API Twitter](#external-api-twitter)
 
 ## Configuration
-Start the Server on http://localhost:4000
+Start the Client on http://localhost:3000
 ```
-cd server
+cd final-project
 npm install
 npm start
 ```
-Start the Client on http://localhost:3000
+Start the Server on http://localhost:4000
 ```
-cd client
+cd server
 npm install
 npm start
 ```
