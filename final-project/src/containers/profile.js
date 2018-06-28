@@ -8,7 +8,7 @@ import Reposts from "./reposts-tab"
 import Tracks from "./tracks-tab"
 import PlaylistTab from './playlists-tab'
 import '../styles.css'
-import Admin from '../containers/admin'
+import Playlist from '../containers/playlist'
 
 class ProfilePage extends Component {
 	constructor(props) {
@@ -250,6 +250,10 @@ class ProfilePage extends Component {
 									{this.getFollowing()}
 								</div>
 							</div>
+                            <div className="card">
+                                <div className="card-body">
+                                </div>
+                            </div>
 						</div>
 					</div>
 				</div>

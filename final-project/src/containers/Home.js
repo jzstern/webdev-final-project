@@ -76,7 +76,7 @@ export default class extends Component {
 				<Route path="/upload" render={(props) => <Upload {...props} user={this.state.user}/>}/>
 
 				<Route path="/admin" render={(props) => <Admin {...props} />}/>
-
+                <Route path="/playlist/:playlistId" render={(props) => <Playlist/>}/>
 				<FixedBottomBar/>
 			</div>
 		)
