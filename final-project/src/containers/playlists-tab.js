@@ -12,6 +12,7 @@ class PlaylistTab extends Component {
         this.playlistService = PlaylistService.instance
         this.renderPlaylists = this.renderPlaylists.bind(this)
         this.createPlaylist = this.createPlaylist.bind(this)
+        this.renderSongsInPlaylist = this.renderSongsInPlaylist.bind(this);
     }
 
     componentDidMount() {
@@ -37,6 +38,9 @@ class PlaylistTab extends Component {
             })
     }
 
+    renderSongsInPlaylist() {
+        alert("display songs in playlist");
+    }
     renderPlaylists() {
         let playlists
         if (this.state.playlists) {
@@ -44,12 +48,14 @@ class PlaylistTab extends Component {
             	console.log(playlist);
                 if (playlist !== null) {
                     return (
+                        <a onClick={() => this.renderSongsInPlaylist()}>
                         <li className="list-group-item" key={key}>
                             <p>Playlist Id</p>
                             <p>{playlist._id}</p>
                             <p>Number of songs: {playlist.songs.length}</p>
                             {/*<Playlist songs={playlist} key={playlist._id}/>*/}
                         </li>
+                        </a>
                     )
                 }
             })
